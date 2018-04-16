@@ -1,7 +1,5 @@
 package com.jhta.groupware.calendar.service;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
