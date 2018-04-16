@@ -73,7 +73,7 @@ public static String gettime(int mountdate){
                 <input type="text" class="form-control" value="<%out.print (getyear(0));%> 휴일" readonly="readonly">
                 </div>
               </div>
-            </div>
+            </div> 
 	<br>
 	<div class="box">
               <h3 class="box-title"><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>
