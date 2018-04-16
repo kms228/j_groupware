@@ -35,35 +35,40 @@
 			                  <th>출/퇴근 시간</th>
 			                  <td>
 			                  <div class="col-md-6">
-			                  	출근
-			                  	<div class="bootstrap-timepicker">
-					                <div class="form-group">
+			                  	
+			                  	
+			                  	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-primary">출근</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
 					                <!-- /.form group -->
+					              </div>
 					              </div>
 							  </div>
 							  <div class="col-md-6">
-			                  	 퇴근
-			                  	 <div class="bootstrap-timepicker">
-					                <div class="form-group">
+			                  	 	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-danger">퇴근</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
-					                <!-- /.form group -->
+					              </div>
 					              </div>
 					            </div>
 			                  </td>
@@ -72,33 +77,37 @@
 			               	  <th>반차 시간(오전)</th>
 			               	  <td>
 			               	  <div class="col-md-6">
-			               	  	<div class="bootstrap-timepicker">
-					                <div class="form-group">
+			               	  	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-success">오전</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
-					                <!-- /.form group -->
+					              </div>
 					              </div>
 					            </div>
 					            <div class="col-md-6">
-				                <div class="bootstrap-timepicker">
-					                <div class="form-group">
+				                <div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-success">오전</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
-					                <!-- /.form group -->
+					              </div>
 					              </div>
 					            </div>
 					              </td>
@@ -107,33 +116,37 @@
 			               	  	<th>반차 시간(오후)</th>
 			               	  	<td>
 			               	  	  <div class="col-md-6">
-			               	  	 <div class="bootstrap-timepicker">
-					                <div class="form-group">
+			               	  	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-warning">오후</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
-					                <!-- /.form group -->
+					              </div>
 					              </div>
 					              </div>
 					              <div class="col-md-6">
-				                <div class="bootstrap-timepicker">
-					                <div class="form-group">
+				                <div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-warning">오후</button>
+					                </div>
+					                <!-- /btn-group -->
+					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
 					                    <input type="text" class="form-control timepicker">
-					
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
 					                  </div>
 					                  <!-- /.input group -->
-					                </div>
-					                <!-- /.form group -->
+					              </div>
 					              </div>
 					              </div>
 			               	  </td>
@@ -153,9 +166,7 @@
        
          </div>
               <!-- /.tab-pane -->
-              <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
-                
                 <div class="box">
             <div class="box-header">
               <h3 class="box-title"><span class="glyphicon glyphicon-wrench"></span> 기능 설정</h3>
