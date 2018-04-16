@@ -21,7 +21,7 @@ public class CalendarController {
 		System.out.println(vo.getSch_edate());
 		System.out.println(vo.getSch_content());		
 		System.out.println(vo.getSch_place());
-						
+		System.out.println("");
 		int result = service.insert(vo,file1,session);
 		System.out.println("결과:"+result);
 			///////////////////// 2. DB저장 ////////////////////////////////////////////
