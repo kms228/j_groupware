@@ -11,8 +11,7 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- jQuery 2.2.3 -->
 <script src="<c:url value='/'/>resources/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
- <link rel="stylesheet" href="<c:url value='/'/>resources/css/demo.css">
- <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
+ 
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -87,6 +86,7 @@
    <!-- DataTables -->
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.css">
   
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -158,6 +158,18 @@ $(function () {
     $(".timepicker").timepicker({
       showInputs: false
     });
+    
+    //DataTable
+    $("#example1").DataTable();
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false
+    });
+      
   });
 
 </script>

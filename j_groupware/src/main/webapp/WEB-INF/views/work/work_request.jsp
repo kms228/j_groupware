@@ -68,7 +68,7 @@ public static String gettime(int mountdate){
                 <div class="col-md-2">
                   <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요">
                 </div>
-            </div> 
+            </div>
 	<br>
 	<div class="box">
               <h3 class="box-title"><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>

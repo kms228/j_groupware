@@ -79,7 +79,7 @@
 			               	  <div class="col-md-6">
 			               	  	<div class="input-group">
 					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-success">오전</button>
+					                  <button type="button" class="btn">오전</button>
 					                </div>
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
@@ -96,7 +96,7 @@
 					            <div class="col-md-6">
 				                <div class="input-group">
 					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-success">오전</button>
+					                  <button type="button" class="btn">오전</button>
 					                </div>
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
@@ -118,7 +118,7 @@
 			               	  	  <div class="col-md-6">
 			               	  	<div class="input-group">
 					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-warning">오후</button>
+					                  <button type="button" class="btn">오후</button>
 					                </div>
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
@@ -135,7 +135,7 @@
 					              <div class="col-md-6">
 				                <div class="input-group">
 					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-warning">오후</button>
+					                  <button type="button" class="btn">오후</button>
 					                </div>
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
@@ -153,10 +153,11 @@
 			                </tr>
 		                </tbody>
 		              </table>
+		              <br>
 		               <div class="box-footer">
 		              <input type="submit" value="저장" class="btn btn-block btn-primary">
 		              </div>
-		              <br><br><br>
+		             
 		              </form>
 		            </div>
 		            <!-- /.box-body -->
@@ -370,17 +371,4 @@
         </div>
 	</div>
 </div>
-<script>
-  $(function () {
-	$("#example1").DataTable();
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false
-    });
-  });
-</script>
 
