@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkVo" alias="work"/>
+		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
+		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
+		<typeAlias type="com.jhta.groupware.vo.calendar.ScheduleVo" alias="scheduleVo"/>
+		<typeAlias type="com.jhta.groupware.sign.vo.SignVo" alias="signdoc"/>
+		<typeAlias type="com.jhta.groupware.login.vo.LoginVo" alias="LoginVo"/>
+	</typeAliases>
+	<mappers>
+    	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
+
+    	<mapper resource="com/jhta/groupware/mybatis/SignMapper.xml"/>
+
+    	<mapper resource="com/jhta/groupware/mybatis/JoinMapper.xml"/>
+    	<mapper resource="com/jhta/groupware/mybatis/LoginMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
+	</mappers>
+</configuration>

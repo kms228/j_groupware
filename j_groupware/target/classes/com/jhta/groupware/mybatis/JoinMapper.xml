@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.JoinMapper">
+	<insert id="insert" parameterType="hashmap">
+		insert into account(ACNT_NUM,ACNT_ID,ACNT_PWD,ACNT_LEVEL,EMP_NUM) 
+		values(SEQ_ACCOUNT.NEXTVAL,#{ACNT_ID},#{ACNT_PWD},1,4)
+	</insert>
+
+</mapper>

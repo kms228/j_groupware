@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.CalendarMapper">
+	<insert id="insertSchedule" parameterType="scheduleVo">
+		INSERT INTO SCHEDULE VALUES(SEQ_SCHEDULE.NEXTVAL,#{sch_title},#{sch_content},#{sch_sdate},#{sch_edate},#{sch_place},#{sch_public},#{emp_num})
+	</insert>
+	<insert id="insertSc_File" parameterType="scheduleVo">
+		INSERT INTO SCHEDULE VALUES(SEQ_SC_FILE.NEXTVAL,#{sf_savefilename},#{sf_orgfilename},#{sf.size},#{sch_num},)
+	</insert>
+	<select id="getSch_Num" parameterType="int">
+		SELECT MAX(SCH_NUM) FROM SCHEDULE WHERE EMP_NUM=#{value}
+	</select>
+</mapper>

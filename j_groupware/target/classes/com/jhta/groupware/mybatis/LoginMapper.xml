@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.LoginMapper">
+	<select id="select" parameterType="hashmap" resultType="account">
+		select * from account where ACNT_ID=#{ACNT_ID} and ACNT_PWD=#{ACNT_PWD}
+	</select>
+	<select id="getinfo" parameterType="int" resultType="LoginVo">
+		select * from employee where EMP_NUM=#{EMP_NUM}
+	</select>
+
+</mapper>
