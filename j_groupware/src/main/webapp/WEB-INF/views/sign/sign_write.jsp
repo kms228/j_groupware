@@ -15,7 +15,7 @@
 			<input type="button" value="결재선 선택" id="line_btn">
 		</div>
 		<div>
-			<label>제목&nbsp;&nbsp;&nbsp;</label><input type="text" size="120">
+			<label>제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" size="120">
 		</div>
 		<div>
 		<textarea name="ir1" id="ir1" rows="10" cols="100">${vo.doc_content }</textarea>
