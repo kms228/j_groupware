@@ -142,7 +142,7 @@
 		                </tbody>
 		              </table>
 		               <div class="box-footer">
-		              <input type="submit" value="저장" class="btn btn-block btn-primary">
+		              <input type="submit" value="시간 설정 저장" class="btn btn-block btn-primary">
 		              </div>
 		              <br><br><br>
 		              </form>
@@ -181,7 +181,7 @@
                 </tbody>
               </table>
                <div class="box-footer">
-               <input type="submit" value="저장" class="btn btn-block btn-primary">
+               <input type="submit" value="기능 설정 저장" class="btn btn-block btn-primary">
                </div>
               </form>
             </div>

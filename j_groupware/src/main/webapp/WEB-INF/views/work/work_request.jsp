@@ -54,22 +54,22 @@ public static String gettime(int mountdate){
 	<h3 class="corpor_title"><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3><br>
 			<div class="box-body">
               <div class="row">
-                <div class="col-xs-2">
+                <div class="col-md-2">
                   <input type="text" class="form-control" value="<%out.print (getdate(0));%>" readonly="readonly">
                 </div>
-                <div class="col-xs-1">
+                <div class="col-md-1">
                   <button type="button" class="btn btn-block btn-primary" id="btn_workstart" title="출근" style="width: 100px">출근</button>
                 </div>
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" readonly="readonly">
+                <div class="col-md-2">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="출근버튼을 누르세요">
                 </div>
-                <div class="col-xs-1">
+                <div class="col-md-1">
                   <button type="button" class="btn btn-block btn-danger" id="btn_workend" title="퇴근" style="width: 100px">퇴근</button>
                 </div>
-                <div class="col-xs-2">
-                  <input type="text" class="form-control" readonly="readonly">
+                <div class="col-md-2">
+                  <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요">
                 </div>
-                <div class="col-xs-2">
+                <div class="col-md-2">
                 <input type="text" class="form-control" value="<%out.print (getyear(0));%> 휴일" readonly="readonly">
                 </div>
               </div>
@@ -116,17 +116,17 @@ public static String gettime(int mountdate){
 			              </div>
                      	<div class="form-group">
 			                <div>
-			                  <label>사유</label>
+			                  <label for="reason1">사유</label>
 			                  </div>
-			                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요."></textarea>
+			                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason1"></textarea>
 			                </div>
 			                <div class="form-group">
-			                  <label for="exampleInputFile">첨부</label>
-			                  <input type="file" id="exampleInputFile">
+			                  <label for="exampleInputFile1">첨부</label>
+			                  <input type="file" id="exampleInputFile1">
 			                </div>
 			                <div class="form-group">
-			                  <label for="exampleInputPassword2">결재선 선택</label>
-			                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="결재선 선택">
+			                  <label for="line1">결재선 선택</label>
+			                  <input type="text" class="form-control" id="line1" placeholder="결재선 선택" readonly="readonly">
 			                </div>
 			                <div class="box-footer">
 			                <button type="submit" class="btn btn-block btn-primary">연차 신청</button>
@@ -178,17 +178,17 @@ public static String gettime(int mountdate){
 			              </div>
                      <div class="form-group">
 		                <div>
-		                  <label>사유</label>
+		                  <label for="reason2">사유</label>
 		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요."></textarea>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason2"></textarea>
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputFile">첨부</label>
-		                  <input type="file" id="exampleInputFile">
+		                  <label for="exampleInputFile2">첨부</label>
+		                  <input type="file" id="exampleInputFile2">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputPassword2">결재선 선택</label>
-		                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="결재선 선택">
+		                  <label for="line2">결재선 선택</label>
+		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line2" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
 		                <button type="submit" class="btn btn-block btn-primary">반차 신청</button>
@@ -226,17 +226,17 @@ public static String gettime(int mountdate){
                       
                       <div class="form-group">
 		                <div>
-		                  <label>사유</label>
+		                  <label for="reason3">사유</label>
 		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요."></textarea>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason3" ></textarea>
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputFile">첨부</label>
-		                  <input type="file" id="exampleInputFile">
+		                  <label for="exampleInputFile3">첨부</label>
+		                  <input type="file" id="exampleInputFile3">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputPassword2">결재선 선택</label>
-		                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="결재선 선택">
+		                  <label for="line3">결재선 선택</label>
+		                  <input type="text" class="form-control"  placeholder="결재선 선택" id="line3" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
 		                <button type="submit" class="btn btn-block btn-primary">지각 신청</button>
@@ -296,17 +296,17 @@ public static String gettime(int mountdate){
                       
                       <div class="form-group">
 		                <div>
-		                  <label>사유</label>
+		                  <label for="reason4">사유</label>
 		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요."></textarea>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason4"></textarea>
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputFile">첨부</label>
-		                  <input type="file" id="exampleInputFile">
+		                  <label for="exampleInputFile4">첨부</label>
+		                  <input type="file" id="exampleInputFile4">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputPassword2">결재선 선택</label>
-		                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="결재선 선택">
+		                  <label for="line4">결재선 선택</label>
+		                  <input type="text" class="form-control"  placeholder="결재선 선택" id="line4" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
 		                <button type="submit" class="btn btn-block btn-primary">야근 신청</button>
@@ -332,23 +332,23 @@ public static String gettime(int mountdate){
 			                  <div class="input-group-addon">
 			                    <i class="fa fa-calendar"></i>
 			                  </div>
-			                  <input type="text" class="form-control pull-right" id="reservation">
+			                  <input type="text" class="form-control pull-right" >
 			                </div>
 			                <!-- /.input group -->
 			              </div>
                       <div class="form-group">
 		                <div>
-		                  <label>사유</label>
+		                  <label for="reason5">사유</label>
 		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요."></textarea>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason5"></textarea>
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputFile">첨부</label>
-		                  <input type="file" id="exampleInputFile">
+		                  <label for="exampleInputFile5">첨부</label>
+		                  <input type="file" id="exampleInputFile5">
 		                </div>
 		                <div class="form-group">
-		                  <label for="exampleInputPassword2">결재선 선택</label>
-		                  <input type="password" class="form-control" id="exampleInputPassword2" placeholder="결재선 선택">
+		                  <label for="line5">결재선 선택</label>
+		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line5" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
 		                <button type="submit" class="btn btn-block btn-primary">외근(출장) 신청</button>
