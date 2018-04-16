@@ -21,7 +21,7 @@ public class CalendarService {
 			ManipulateFile file = new ManipulateFile(file1,session);		
 			String saveFileName = file.copyFileToServer("/resources/upload/calendar");
 			System.out.println(saveFileName);
-			Sc_FileVo vo1 = new Sc_FileVo(0, saveFileName, file1.getOriginalFilename(), file1.getSize(), dao.getSch_num(vo.getSch_num()));
+			Sc_FileVo vo1 = new Sc_FileVo(0, saveFileName, file1.getOriginalFilename(), file1.getSize(), dao.getSch_num(vo.getEmp_num()));
 			result = dao.sc_File(vo1);				
 		}				
 		return result;

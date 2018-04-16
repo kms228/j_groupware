@@ -6,10 +6,10 @@
 	<insert id="insertSchedule" parameterType="scheduleVo">
 		INSERT INTO SCHEDULE VALUES(SEQ_SCHEDULE.NEXTVAL,#{sch_title},#{sch_content},#{sch_sdate},#{sch_edate},#{sch_place},#{sch_public},#{emp_num})
 	</insert>
-	<insert id="insertSc_File" parameterType="scheduleVo">
-		INSERT INTO SCHEDULE VALUES(SEQ_SC_FILE.NEXTVAL,#{sf_savefilename},#{sf_orgfilename},#{sf.size},#{sch_num},)
+	<insert id="insertSc_file" parameterType="scfileVo">
+		INSERT INTO SC_FILE VALUES(SEQ_SC_FILE.NEXTVAL,#{sf_savefilename},#{sf_orgfilename},#{sf_size},#{sch_num})
 	</insert>
-	<select id="getSch_Num" parameterType="int">
-		SELECT MAX(SCH_NUM) FROM SCHEDULE WHERE EMP_NUM=#{value}
+	<select id="getSch_num" parameterType="int" resultType="int">
+		SELECT MAX(SCH_NUM) SCH_NUM FROM SCHEDULE WHERE EMP_NUM=#{value}
 	</select>
 </mapper>
