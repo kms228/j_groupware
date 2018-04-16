@@ -15,9 +15,13 @@
 			<input type="button" value="결재선 선택" id="line_btn">
 		</div>
 		<div>
+			<label>제목&nbsp;&nbsp;&nbsp;</label><input type="text" size="120">
+		</div>
+		<div>
 		<textarea name="ir1" id="ir1" rows="10" cols="100">${vo.doc_content }</textarea>
 		</div>
 		<input type="button" class="btn btn-primary" value="등록" id="submit_btn">
+		<input type="hidden" value="${param.num }">
 	</form>
 </div>
 <script type="text/javascript">
