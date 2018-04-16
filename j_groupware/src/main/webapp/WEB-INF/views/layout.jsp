@@ -11,12 +11,16 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- jQuery 2.2.3 -->
 <script src="<c:url value='/'/>resources/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/demo.css">
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<script src="<c:url value='/'/>resources/js/jquery.ztree.core.min.js"></script>
+<script src="<c:url value='/'/>resources/js/jquery.ztree.excheck.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<c:url value='/'/>resources/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
