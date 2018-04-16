@@ -8,6 +8,7 @@
 		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
 		<typeAlias type="com.jhta.groupware.calendar.vo.ScheduleVo" alias="scheduleVo"/>
+		<typeAlias type="com.jhta.groupware.calendar.vo.Sc_FileVo" alias="scfileVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignVo" alias="signdoc"/>
 		<typeAlias type="com.jhta.groupware.login.vo.LoginVo" alias="LoginVo"/>
 	</typeAliases>
