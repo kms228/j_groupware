@@ -12,14 +12,14 @@ public class CalendarDao {
 	@Autowired private SqlSession session;
 	private final String NAMESPACE = "com.jhta.groupware.mybatis.CalendarMapper";
 
-	public int getSch_num(int sch_num) {
-		return session.selectOne(NAMESPACE+".getSch_num",sch_num);
+	public int getSch_num(int emp_num) {
+		return session.selectOne(NAMESPACE+".getSch_num",emp_num);
 	}
 	public int insertSchedule(ScheduleVo vo) {
 		return session.insert(NAMESPACE+".insertSchedule",vo);
 	}
 	public int sc_File(Sc_FileVo vo) {
-		return session.insert(NAMESPACE+".insertSc_File",vo);
+		return session.insert(NAMESPACE+".insertSc_file",vo);
 	}
 	
 }
