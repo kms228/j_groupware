@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.sign.vo.DocTypeVo;
+import com.jhta.groupware.sign.vo.SignLineListVo;
 import com.jhta.groupware.sign.vo.SignVo;
 
 @Repository
@@ -20,5 +21,12 @@ public class SignDao {
 	}
 	public List<SignVo> nowlist(){
 		return sqlSession.selectList(NAMESPACE+".nowlist");
+	}
+	public List<SignLineListVo> signlinelist() {
+		return sqlSession.selectList(NAMESPACE+".signlinelist");
+	}
+	
+	public List<SignLineListVo> deptlist(){
+		return sqlSession.selectList(NAMESPACE+".deptlist");
 	}
 }

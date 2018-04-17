@@ -14,8 +14,9 @@ public class JoinDao {
 	
 	public int isMember(HashMap<String,Object>map) {
 		return sqlSession.selectOne(NAMESPACE+".insert", map);
-		
-		
-		
 	}
+	public MemberAccountVo searchid(String ACNT_ID) {
+		return sqlSession.selectOne(NAMESPACE+".searchid", ACNT_ID);
+	}
+	
 }

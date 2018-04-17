@@ -12,11 +12,14 @@ import com.jhta.groupware.member.vo.MemberAccountVo;
 public class JoinService {
 	@Autowired
 	private JoinDao dao;
+	
 	public int isMember(HashMap<String, Object>map) {
-
-		System.out.println(map.get("ACNT_ID")+"se");
-	
+		System.out.println("가입 서비스 지나간다");
 		return dao.isMember(map);
-	
+	}
+
+	public MemberAccountVo searchid(String ACNT_ID) {
+		System.out.println(ACNT_ID+"서비스지나가시는중");
+		return dao.searchid(ACNT_ID);
 	}
 }

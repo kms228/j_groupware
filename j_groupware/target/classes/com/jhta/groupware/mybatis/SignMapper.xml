@@ -9,6 +9,12 @@
 	<select id="nowlist" resultType="signdoc">
 		select * from sign_doc where sdoc_state=0
 	</select>
+	<select id="signlinelist" resultType="signlineVo">
+		select * from(select emp.emp_num,emp.emp_name,dp.dept_num,dp.dept_name,emp.pst_num,pst.pst_name from dept dp,employee emp,position pst where dp.dept_num=emp.dept_num and emp.pst_num=pst.pst_num)
+	</select>
+	<select id="deptlist" resultType="signlineVo">
+		select * from dept
+	</select>
 </mapper>
 
 

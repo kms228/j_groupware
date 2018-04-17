@@ -11,12 +11,15 @@
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- jQuery 2.2.3 -->
 <script src="<c:url value='/'/>resources/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript"></script>
+ 
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<script src="<c:url value='/'/>resources/js/jquery.ztree.core.min.js"></script>
+<script src="<c:url value='/'/>resources/js/jquery.ztree.excheck.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<c:url value='/'/>resources/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
@@ -51,6 +54,13 @@
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/fullcalendar.js"></script>
 <!-- bootstrap time picker -->
 <script src="<c:url value="/"/>resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- DataTables -->
+<script src="<c:url value="/"/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+
+
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<c:url value='/'/>resources/bootstrap/css/bootstrap.min.css">
@@ -83,6 +93,7 @@
    <!-- DataTables -->
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.css">
   
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -106,7 +117,24 @@
 <script>
 $(function () {
     //Date range picker
-    $('#reservation').daterangepicker();
+    $('#reservation, #reservation2, #reservation3').daterangepicker({
+    	"locale": {
+	        "format": "YYYY/MM/DD",
+	        "separator": " - ",
+	        "applyLabel": "저장",
+	        "cancelLabel": "취소",
+	        "fromLabel": "From",
+	        "toLabel": "To",
+	        "customRangeLabel": "Custom",
+	        "weekLabel": "W",
+	        "daysOfWeek": ["일","월","화","수","목","금","토"],
+	        "monthNames": ["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+	        "firstDay": 1
+	    }
+	}, function(start, end, label) {
+	  console.log('New date range selected: ' + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD') + ' (predefined range: ' + label + ')');
+    });
+   
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
     //Date range as a button
@@ -136,6 +164,34 @@ $(function () {
     //Timepicker
     $(".timepicker").timepicker({
       showInputs: false
+    });
+    
+    //DataTable
+    $("#example1, #table1, #table2, #table3, #table4").DataTable({
+    	"language": {
+    		 "decimal":        "",
+    		 "emptyTable":     "저장된 값이 없습니다.",
+    		 "info":           "검색된 _TOTAL_ 개 값 중 _START_ 부터 _END_ 까지",
+    		 "infoEmpty":      "Showing 0 to 0 of 0 entries",
+    		 "infoFiltered":   "(filtered from _MAX_ total entries)",
+    		 "infoPostFix":    "",
+    		 "thousands":      ",",
+    		 "lengthMenu":     " _MENU_ 개씩 보기",
+    		 "loadingRecords": "로딩중...",
+    		 "processing":     "진행중...",
+    		 "search":         "검색:",
+    		 "zeroRecords":    "No matching records found",
+    		 "paginate": {
+    		     "first":      "처음",
+    		     "last":       "마지막",
+    		     "next":       "다음",
+    		     "previous":   "이전"
+    		 },
+    		 "aria": {
+    		     "sortAscending":  ": activate to sort column ascending",
+    		     "sortDescending": ": activate to sort column descending"
+    		 }
+        }
     });
   });
 
