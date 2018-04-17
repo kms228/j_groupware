@@ -1,5 +1,7 @@
 package com.jhta.groupware.calendar.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,6 +22,12 @@ public class CalendarDao {
 	}
 	public int sc_File(Sc_FileVo vo) {
 		return session.insert(NAMESPACE+".insertSc_file",vo);
+	}
+	public List<Sc_FileVo> getSchedules(String id) {
+		return session.selectList(NAMESPACE+".getSchedules",id);
+	}
+	public Sc_FileVo getSchedule(int sch_num) {
+		return session.selectOne(NAMESPACE+".getSchedule",sch_num);
 	}
 	
 }

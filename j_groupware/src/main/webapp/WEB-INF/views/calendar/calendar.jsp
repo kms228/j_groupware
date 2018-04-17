@@ -3,21 +3,64 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <script>
-  $(function () {	
-	//Date picker
-	  $('#daterangepicker_start').daterangepicker({ 
+  $(function () {
+	  
+	  //모달 메소드 객체
+	  var modalScheduler = {
+		viewSchedule : function(event){
+			if(event.url){    		  
+				window.open(event.url);
+				return false;
+			}
+	    }
+	  };
+	  
+	  //일정 읽기.
+	  $.ajax({
+		 method: "POST",
+		 url : "<c:url value='/getSchedules'/>",
+		 dataType : "json",
+		 success : function(data){
+			var events = new Array();
+				for(i in data){					
+				    events.push({				    	
+				            title          : data[i].sch_title,
+				            start          : data[i].sch_sdate,
+				            end            : data[i].sch_edate,
+				            description	   : data[i].sch_content,
+				            url            : "<c:url value='/getSchedule?sch_num="+data[i].sch_num+"'/>"
+				            /* backgroundColor: '#3c8dbc',
+				            borderColor    : '#3c8dbc' */
+					});				    										
+				}
+				$('#calendar').fullCalendar('addEventSource',events);
+		 }
+	  });	  
+	  
+	//Daterangepicker
+	  $('#daterangepicker_start').daterangepicker({
+		  timePicker24Hour: true,
 		  singleDatePicker: true,
 		  timePicker: true,
 		  autoclose: true,
 		  timePickerIncrement: 30, 
-		  format: 'MM/DD/YYYY hh:mm A' 
+		  locale:{
+			  format: 'YYYY/MM/DD HH:mm',
+			  applyLabel : '작성',
+			  cancelLabel: '취소'
+		  }		   
 	  });	    
-	  $('#daterangepicker_end').daterangepicker({ 
+	  $('#daterangepicker_end').daterangepicker({
+		  timePicker24Hour: true,
 		  singleDatePicker: true,
 		  timePicker: true,
 		  autoclose: true,
 		  timePickerIncrement: 30, 
-		  format: 'MM/DD/YYYY hh:mm A' 
+		  locale:{
+			  format: 'YYYY/MM/DD HH:mm',
+			  applyLabel : '작성',
+			  cancelLabel: '취소'  
+		  }
 	  });
 	  
     /* initialize the external events
@@ -53,62 +96,39 @@
     var d    = date.getDate(),
         m    = date.getMonth(),
         y    = date.getFullYear()
+        
     $('#calendar').fullCalendar({      
       header    : {
         left  : 'prev,next today',
         center: 'title',
         right : 'month,agendaWeek,agendaDay'
       },
-      buttonText: {        
+      buttonText: {     
       },
-      locale:'ko',      
-      //Random default events
-      events    : [
-        {
-          title          : 'All Day Event',
-          start          : new Date(y, m, 1),
-          backgroundColor: '#f56954', //red
-          borderColor    : '#f56954' //red
+      locale:'ko',    
+      //Random default events            
+      eventClick: modalScheduler.viewSchedule,
+            
+      /* eventRender: function(event, $el, view) {    	      	  
+          $el.popover({            
+        	  title: event.title,            
+            content: event.description,                                   
+            trigger: 'hover',
+            placement: 'top',
+            container: 'body'
+          });
+        }, */
+        eventRender : function(event,element){
+        	$(element).popover({
+        		title : event.title,
+        		content : '<p>'+event.start.format('MM월 DD일 a hh:mm')+'</p><p>'+event.end.format('MM월 DD일 a hh:mm')+'</p><p>'+event.description+'</p>',
+        		html : true,
+        		trigger: 'hover',
+                placement: 'top',
+                container: 'body'
+        	});
         },
-        {
-          title          : 'Long Event',
-          start          : new Date(y, m, d - 5),
-          end            : new Date(y, m, d - 2),
-          backgroundColor: '#f39c12', //yellow
-          borderColor    : '#f39c12' //yellow
-        },
-        {
-          title          : 'Meeting',
-          start          : new Date(y, m, d, 10, 30),
-          allDay         : false,
-          backgroundColor: '#0073b7', //Blue
-          borderColor    : '#0073b7' //Blue
-        },
-        {
-          title          : 'Lunch',
-          start          : new Date(y, m, d, 12, 0),
-          end            : new Date(y, m, d, 14, 0),
-          allDay         : false,
-          backgroundColor: '#00c0ef', //Info (aqua)
-          borderColor    : '#00c0ef' //Info (aqua)
-        },
-        {
-          title          : 'Birthday Party',
-          start          : new Date(y, m, d + 1, 19, 0),
-          end            : new Date(y, m, d + 1, 22, 30),
-          allDay         : false,
-          backgroundColor: '#00a65a', //Success (green)
-          borderColor    : '#00a65a' //Success (green)
-        },
-        {
-          title          : 'Click for Google',
-          start          : new Date(y, m, 28),
-          end            : new Date(y, m, 29),
-          url            : 'http://google.com/',
-          backgroundColor: '#3c8dbc', //Primary (light-blue)
-          borderColor    : '#3c8dbc' //Primary (light-blue)
-        }
-      ],
+      //events : [],
       editable  : true,
       droppable : true, // this allows things to be dropped onto the calendar !!!
       drop      : function (date, allDay) { // this function is called when something is dropped
@@ -134,46 +154,9 @@
           // if so, remove the element from the "Draggable Events" list
           $(this).remove()
         }
-
       }
-    })
-
-    /* ADDING EVENTS */
-    var currColor = '#3c8dbc' //Red by default
-    //Color chooser button
-    var colorChooser = $('#color-chooser-btn')
-    $('#color-chooser > li > a').click(function (e) {
-      e.preventDefault()
-      //Save color
-      currColor = $(this).css('color')
-      //Add color effect to button
-      $('#add-new-event').css({ 'background-color': currColor, 'border-color': currColor })
-    })
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
-
-      //Create events
-      var event = $('<div />')
-      event.css({
-        'background-color': currColor,
-        'border-color'    : currColor,
-        'color'           : '#fff'
-      }).addClass('external-event')
-      event.html(val)
-      $('#external-events').prepend(event)
-
-      //Add draggable funtionality
-      init_events(event)
-
-      //Remove event from text input
-      $('#new-event').val('')
-    })
-  })
+    });       
+  });
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -285,4 +268,30 @@
       <!-- /.row -->
     </section>
     <!-- /.content -->
-  </div>  
+  </div>
+  
+  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">
+	Launch Info Modal
+  </button>
+  
+  <div class="modal modal-info fade" id="modal-info">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Info Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->

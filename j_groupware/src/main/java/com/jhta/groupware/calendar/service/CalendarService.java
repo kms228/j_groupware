@@ -1,5 +1,7 @@
 package com.jhta.groupware.calendar.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,13 @@ public class CalendarService {
 			result = dao.sc_File(vo1);				
 		}				
 		return result;
+	}
+
+	public List<Sc_FileVo> getSchedules(String id) {
+		return dao.getSchedules(id);
+	}
+
+	public Sc_FileVo getSchedule(int sch_num) {
+		return dao.getSchedule(sch_num);
 	}
 }
