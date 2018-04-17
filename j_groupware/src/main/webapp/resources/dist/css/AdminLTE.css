@@ -2780,7 +2780,7 @@ table.text-center th {
   border-right-color: #d2d6de;
   content: ' ';
   height: 0;
-  width: 0;
+  width: 0; 
   pointer-events: none;
 }
 .direct-chat-text:after {
