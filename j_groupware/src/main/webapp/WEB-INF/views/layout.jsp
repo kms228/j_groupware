@@ -180,7 +180,7 @@ $(function () {
     		 "loadingRecords": "로딩중...",
     		 "processing":     "진행중...",
     		 "search":         "검색:",
-    		 "zeroRecords":    "No matching records found",
+    		 "zeroRecords":    "검색값과 일치하는 데이터가 없습니다.",
     		 "paginate": {
     		     "first":      "처음",
     		     "last":       "마지막",
