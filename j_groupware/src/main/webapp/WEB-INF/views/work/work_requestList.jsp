@@ -53,16 +53,16 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active" ><a href="#tab_1" data-toggle="tab" aria-expanded="true" class="primaryMS">승인</a></li>
-              <li class="" ><a href="#tab_2" data-toggle="tab" aria-expanded="false" class="successMS">진행</a></li>
-              <li class="" ><a href="#tab_3" data-toggle="tab" aria-expanded="false" class="dangerMS">반려</a></li>
-              <li class="" ><a href="#tab_4" data-toggle="tab" aria-expanded="false">취소</a></li>
+              <li class="active" ><a href="#tab_1" data-toggle="tab" aria-expanded="true" >승인</a></li>
+              <li id="successMS"class="" ><a href="#tab_2" data-toggle="tab" aria-expanded="false">진행</a></li>
+              <li id="dagerMS"class="" ><a href="#tab_3" data-toggle="tab" aria-expanded="false" >반려</a></li>
+              <li id="warningMS"class="" ><a href="#tab_4" data-toggle="tab" aria-expanded="false">취소</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
              	<div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 승인</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-ok"></span> 승인</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -152,12 +152,12 @@
               <div class="tab-pane" id="tab_2">
                 <div class="box box-success">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 진행</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-edit"></span> 진행</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+             <div class="row"><div class="col-sm-12"><table id="table2" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                 <thead>
                 <tr role="row">
                   <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
@@ -248,12 +248,12 @@
               <div class="tab-pane" id="tab_3">
             		<div class="box box-danger">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 반려</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-remove"></span> 반려</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+             <div class="row"><div class="col-sm-12"><table id="table3" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                 <thead>
                 <tr role="row">
                   <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
@@ -344,13 +344,15 @@
               <div class="tab-pane" id="tab_4">
                 	<div class="box box-warning">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 취소</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-minus"></span> 취소</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                <thead>
+             	<div class="row">
+             		<div class="col-sm-12">
+             			<table id="table4" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                			<thead>
                 <tr role="row">
                   <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
                   <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>

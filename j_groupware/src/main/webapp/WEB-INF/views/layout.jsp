@@ -167,7 +167,32 @@ $(function () {
     });
     
     //DataTable
-    $("#example1, #table1, #table2, #table3, #table4").DataTable();
+    $("#example1, #table1, #table2, #table3, #table4").DataTable({
+    	"language": {
+    		 "decimal":        "",
+    		    "emptyTable":     "저장된 값이 없습니다.",
+    		    "info":           "검색된 _TOTAL_ 개 값 중 _START_ 부터 _END_ 까지",
+    		    "infoEmpty":      "Showing 0 to 0 of 0 entries",
+    		    "infoFiltered":   "(filtered from _MAX_ total entries)",
+    		    "infoPostFix":    "",
+    		    "thousands":      ",",
+    		    "lengthMenu":     " _MENU_ 개씩 보기",
+    		    "loadingRecords": "로딩중...",
+    		    "processing":     "진행중...",
+    		    "search":         "검색:",
+    		    "zeroRecords":    "No matching records found",
+    		    "paginate": {
+    		        "first":      "처음",
+    		        "last":       "마지막",
+    		        "next":       "다음",
+    		        "previous":   "이전"
+    		    },
+    		    "aria": {
+    		        "sortAscending":  ": activate to sort column ascending",
+    		        "sortDescending": ": activate to sort column descending"
+    		    }
+        }
+    });
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
