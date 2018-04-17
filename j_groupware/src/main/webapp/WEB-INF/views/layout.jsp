@@ -54,6 +54,13 @@
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/fullcalendar.js"></script>
 <!-- bootstrap time picker -->
 <script src="<c:url value="/"/>resources/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- DataTables -->
+<script src="<c:url value="/"/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+
+
+
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<c:url value='/'/>resources/bootstrap/css/bootstrap.min.css">
@@ -160,7 +167,7 @@ $(function () {
     });
     
     //DataTable
-    $("#example1").DataTable();
+    $("#example1, #table1, #table2, #table3, #table4").DataTable();
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

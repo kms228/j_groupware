@@ -53,29 +53,118 @@
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab" aria-expanded="true">승인</a></li>
-              <li class=""><a href="#tab_2" data-toggle="tab" aria-expanded="false">진행</a></li>
-              <li class=""><a href="#tab_3" data-toggle="tab" aria-expanded="false">반려</a></li>
-              <li class=""><a href="#tab_4" data-toggle="tab" aria-expanded="false">취소</a></li>
+              <li class="active" ><a href="#tab_1" data-toggle="tab" aria-expanded="true" class="primaryMS">승인</a></li>
+              <li class="" ><a href="#tab_2" data-toggle="tab" aria-expanded="false" class="successMS">진행</a></li>
+              <li class="" ><a href="#tab_3" data-toggle="tab" aria-expanded="false" class="dangerMS">반려</a></li>
+              <li class="" ><a href="#tab_4" data-toggle="tab" aria-expanded="false">취소</a></li>
             </ul>
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
-                <div class="tab-pane" id="tab_4">
-                <div class="box">
+             	<div class="box box-primary">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 사원 연차 설정</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 승인</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-             <div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
                 <thead>
                 <tr role="row">
-                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending" style="width: 296px;">번호</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending" style="width: 359px;">사원 이름</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending" style="width: 321px;">사원 아이디</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending" style="width: 256px;">사용일</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending" style="width: 190px;">총 연차 일수</th>
+                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 아이디</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사용일</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">총 연차 일수</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr></tbody>
+                <tfoot>
+                <tr><th rowspan="1" colspan="1">번호</th><th rowspan="1" colspan="1">사원 이름</th><th rowspan="1" colspan="1">사원 아이디</th><th rowspan="1" colspan="1">사용일</th><th rowspan="1" colspan="1">총 연차 일수</th></tr>
+                </tfoot>
+              </table></div></div></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+         	  </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">
+                <div class="box box-success">
+            <div class="box-header">
+              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 진행</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 아이디</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사용일</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">총 연차 일수</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -156,18 +245,195 @@
           </div>
               </div>
               <!-- /.tab-pane -->
-         	  </div>
-              <!-- /.tab-pane -->
-              <div class="tab-pane" id="tab_2">
-                
-              </div>
-              <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
-            
+            		<div class="box box-danger">
+            <div class="box-header">
+              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 반려</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 아이디</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사용일</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">총 연차 일수</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr></tbody>
+                <tfoot>
+                <tr><th rowspan="1" colspan="1">번호</th><th rowspan="1" colspan="1">사원 이름</th><th rowspan="1" colspan="1">사원 아이디</th><th rowspan="1" colspan="1">사용일</th><th rowspan="1" colspan="1">총 연차 일수</th></tr>
+                </tfoot>
+              </table></div></div></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
           	  </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_4">
-                
+                	<div class="box box-warning">
+            <div class="box-header">
+              <h3 class="box-title"><span class="glyphicon glyphicon-sunglasses"></span> 취소</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+             <div class="row"><div class="col-sm-12"><table id="table1" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                <thead>
+                <tr role="row">
+                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 아이디</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사용일</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">총 연차 일수</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 2.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 3.0</td>
+                  <td>Win 2k+ / OSX.3+</td>
+                  <td>1.9</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.0</td>
+                  <td>OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Camino 1.5</td>
+                  <td>OSX.3+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape 7.2</td>
+                  <td>Win 95+ / Mac OS 8.6-9.2</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Browser 8</td>
+                  <td>Win 98SE+</td>
+                  <td>1.7</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr><tr role="row" class="even">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Mozilla 1.0</td>
+                  <td>Win 95+ / OSX.1+</td>
+                  <td>1</td>
+                  <td>A</td>
+                </tr><tr role="row" class="odd">
+                  <td class="sorting_1">Gecko</td>
+                  <td>Netscape Navigator 9</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td>
+                </tr></tbody>
+                <tfoot>
+                <tr><th rowspan="1" colspan="1">번호</th><th rowspan="1" colspan="1">사원 이름</th><th rowspan="1" colspan="1">사원 아이디</th><th rowspan="1" colspan="1">사용일</th><th rowspan="1" colspan="1">총 연차 일수</th></tr>
+                </tfoot>
+              </table></div></div></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
               </div>
               <!-- /.tab-pane -->
             </div>
