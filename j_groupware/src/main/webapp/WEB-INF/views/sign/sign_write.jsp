@@ -14,6 +14,7 @@
 	  Launch demo modal
 	</button>
 	<!-- Modal -->
+	<form action="<c:url value='/'/>addline" method="post" name="line">
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
@@ -23,17 +24,18 @@
 	      </div>
 	      <div class="modal-body" id="linecontent">
 	        <ul id="treeDemo" class="ztree"></ul>
+	        	<div id="line"></div>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary" id="line_submit">Save changes</button>
+	        <button type="submit" class="btn btn-primary" id="line_submit">Save changes</button>
 	      </div>
 	    </div>
 	  </div>
 	</div>
+	</form>
 	<form method="post" action="<c:url value='/'/>addsign" id="write_form">
 			<input type="button" value="결재선 선택" id="popbutton">
-			
 		<div>
 			<label>제목&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label><input type="text" size="120">
 		</div>
@@ -94,23 +96,26 @@ $(function () {
 							zTree.setting.check.chkboxType = type;
 							showCode('setting.check.chkboxType = { "Y" : "' + type.Y + '", "N" : "' + type.N + '" };');
 						}
+						
 						function showCode(str) {
 							if (!code) code = $("#code");
 							code.empty();
 							code.append("<li>"+str+"</li>");
 						}
+						
 						$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 						setCheck();
 						$("#py").bind("change", setCheck);
 						$("#sy").bind("change", setCheck);
 						$("#pn").bind("change", setCheck);
 						$("#sn").bind("change", setCheck);
+					
+					
+					
 				}
 			});
 		});
-		$('#treeDemo').click(function(){
-			alert("체크");
-		});
+	
 });
 
 </script>

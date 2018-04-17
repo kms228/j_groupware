@@ -60,4 +60,9 @@ public class SignWriteController {
 		System.out.println(arr.toString());
 		return arr.toString();
 	}
+	@RequestMapping("/addline")
+	public String addline(String line) {
+		System.out.println(line);
+		return null;
+	}
 }
