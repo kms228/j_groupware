@@ -2522,6 +2522,7 @@ a:focus {
 .nav-tabs-custom > .nav-tabs > li.active {
   border-top-color: #3c8dbc;
 }
+
 .nav-tabs-custom > .nav-tabs > li.active > a,
 .nav-tabs-custom > .nav-tabs > li.active:hover > a {
   background-color: #fff;
@@ -2779,7 +2780,7 @@ table.text-center th {
   border-right-color: #d2d6de;
   content: ' ';
   height: 0;
-  width: 0;
+  width: 0; 
   pointer-events: none;
 }
 .direct-chat-text:after {
