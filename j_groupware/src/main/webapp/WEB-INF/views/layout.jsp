@@ -57,7 +57,8 @@
 <!-- DataTables -->
 <script src="<c:url value="/"/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
-
+<!-- jstree -->
+<script src="<c:url value='/'/>resources/js/jstree.min.js"></script>
 
 
 
@@ -94,6 +95,7 @@
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.css">
   
  <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/style.min.css">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">

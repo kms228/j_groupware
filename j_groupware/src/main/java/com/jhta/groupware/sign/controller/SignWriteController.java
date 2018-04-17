@@ -60,6 +60,29 @@ public class SignWriteController {
 		System.out.println(arr.toString());
 		return arr.toString();
 	}
+	@RequestMapping(value="/sublinelist",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String sublinelist() {
+		List<SignLineListVo> list= service.signlinelist();
+		List<SignLineListVo> deptlist=service.deptlist();
+		JSONArray arr=new JSONArray();
+		for(SignLineListVo vo:deptlist) {
+			JSONObject ob=new JSONObject();
+			ob.put("id",vo.getDept_name());
+			ob.put("parent","#");
+			ob.put("text",vo.getDept_name());
+			arr.put(ob);
+		}
+		for(SignLineListVo vo:list) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", vo.getEmp_num());
+			ob.put("text",vo.getEmp_name()+" "+vo.getPst_name());
+			ob.put("parent",vo.getDept_name());
+			arr.put(ob);
+		}
+		System.out.println(arr.toString());
+		return arr.toString();
+	}
 	@RequestMapping("/addline")
 	public String addline(String line) {
 		System.out.println(line);
