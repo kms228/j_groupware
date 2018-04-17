@@ -1,6 +1,6 @@
 package com.jhta.groupware.calendar.vo;
 
-public class Sc_FileVo {
+public class Sc_FileVo extends ScheduleVo{
 	private int sf_num;
 	private String sf_savefilename;
 	private String sf_orgfilename;	

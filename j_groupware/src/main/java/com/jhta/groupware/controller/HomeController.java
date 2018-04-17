@@ -10,9 +10,5 @@ public class HomeController {
 	@RequestMapping("/")
 	public String home() {
 		return ".main";
-	}
-	@RequestMapping("/calendar")
-	public String calendar() {
-		return ".calendar";
-	}
+	}	
 }

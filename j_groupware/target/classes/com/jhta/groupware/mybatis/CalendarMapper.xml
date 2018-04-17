@@ -12,4 +12,18 @@
 	<select id="getSch_num" parameterType="int" resultType="int">
 		SELECT MAX(SCH_NUM) SCH_NUM FROM SCHEDULE WHERE EMP_NUM=#{value}
 	</select>
+	<select id="getSchedules" parameterType="string" resultType="scfileVo">
+		SELECT * FROM SCHEDULE
+		WHERE SCH_PUBLIC BETWEEN 1 AND 
+				(SELECT PST_NUM 
+				FROM EMPLOYEE 
+				WHERE EMP_NUM=(SELECT EMP_NUM FROM ACCOUNT WHERE ACNT_ID=#{value}))
+			  OR EMP_NUM LIKE
+				(SELECT EMP_NUM 
+				FROM EMPLOYEE 
+				WHERE EMP_NUM=(SELECT EMP_NUM FROM ACCOUNT WHERE ACNT_ID=#{value}))
+	</select>
+	<select id="getSchedule" parameterType="int" resultType="scfileVo">
+		SELECT * FROM SCHEDULE S, SC_FILE F WHERE S.SCH_NUM = F.SCH_NUM(+) AND S.SCH_NUM=#{value}
+	</select>
 </mapper>
