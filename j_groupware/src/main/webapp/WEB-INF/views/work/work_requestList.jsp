@@ -12,7 +12,7 @@
                   <label for="select3">구분</label>
                   <div class="form-group">
 	                  <select class="form-control" id="select3">
-	                    <option>option 1</option>
+	                    <option>연차</option>
 	                    <option>option 2</option>
 	                    <option>option 3</option>
 	                    <option>option 4</option>
