@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.groupware.join.service.JoinService;
 import com.jhta.groupware.login.service.LoginService;
+import com.jhta.groupware.login.vo.LoginVo;
 import com.jhta.groupware.member.vo.MemberAccountVo;
 
 @Controller
@@ -48,7 +49,8 @@ public class JoinController {
 			return ".login.login";
 		}catch (Exception e) {
 			e.printStackTrace();
-			return ".login.login";
+			System.out.println("실패..?");
+			return "redirect:.login.join";
 		}
 	}
 	@RequestMapping(value="/join/usingid/{id}",produces="application/json;charset=utf-8")
@@ -67,6 +69,23 @@ public class JoinController {
 		}
 		System.out.println(ob.toString());
 		return ob.toString();
+	}
+	@RequestMapping(value="/join/usingemail/{email}",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String UsingEmailCheck(@PathVariable("email")String email) {
+		System.out.println("emailcheck!!"+email);
+		String EMP_EMAIL=email;
+		LoginVo vo = service.searchemail(EMP_EMAIL);
+		JSONObject ob1=new JSONObject();
+		if(vo!=null) {
+			System.out.println("값이없슴?");
+			ob1.put("email", "true");
+		}else {
+			System.out.println("값이있음??");
+			ob1.put("email","false");
+		}
+		System.out.println(ob1.toString());
+		return ob1.toString();
 	}
 }
 
