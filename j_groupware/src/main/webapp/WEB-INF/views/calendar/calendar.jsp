@@ -3,59 +3,78 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <script>
-  $(function () {
-	  
-	  //일정 읽기, 전체일정 불러오기
-	  var schedule = {
-		getSchedules : function(url){
-			$.ajax({
-				 method: "POST",
-				 url : "<c:url value='/"+url+"'/>",
-				 dataType : "json",
-				 success : function(data){
+$(function () {	  
+//일정 읽기, 전체일정 불러오기
+  var schedule = (function(){
+	  return {
+		  getSchedules : function(){
+			  $.ajax({
+				method: "POST",
+				url : "<c:url value='/getSchedules'/>",
+				dataType : "json",
+				success : function(data){
 					var events = new Array();
-						for(i in data){					
-							console.log(data[i]);
-						    events.push({				    	
-						            title          : data[i].sch_title,
-						            start          : $.fullCalendar.moment(data[i].sch_sdate),				            
-						            end            : $.fullCalendar.moment(data[i].sch_edate),
-						            description	   : data[i].sch_content,
-						            url            : "<c:url value='/getSchedule?sch_num="+data[i].sch_num+"'/>"
-						            /* backgroundColor: '#3c8dbc',
-						            borderColor    : '#3c8dbc' */
-							});				    										
-						}
-						$('#calendar').fullCalendar('addEventSource',events);
-				 }
-			});
-		},
-		getSchedule :{ 
-		}
-	  };	  
-	  
-	  var modalObj = {			
-		setModal : function(url){
-			$.ajax({
-				 method: "get",
-				 url : url,
-				 dataType : "json",
-				 success : function(data){																
-						   console.log(data.sch_title);
-						   $("#sch_title").html(data.sch_title);
-				 }
-			});			
-		},
-		getModal : (function(modalId){
-			return document.getElementById(modalId); 
-		}('modal-info'))
+					for(i in data){					
+					  events.push({			
+									id : data[i].sch_num,
+								    title : data[i].sch_title,
+							        start : $.fullCalendar.moment(data[i].sch_sdate),				            
+							        end : $.fullCalendar.moment(data[i].sch_edate),
+							        description : data[i].sch_content,
+					  });				    										
+					}
+				$('#calendar').fullCalendar('addEventSource',events);
+				}
+			  });  
+		  },
+		  getSchedule : function(sch_num){
+			  console.log(sch_num);
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+					 dataType : "json",
+					 async : false,
+					 success : function(data){
+						 console.log(data.sch_title+':'+data.sch_sdate);
+					 }
+		      });
+		  }
 	  };
-	  
-	  //모달 메소드 객체
-	  var scheduleOption = {
-		viewSchedule :{} 									
-	    
-	  };	  	  	  	 
+  })();	  	  
+var modalModal = (function(){
+	var myModal;
+	return {			  
+		getModal : function(modalId){
+			myModal = document.getElementById(modalId);
+		},
+		setValue : function(sch_num){
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+					 dataType : "json",
+					 success : function(data){
+						 $("#sch_title").html(data.sch_title);
+						 $("#sch_content").html(data.sch_content);
+						 $("#sf_orgfilename").html(data.sf_orgfilename);
+						 console.log(data);
+						 //var obj = JSON.parse(data);
+						 //console.log("obj : "+obj.sf_orgfilename);
+							 						 
+						 if(data.sf_orgfilename){
+				  			$("#sf_orgfilename").html(data.sf_orgfilename);							 
+				  			$("#sf_size").html(data.sf_size+" byte");
+			  			 } else {
+			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
+			  				$("#sf_size").html('0 byte'); 					
+			  			 }
+					 }
+		      });
+		},
+		viewModal : function(){
+			return $(myModal).modal();
+		}
+	};
+})();	  	  	  	
 	  
 	//Daterangepicker
 	  $('#daterangepicker_start').daterangepicker({
@@ -127,36 +146,11 @@
       },
       locale:'ko',    
       //Random default events            
-      eventClick: //scheduleOption.viewSchedule,
-    	  function(event, jsEvent, view){
-			if(event.url){
-				alert('야호');
-				//modalObj.viewModal('modal-info');				
-				modalObj.setModal(event.url);
-				$(modalObj.getModal).modal();
-				//alert(event.url);
-				
-				//console.log(result);
-				//modalObj.setModal(result);
-				//modalObj.getModal.modal();
-			    //alert('Event: ' + event.title);
-			    //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
-			    //alert('View: ' + view.name);
-			    // change the border color just for fun
-				return false;
-			}
-      },
-            
-      /* eventRender: function(event, $el, view) {    	      	  
-          $el.popover({            
-        	  title: event.title,            
-            content: event.description,                                   
-            trigger: 'hover',
-            placement: 'top',
-            container: 'body'
-          });
-        }, */
-        eventRender : function(event,element){
+      eventClick : function(event){			
+					modalModal.viewModal();
+					modalModal.setValue(event.id);
+	  },
+	  eventRender : function(event,element){
         	$(element).popover({
         		title : event.title,
         		content : '<p>'+event.start.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.end.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.description+'</p>',
@@ -195,7 +189,8 @@
       }
     });
   	//일정 불러오기
-    schedule.getSchedules('getSchedules');
+    schedule.getSchedules();
+  	modalModal.getModal('modal-info');
   });
 
 </script>
@@ -348,7 +343,7 @@
             	<div class="inner">
                   <h3>장소<!-- <sup style="font-size: 20px">%</sup> --></h3>
 
-              	  <p>XXXXXXXX</p>
+              	  <p id="sch_place">XXXXXXXX</p>
             	</div>
                 <div class="icon">
                 <i class="fa fa-globe"></i>
@@ -361,12 +356,12 @@
   				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
   				<div class="info-box-content">
     			  <span class="info-box-text">시작일과 종료일</span>
-    			  <span class="info-box-number">20XX/X월/X일 ~ 20XX/X월/X일</span>
+    			  <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
     			  <!-- The progress section is optional -->
     			  <div class="progress">
-      				<div class="progress-bar" style="width: 70%"></div>
+      				<div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
     			  </div>
-    			  <span class="progress-description">
+    			  <span class="progress-description" id="sch_time">
       			  XX%가 지난 현재 남은 시간 XX Hours
     			  </span>
   			    </div>
@@ -380,7 +375,7 @@
             	<div class="inner">
                   <h3>공개제한<!-- <sup style="font-size: 20px">%</sup> --></h3>
 
-              	  <p>사원</p>
+              	  <p id=sch_public>사원</p>
             	</div>
                 <div class="icon">
                 <i class="fa fa-lock"></i>
@@ -393,12 +388,12 @@
   				<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
   				<div class="info-box-content">
     			  <span class="info-box-text">파일</span>
-    			  <span class="info-box-number">File Name</span>
+    			  <span class="info-box-number" id="sf_orgfilename">File Name</span>
     			  <!-- The progress section is optional -->
     			  <div class="progress">
       				<div class="progress-bar" style="width: 70%"></div>
     			  </div>
-    			  <span class="progress-description">
+    			  <span class="progress-description" id="sf_size">
       			  xxxxxxx KB
     			  </span>
   			    </div>
@@ -419,7 +414,7 @@
             	</div>
             	<!-- /.box-header -->
                 <div class="box-body">
-                  <p class="text-muted">
+                  <p class="text-muted" id="sch_content">
                 	불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
 					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
 					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
