@@ -1,5 +1,6 @@
 package com.jhta.groupware.calendar.service;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -30,7 +31,17 @@ public class CalendarService {
 	}
 
 	public List<Sc_FileVo> getSchedules(String id) {
-		return dao.getSchedules(id);
+		List<Sc_FileVo> vo = dao.getSchedules(id);
+		for(Sc_FileVo vo1:vo) {
+			SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");			
+			
+			
+			System.out.println("시작일:"+vo1.getSch_sdate().getTime());
+			System.out.println("시작일:"+sdf1.format(vo1.getSch_sdate()));
+			System.out.println("종료일:"+vo1.getSch_edate().getTime());
+			System.out.println("종료일:"+sdf1.format(vo1.getSch_edate()));
+		}
+		return vo; 
 	}
 
 	public Sc_FileVo getSchedule(int sch_num) {

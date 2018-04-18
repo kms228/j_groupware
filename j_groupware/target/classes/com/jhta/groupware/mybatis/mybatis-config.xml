@@ -11,10 +11,15 @@
 		<typeAlias type="com.jhta.groupware.calendar.vo.Sc_FileVo" alias="scfileVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignVo" alias="signdoc"/>
 		<typeAlias type="com.jhta.groupware.login.vo.LoginVo" alias="LoginVo"/>	
+<<<<<<< HEAD
 		<typeAlias type="com.jhta.groupware.sign.vo.SignLineListVo" alias="signlineVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SdocLineVo" alias="sdocline"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignNowVo" alias="signnow"/>
 	</typeAliases>
+=======
+		<typeAlias type="com.jhta.groupware.sign.vo.SignLineListVo" alias="signlineVo"/>
+	</typeAliases>	
+>>>>>>> branch 'master' of https://github.com/kms228/j_groupware.git
 	<mappers>
     	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
 

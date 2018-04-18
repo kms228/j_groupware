@@ -39,7 +39,7 @@ public class CalendarController {
 	}
 	@RequestMapping("/getSchedule")
 	public @ResponseBody Sc_FileVo getScheduleByJson(int sch_num) {
-		
+		System.out.println("sch_num:"+sch_num);
 		Sc_FileVo vo = service.getSchedule(sch_num);
 		System.out.println(vo.getSch_title());
 		return vo;

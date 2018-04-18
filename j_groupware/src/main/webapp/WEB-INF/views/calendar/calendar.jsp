@@ -3,39 +3,78 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <script>
-  $(function () {
-	  
-	  //모달 메소드 객체
-	  var modalScheduler = {
-		viewSchedule : function(event){
-			if(event.url){    		  
-				window.open(event.url);
-				return false;
-			}
-	    }
-	  };
-	  
-	  //일정 읽기.
-	  $.ajax({
-		 method: "POST",
-		 url : "<c:url value='/getSchedules'/>",
-		 dataType : "json",
-		 success : function(data){
-			var events = new Array();
-				for(i in data){					
-				    events.push({				    	
-				            title          : data[i].sch_title,
-				            start          : data[i].sch_sdate,
-				            end            : data[i].sch_edate,
-				            description	   : data[i].sch_content,
-				            url            : "<c:url value='/getSchedule?sch_num="+data[i].sch_num+"'/>"
-				            /* backgroundColor: '#3c8dbc',
-				            borderColor    : '#3c8dbc' */
-					});				    										
-				}
+$(function () {	  
+//일정 읽기, 전체일정 불러오기
+  var schedule = (function(){
+	  return {
+		  getSchedules : function(){
+			  $.ajax({
+				method: "POST",
+				url : "<c:url value='/getSchedules'/>",
+				dataType : "json",
+				success : function(data){
+					var events = new Array();
+					for(i in data){					
+					  events.push({			
+									id : data[i].sch_num,
+								    title : data[i].sch_title,
+							        start : $.fullCalendar.moment(data[i].sch_sdate),				            
+							        end : $.fullCalendar.moment(data[i].sch_edate),
+							        description : data[i].sch_content,
+					  });				    										
+					}
 				$('#calendar').fullCalendar('addEventSource',events);
-		 }
-	  });	  
+				}
+			  });  
+		  },
+		  getSchedule : function(sch_num){
+			  console.log(sch_num);
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+					 dataType : "json",
+					 async : false,
+					 success : function(data){
+						 console.log(data.sch_title+':'+data.sch_sdate);
+					 }
+		      });
+		  }
+	  };
+  })();	  	  
+var modalModal = (function(){
+	var myModal;
+	return {			  
+		getModal : function(modalId){
+			myModal = document.getElementById(modalId);
+		},
+		setValue : function(sch_num){
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+					 dataType : "json",
+					 success : function(data){
+						 $("#sch_title").html(data.sch_title);
+						 $("#sch_content").html(data.sch_content);
+						 $("#sf_orgfilename").html(data.sf_orgfilename);
+						 console.log(data);
+						 //var obj = JSON.parse(data);
+						 //console.log("obj : "+obj.sf_orgfilename);
+							 						 
+						 if(data.sf_orgfilename){
+				  			$("#sf_orgfilename").html(data.sf_orgfilename);							 
+				  			$("#sf_size").html(data.sf_size+" byte");
+			  			 } else {
+			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
+			  				$("#sf_size").html('0 byte'); 					
+			  			 }
+					 }
+		      });
+		},
+		viewModal : function(){
+			return $(myModal).modal();
+		}
+	};
+})();	  	  	  	
 	  
 	//Daterangepicker
 	  $('#daterangepicker_start').daterangepicker({
@@ -107,21 +146,14 @@
       },
       locale:'ko',    
       //Random default events            
-      eventClick: modalScheduler.viewSchedule,
-            
-      /* eventRender: function(event, $el, view) {    	      	  
-          $el.popover({            
-        	  title: event.title,            
-            content: event.description,                                   
-            trigger: 'hover',
-            placement: 'top',
-            container: 'body'
-          });
-        }, */
-        eventRender : function(event,element){
+      eventClick : function(event){			
+					modalModal.viewModal();
+					modalModal.setValue(event.id);
+	  },
+	  eventRender : function(event,element){
         	$(element).popover({
         		title : event.title,
-        		content : '<p>'+event.start.format('MM월 DD일 a hh:mm')+'</p><p>'+event.end.format('MM월 DD일 a hh:mm')+'</p><p>'+event.description+'</p>',
+        		content : '<p>'+event.start.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.end.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.description+'</p>',
         		html : true,
         		trigger: 'hover',
                 placement: 'top',
@@ -155,8 +187,12 @@
           $(this).remove()
         }
       }
-    });       
+    });
+  	//일정 불러오기
+    schedule.getSchedules();
+  	modalModal.getModal('modal-info');
   });
+
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -282,12 +318,142 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Info Modal</h4>
               </div>
-              <div class="modal-body">
-                <p>One fine body&hellip;</p>
+              
+              <!-- 일정이름 -->
+              <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">일정이름</span>
+    			  <span class="info-box-number" id="sch_title">XXXXX</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%"></div>
+    			  </div>
+    			  <span class="progress-description">
+      			  70% Increase in 30 Days
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+			  
+			  <!-- 장소 -->
+			  <!-- small box -->
+          	  <div class="small-box bg-blue">
+            	<div class="inner">
+                  <h3>장소<!-- <sup style="font-size: 20px">%</sup> --></h3>
+
+              	  <p id="sch_place">XXXXXXXX</p>
+            	</div>
+                <div class="icon">
+                <i class="fa fa-globe"></i>
+            	</div>
+            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
+          	  </div>
+			  
+			  <!-- 시작일 ~ 종료일 -->
+			  <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">시작일과 종료일</span>
+    			  <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
+    			  </div>
+    			  <span class="progress-description" id="sch_time">
+      			  XX%가 지난 현재 남은 시간 XX Hours
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+			  			  			  
+			  <!-- 공개여부 -->
+			  <!-- small box -->
+          	  <div class="small-box bg-blue">
+            	<div class="inner">
+                  <h3>공개제한<!-- <sup style="font-size: 20px">%</sup> --></h3>
+
+              	  <p id=sch_public>사원</p>
+            	</div>
+                <div class="icon">
+                <i class="fa fa-lock"></i>
+            	</div>
+            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
+          	  </div>
+          	  
+          	  <!-- 첨부파일 -->
+			  <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">파일</span>
+    			  <span class="info-box-number" id="sf_orgfilename">File Name</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%"></div>
+    			  </div>
+    			  <span class="progress-description" id="sf_size">
+      			  xxxxxxx KB
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+          	  
+          	  <!-- 내용 -->
+          	  <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">내용</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+              	  <!-- /.box-tools -->
+            	</div>
+            	<!-- /.box-header -->
+                <div class="box-body">
+                  <p class="text-muted" id="sch_content">
+                	불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라					
+				  </p>
+                </div>
+              <!-- /.box-body -->
               </div>
+              <!-- /.box -->          	  			 
+          	  
+			  <!-- 
+			  <div class="info-box">
+  			  Apply any bg-* class to to the icon to color it
+  				<span class="info-box-icon bg-red"><i class="fa fa-lock"></i></span>
+  				<div class="info-box-content">  				
+    			  <span class="info-box-text">공개여부</span>
+    			  <span class="info-box-number">5</span>
+  				</div>  				
+			  </div> -->
+			  <!-- /.info-box -->			  			  			  			  
+              
+              <!-- <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div> -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Save changes</button>
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-outline">수정</button>
+                <button type="button" class="btn btn-outline">삭제</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -295,3 +461,5 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+        
+        
