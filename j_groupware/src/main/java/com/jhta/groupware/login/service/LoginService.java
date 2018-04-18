@@ -13,14 +13,14 @@ import com.jhta.groupware.member.vo.MemberAccountVo;
 public class LoginService {
 	@Autowired
 	private LoginDao dao ;
-	public boolean login(HashMap<String,Object>map) {
+	public MemberAccountVo login(HashMap<String,Object>map) {
 		MemberAccountVo vo = dao.login(map);
 		if(vo!=null) {
 			System.out.println("서비스 통과");
-			return true;
+			return vo;
 		}else {
 			System.out.println("서비스XXXX");
-			return false;
+			return null;
 		}
 	}
 	public LoginVo getinfo(int EMP_NUM) {

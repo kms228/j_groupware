@@ -29,12 +29,12 @@ public class LoginController {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("ACNT_ID", ACNT_ID);
 		map.put("ACNT_PWD", ACNT_PWD);
-		boolean n = service.login(map);
-		if (n) {
-			MemberAccountVo vo = new MemberAccountVo();
+		MemberAccountVo vo = service.login(map);
+		if (vo!=null) {
 			System.out.println(ACNT_ID);
 			System.out.println("된다!!!");
 			session.setAttribute("ACNT_ID", ACNT_ID);
+			session.setAttribute("emp_num", vo.getEMP_NUM() );
 			return "redirect:/";
 		} else {
 			System.out.println("안되!!!");
@@ -46,6 +46,7 @@ public class LoginController {
 	public ModelAndView logOut(ModelAndView mv, HttpSession session) {
 		String page = "redirect:/";
 		session.removeAttribute("ACNT_ID");
+		session.removeAttribute("emp_num");
 		mv.setViewName(page);
 		return mv;
 	}

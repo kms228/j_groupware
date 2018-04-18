@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>	
 	<typeAliases>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkVo" alias="work"/>
 		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
 		<typeAlias type="com.jhta.groupware.calendar.vo.ScheduleVo" alias="scheduleVo"/>
