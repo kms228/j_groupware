@@ -10,33 +10,35 @@
 	<span class="fa fa-fw fa-file-text"></span> 문서종류 : ${vo.doc_name }
 </h3>
 <hr>
-<div>
-<table class="table table-bordered" id="signlinetable">
-	<tr>
-		<td rowspan="2"><button data-target="#myModal" data-toggle="modal" id="line_btn">결재선 선택</button>
-		<button>내 결재선 관리</button>
-			<select style="width: 100%;height: 120px;" multiple="multiple" id="select_menuline">
-				<option>테스트</option>
-				<option>테스트</option>
-				<option>테스트</option>
-			</select>
-		</td>
-		<td rowspan="2" align="center"><b>결재</b></td>
-		<td width="100px" height="70px"><div id="line0">양세용</div></td>
-		<td width="100px"><div id="line1">함형진</div></td>
-		<td width="100px"><div id="line2"></div></td>
-		<td width="100px"><div id="line3"></div></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>	
-</table>
-</div>
-<div>
-	<!-- Modal -->
+<form method="post" action="<c:url value='/'/>addsign" id="write_form">
+	<div>
+		<table class="table table-bordered" id="signlinetable">
+			<tr>
+				<td rowspan="2"><button type="button" data-target="#myModal"
+						data-toggle="modal" id="line_btn">결재선 선택</button>
+					<button>내 결재선 관리</button> <select
+					style="width: 100%; height: 120px;" multiple="multiple"
+					id="select_menuline">
+						<option>테스트</option>
+						<option>테스트</option>
+						<option>테스트</option>
+				</select></td>
+				<td rowspan="2" align="center"><b>결재</b></td>
+				<td width="100px" height="70px"><div id="line0">양세용</div></td>
+				<td width="100px"><div id="line1">함형진</div></td>
+				<td width="100px"><div id="line2"></div></td>
+				<td width="100px"><div id="line3"></div></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+		<!-- Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
@@ -53,24 +55,23 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">Save
-							changes</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							id="line_submit">Save changes</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-	<form method="post" action="<c:url value='/'/>addsign" id="write_form">
+
 		<div>
-			<label>제목&nbsp;&nbsp;&nbsp;</label><input type="text" size="120">
+			<label>제목&nbsp;&nbsp;&nbsp;</label><input type="text" size="120" name="sdoc_title">
 		</div>
 		<div>
 			<textarea name="ir1" id="ir1" rows="10" cols="100">${vo.doc_content }</textarea>
 		</div>
 		<input type="button" class="btn btn-primary" value="등록"
-			id="submit_btn"> <input type="hidden" value="${param.num }">
-	</form>
-</div>
+			id="submit_btn"> <input type="hidden" value="${param.num }" name="num">
+	</div>
+</form>
 <script type="text/javascript">
 	$(function() {
 		var oEditors = [];
@@ -133,12 +134,16 @@
 			console.log(arr1);
 			console.log(idarr);
 		});
-		$('#line_submit').click(function(){
-			for(var i=0;i<arr1.length;i++){
-				$('#line'+i).html(arr1[i]+"<input type='hidden' name='emp_num' value='"+idarr[i]+"'>");
-			}
-		});
-		
+		$('#line_submit')
+				.click(
+						function() {
+							for (var i = 0; i < arr1.length; i++) {
+								$('#line' + i)
+										.html(
+												arr1[i]
+														+ "<input type='hidden' name='emp_num' value='"+idarr[i]+"'>");
+							}
+						});
 
 	});
 </script>
