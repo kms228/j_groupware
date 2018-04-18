@@ -5,37 +5,57 @@
 <script>
   $(function () {
 	  
-	  //모달 메소드 객체
-	  var modalScheduler = {
-		viewSchedule : function(event){
-			if(event.url){    		  
-				window.open(event.url);
-				return false;
-			}
-	    }
+	  //일정 읽기, 전체일정 불러오기
+	  var schedule = {
+		getSchedules : function(url){
+			$.ajax({
+				 method: "POST",
+				 url : "<c:url value='/"+url+"'/>",
+				 dataType : "json",
+				 success : function(data){
+					var events = new Array();
+						for(i in data){					
+							console.log(data[i]);
+						    events.push({				    	
+						            title          : data[i].sch_title,
+						            start          : $.fullCalendar.moment(data[i].sch_sdate),				            
+						            end            : $.fullCalendar.moment(data[i].sch_edate),
+						            description	   : data[i].sch_content,
+						            url            : "<c:url value='/getSchedule?sch_num="+data[i].sch_num+"'/>"
+						            /* backgroundColor: '#3c8dbc',
+						            borderColor    : '#3c8dbc' */
+							});				    										
+						}
+						$('#calendar').fullCalendar('addEventSource',events);
+				 }
+			});
+		},
+		getSchedule :{ 
+		}
+	  };	  
+	  
+	  var modalObj = {			
+		setModal : function(url){
+			$.ajax({
+				 method: "get",
+				 url : url,
+				 dataType : "json",
+				 success : function(data){																
+						   console.log(data.sch_title);
+						   $("#sch_title").html(data.sch_title);
+				 }
+			});			
+		},
+		getModal : (function(modalId){
+			return document.getElementById(modalId); 
+		}('modal-info'))
 	  };
 	  
-	  //일정 읽기.
-	  $.ajax({
-		 method: "POST",
-		 url : "<c:url value='/getSchedules'/>",
-		 dataType : "json",
-		 success : function(data){
-			var events = new Array();
-				for(i in data){					
-				    events.push({				    	
-				            title          : data[i].sch_title,
-				            start          : data[i].sch_sdate,
-				            end            : data[i].sch_edate,
-				            description	   : data[i].sch_content,
-				            url            : "<c:url value='/getSchedule?sch_num="+data[i].sch_num+"'/>"
-				            /* backgroundColor: '#3c8dbc',
-				            borderColor    : '#3c8dbc' */
-					});				    										
-				}
-				$('#calendar').fullCalendar('addEventSource',events);
-		 }
-	  });	  
+	  //모달 메소드 객체
+	  var scheduleOption = {
+		viewSchedule :{} 									
+	    
+	  };	  	  	  	 
 	  
 	//Daterangepicker
 	  $('#daterangepicker_start').daterangepicker({
@@ -107,7 +127,25 @@
       },
       locale:'ko',    
       //Random default events            
-      eventClick: modalScheduler.viewSchedule,
+      eventClick: //scheduleOption.viewSchedule,
+    	  function(event, jsEvent, view){
+			if(event.url){
+				alert('야호');
+				//modalObj.viewModal('modal-info');				
+				modalObj.setModal(event.url);
+				$(modalObj.getModal).modal();
+				//alert(event.url);
+				
+				//console.log(result);
+				//modalObj.setModal(result);
+				//modalObj.getModal.modal();
+			    //alert('Event: ' + event.title);
+			    //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+			    //alert('View: ' + view.name);
+			    // change the border color just for fun
+				return false;
+			}
+      },
             
       /* eventRender: function(event, $el, view) {    	      	  
           $el.popover({            
@@ -121,7 +159,7 @@
         eventRender : function(event,element){
         	$(element).popover({
         		title : event.title,
-        		content : '<p>'+event.start.format('MM월 DD일 a hh:mm')+'</p><p>'+event.end.format('MM월 DD일 a hh:mm')+'</p><p>'+event.description+'</p>',
+        		content : '<p>'+event.start.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.end.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.description+'</p>',
         		html : true,
         		trigger: 'hover',
                 placement: 'top',
@@ -155,8 +193,11 @@
           $(this).remove()
         }
       }
-    });       
+    });
+  	//일정 불러오기
+    schedule.getSchedules('getSchedules');
   });
+
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -282,12 +323,142 @@
                   <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Info Modal</h4>
               </div>
-              <div class="modal-body">
-                <p>One fine body&hellip;</p>
+              
+              <!-- 일정이름 -->
+              <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">일정이름</span>
+    			  <span class="info-box-number" id="sch_title">XXXXX</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%"></div>
+    			  </div>
+    			  <span class="progress-description">
+      			  70% Increase in 30 Days
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+			  
+			  <!-- 장소 -->
+			  <!-- small box -->
+          	  <div class="small-box bg-blue">
+            	<div class="inner">
+                  <h3>장소<!-- <sup style="font-size: 20px">%</sup> --></h3>
+
+              	  <p>XXXXXXXX</p>
+            	</div>
+                <div class="icon">
+                <i class="fa fa-globe"></i>
+            	</div>
+            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
+          	  </div>
+			  
+			  <!-- 시작일 ~ 종료일 -->
+			  <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">시작일과 종료일</span>
+    			  <span class="info-box-number">20XX/X월/X일 ~ 20XX/X월/X일</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%"></div>
+    			  </div>
+    			  <span class="progress-description">
+      			  XX%가 지난 현재 남은 시간 XX Hours
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+			  			  			  
+			  <!-- 공개여부 -->
+			  <!-- small box -->
+          	  <div class="small-box bg-blue">
+            	<div class="inner">
+                  <h3>공개제한<!-- <sup style="font-size: 20px">%</sup> --></h3>
+
+              	  <p>사원</p>
+            	</div>
+                <div class="icon">
+                <i class="fa fa-lock"></i>
+            	</div>
+            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
+          	  </div>
+          	  
+          	  <!-- 첨부파일 -->
+			  <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">파일</span>
+    			  <span class="info-box-number">File Name</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%"></div>
+    			  </div>
+    			  <span class="progress-description">
+      			  xxxxxxx KB
+    			  </span>
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+          	  
+          	  <!-- 내용 -->
+          	  <div class="box box-primary collapsed-box">
+                <div class="box-header with-border">
+                  <h3 class="box-title">내용</h3>
+
+                  <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                    </button>
+                  </div>
+              	  <!-- /.box-tools -->
+            	</div>
+            	<!-- /.box-header -->
+                <div class="box-body">
+                  <p class="text-muted">
+                	불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
+					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라					
+				  </p>
+                </div>
+              <!-- /.box-body -->
               </div>
+              <!-- /.box -->          	  			 
+          	  
+			  <!-- 
+			  <div class="info-box">
+  			  Apply any bg-* class to to the icon to color it
+  				<span class="info-box-icon bg-red"><i class="fa fa-lock"></i></span>
+  				<div class="info-box-content">  				
+    			  <span class="info-box-text">공개여부</span>
+    			  <span class="info-box-number">5</span>
+  				</div>  				
+			  </div> -->
+			  <!-- /.info-box -->			  			  			  			  
+              
+              <!-- <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div> -->
               <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline">Save changes</button>
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-outline">수정</button>
+                <button type="button" class="btn btn-outline">삭제</button>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -295,3 +466,5 @@
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
+        
+        

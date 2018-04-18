@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.groupware.login.vo.LoginVo;
 import com.jhta.groupware.member.vo.MemberAccountVo;
 @Repository
 public class JoinDao {
@@ -17,6 +18,10 @@ public class JoinDao {
 	}
 	public MemberAccountVo searchid(String ACNT_ID) {
 		return sqlSession.selectOne(NAMESPACE+".searchid", ACNT_ID);
+	}
+	public LoginVo searchemail(String EMP_EMAIL) {
+		System.out.println(EMP_EMAIL+"Dao¿¡ ´ã±è");
+		return sqlSession.selectOne(NAMESPACE+".searchemail", EMP_EMAIL);
 	}
 	
 }
