@@ -256,7 +256,6 @@ public static String gettime(int mountdate){
                   <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body">
                       <!-- 야근신청 폼 -->
-                      
                       <label>일자/시간</label>
                       <div class="col-md-12">
                       	<div class="col-md-5">
