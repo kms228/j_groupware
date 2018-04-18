@@ -15,7 +15,6 @@
 	</typeAliases>
 	<mappers>
     	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
-
     	<mapper resource="com/jhta/groupware/mybatis/SignMapper.xml"/>
 
     	<mapper resource="com/jhta/groupware/mybatis/JoinMapper.xml"/>
