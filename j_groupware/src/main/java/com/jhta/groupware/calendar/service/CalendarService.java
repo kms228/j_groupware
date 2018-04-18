@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.groupware.calendar.dao.CalendarDao;
+import com.jhta.groupware.calendar.vo.PositionVo;
 import com.jhta.groupware.calendar.vo.Sc_FileVo;
 import com.jhta.groupware.calendar.vo.ScheduleVo;
 import com.jhta.groupware.etc.ManipulateFile;
@@ -46,5 +47,9 @@ public class CalendarService {
 
 	public Sc_FileVo getSchedule(int sch_num) {
 		return dao.getSchedule(sch_num);
+	}
+
+	public List<PositionVo> getPosition() {
+		return dao.getPosition();
 	}
 }
