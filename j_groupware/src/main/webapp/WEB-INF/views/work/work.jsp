@@ -252,42 +252,17 @@
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
               <div class="box-body">
-
-			
-              <div class="col-md-2">
-              <div class="box box-success">
-              		<br>
-              		<div class="col-md-1">
-	              		<span class="badge bg-green">연차</span>
-	              	</div>
-	              	<br><br>
-              		 <div class="col-md-1">
+	              	<span class="badge bg-green">연차</span>
 	              	<span class="badge bg-blue">반차</span>
-	              	</div>
-	              	<br><br>
-	              	 <div class="col-md-1">
 	              	<span class="badge bg-red">지각</span>
-	              	</div>
-	              	<br><br>
-	              	 <div class="col-md-1">
+	              	<span class="badge bg-purple">야근</span>
 	              	<span class="badge bg-yellow">외근</span>
-	              	</div>
-	              	<br><br>
-		              <div class="col-md-1">
 	              	<span class="badge bg-gray">경조사/기타</span>
-	              	</div>
 	              	<br><br>
-	              	</div>
-              </div>
-	              
-              		<div class="col-md-10">
               		<div class="box box-success">
               			<div id="calendar"></div>
               			</div>
-              		</div>
-             		
              		</div>
-             		
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
@@ -313,19 +288,17 @@
         </div>
       
         <script type="text/javascript">
-      
-        $('#calendar').fullCalendar({      
-          //노출메뉴
-          header    : {
-        	  left:'',
-        	  center:'title',
-              right : 'prev,next,today'
-          },
-          buttonText: {     
-          },
-          locale:'ko',    
-          height:"auto"
-        }); 
-        
+	        $('#calendar').fullCalendar({      
+	          //노출메뉴
+	          header    : {
+	        	  left:'',
+	        	  center:'title',
+	              right : 'prev,next,today'
+	          },
+	          buttonText: {     
+	          },
+	          locale:'ko',    
+	          height:"auto"
+	        }); 
         </script>
 </div>

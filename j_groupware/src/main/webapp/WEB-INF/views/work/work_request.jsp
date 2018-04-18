@@ -319,7 +319,7 @@ public static String gettime(int mountdate){
                   <div class="box-header with-border">
                     <h4 class="box-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="collapsed" aria-expanded="false">
-                       		외근(출장)
+                       		외근/출장/교육
                       </a>
                     </h4>
                   </div>
@@ -353,12 +353,58 @@ public static String gettime(int mountdate){
 		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line5" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">외근(출장) 신청</button>
+		                <button type="submit" class="btn btn-block btn-primary">외근/출장/교육 신청</button>
 		              </div>
                       <!-- /외근(출장)신청 폼 -->
                     </div>
                   </div>
                 </div>
+                <!-- 경조사/기타 -->
+                <div class="panel box box-default">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="collapsed" aria-expanded="false">
+                       		경조사/기타
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseSix" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="box-body">
+                      <!-- 외근(출장)신청 폼 -->
+                      <label for="reservation3">일자/시간</label>
+                      <div class="form-group">
+			                <div class="input-group">
+			                  <div class="input-group-addon">
+			                  <label for="reservation3">
+			                    <i class="fa fa-calendar"></i>
+			                    </label>
+			                  </div>
+			                  <input type="text" class="form-control pull-left" id="reservation3">
+			                </div>
+			                <!-- /.input group -->
+			              </div>
+                      <div class="form-group">
+		                <div>
+		                  <label for="reason5">사유</label>
+		                  </div>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason5"></textarea>
+		                </div>
+		                <div class="form-group">
+		                  <label for="exampleInputFile6">첨부</label>
+		                  <input type="file" id="exampleInputFile6">
+		                </div>
+		                <div class="form-group">
+		                  <label for="line6">결재선 선택</label>
+		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line6" readonly="readonly">
+		                </div>
+		                <div class="box-footer">
+		                <button type="submit" class="btn btn-block btn-primary">경조사/기타 신청</button>
+		              </div>
+                      <!-- /외근(출장)신청 폼 -->
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
               </div>
             </div>
           <!-- /.box-body -->

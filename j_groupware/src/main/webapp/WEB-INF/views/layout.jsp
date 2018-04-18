@@ -131,7 +131,7 @@
 <script>
 $(function () {
     //Date range picker
-    $('#reservation, #reservation2, #reservation3').daterangepicker({
+    $('#reservation, #reservation2, #reservation3, #reservation4').daterangepicker({
     	"locale": {
 	        "format": "YYYY/MM/DD",
 	        "separator": " - ",

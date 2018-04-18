@@ -21,20 +21,20 @@
                 </div>
                 </div>
                 <div class="form-group">
-                  <label for="reservation3">조회기간</label>
+                  <label for="reservation4">조회기간</label>
                    <div class="form-group">
 			                <div class="input-group">
 			                  <div class="input-group-addon">
 			                    <i class="fa fa-calendar"></i>
 			                  </div>
-			                  <input type="text" class="form-control pull-right" id="reservation3">
+			                  <input type="text" class="form-control pull-left" id="reservation4">
 			                </div>
 			                <!-- /.input group -->
 			              </div>
                 </div>
                 <div class="form-group">
                   <label for="user">사용자</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" readonly="readonly" >
+                  <input type="text" class="form-control"  readonly="readonly" >
                 </div>
               </div>
               <!-- /.box-body -->
