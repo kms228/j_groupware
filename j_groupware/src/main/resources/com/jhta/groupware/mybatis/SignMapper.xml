@@ -6,8 +6,8 @@
 	<select id="getdoc" parameterType="int" resultType="doctype">
 		select * from doc_type where doc_num=#{num}
 	</select>
-	<select id="nowlist" resultType="signdoc">
-		select * from sign_doc where sdoc_state=0
+	<select id="nowlist" resultType="signnow" parameterType="int">
+		select sd.sdoc_num,dt.doc_name,sd.sdoc_title,emp.emp_name,sd.emp_num,sd.sdoc_date,dp.dept_name from sign_doc sd,employee emp,doc_type dt,dept dp where sd.emp_num=emp.emp_num and sd.doc_num=dt.doc_num and dp.dept_num=emp.dept_num and sd.emp_num=#{emp_num} and sd.sdoc_state=0
 	</select>
 	<select id="signlinelist" resultType="signlineVo">
 		select * from(select emp.emp_num,emp.emp_name,dp.dept_num,dp.dept_name,emp.pst_num,pst.pst_name from dept dp,employee emp,position pst where dp.dept_num=emp.dept_num and emp.pst_num=pst.pst_num)
@@ -15,6 +15,16 @@
 	<select id="deptlist" resultType="signlineVo">
 		select * from dept
 	</select>
+	
+	<insert id="addsigndoc" parameterType="signdoc">
+		insert into sign_doc values(seq_sign_doc.nextval,0,#{sdoc_title},#{sdoc_content},sysdate,#{emp_num},#{doc_num})
+	</insert>
+	
+	<insert id="addsignline" parameterType="sdocline">
+		insert into sdoc_line values(seq_sdoc_line.nextval,#{sline_level},0,#{emp_num},seq_sign_doc.currval)
+	</insert>
+
+
 </mapper>
 
 

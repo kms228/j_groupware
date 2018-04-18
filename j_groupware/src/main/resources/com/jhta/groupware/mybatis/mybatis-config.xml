@@ -12,6 +12,8 @@
 		<typeAlias type="com.jhta.groupware.sign.vo.SignVo" alias="signdoc"/>
 		<typeAlias type="com.jhta.groupware.login.vo.LoginVo" alias="LoginVo"/>	
 		<typeAlias type="com.jhta.groupware.sign.vo.SignLineListVo" alias="signlineVo"/>
+		<typeAlias type="com.jhta.groupware.sign.vo.SdocLineVo" alias="sdocline"/>
+		<typeAlias type="com.jhta.groupware.sign.vo.SignNowVo" alias="signnow"/>
 	</typeAliases>
 	<mappers>
     	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
