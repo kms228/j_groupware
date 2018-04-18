@@ -58,7 +58,22 @@
 <script src="<c:url value="/"/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
+<!-- jstree -->
+<script src="<c:url value='/'/>resources/js/jstree.min.js"></script>
 
+
+
+<!-- datatables selector -->
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
+<!-- datatable button -->
+<script src=https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js></script>
+<!-- datatable pdf/print/copy/excel -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/pdfmake.min.js"></script> 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script> 
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
 
 
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
@@ -92,8 +107,20 @@
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/timepicker/bootstrap-timepicker.min.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.css">
+
   
  <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/style.min.css">
+
+  <!-- ztree -->
+  <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
+  <!-- DataTables selector -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/select/1.2.5/css/select.dataTables.min.css">
+  <!-- DataTables button -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
+ 
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -168,30 +195,66 @@ $(function () {
     
     //DataTable
     $("#example1, #table1, #table2, #table3, #table4").DataTable({
-    	"language": {
+    	//버튼
+    	dom:  "<'col-md-8'B>"
+    		   + "<'col-md-4'lf>"
+    		   + "<'col-md-12'tr>"
+    		   + "<'col-md-5'i><'col-md-7'p>", 
+    		
+        buttons: [{extend:'selectAll',text:'모두선택'},
+        	{extend:'selectNone',text:'모두해제'},
+        	{extend:'copy',text:'복사'},
+        	{extend:'excel',text:'엑셀파일'},
+        	{extend:'pdf',text:'PDF파일'},
+        	{extend:'print',text:'프린트'}],
+        select: true,
+        //셀렉트체크박스
+    	 columnDefs: [ {
+             orderable: false,
+             className: 'select-checkbox',
+             targets:   0
+         } ],
+         select: {
+             style:    'multi',
+             selector: 'td:first-child'
+         },
+         order: [[ 1, 'asc' ]],
+        //갯수별보기 
+    	lengthMenu : [ [ 5, 10,25, 50,100, -1 ], [ 5, 10,25, 50,100, "All" ] ],
+    	//언어패치
+    	language: {
+    		
     		 "decimal":        "",
-    		 "emptyTable":     "저장된 값이 없습니다.",
-    		 "info":           "검색된 _TOTAL_ 개 값 중 _START_ 부터 _END_ 까지",
-    		 "infoEmpty":      "Showing 0 to 0 of 0 entries",
-    		 "infoFiltered":   "(filtered from _MAX_ total entries)",
+    		 "emptyTable":     "데이터가 없습니다.",
+    		 "info":           "_START_ - _END_ (총  _TOTAL_ 개)",
+    		 "infoEmpty":      "0개",
+    		 "infoFiltered":   "(전체 _MAX_ 개 중 검색결과)",
     		 "infoPostFix":    "",
     		 "thousands":      ",",
     		 "lengthMenu":     " _MENU_ 개씩 보기",
     		 "loadingRecords": "로딩중...",
-    		 "processing":     "진행중...",
+    		 "processing":     "처리중...",
     		 "search":         "검색:",
-    		 "zeroRecords":    "검색값과 일치하는 데이터가 없습니다.",
+    		 "zeroRecords":    "검색된 데이터가 없습니다.",
     		 "paginate": {
-    		     "first":      "처음",
-    		     "last":       "마지막",
+    		     "first":      "첫 페이지",
+    		     "last":       "마지막 페이지",
     		     "next":       "다음",
     		     "previous":   "이전"
     		 },
     		 "aria": {
-    		     "sortAscending":  ": activate to sort column ascending",
-    		     "sortDescending": ": activate to sort column descending"
-    		 }
-        } 
+    		     "sortAscending":  ": 오름차순 정렬",
+    		     "sortDescending": ": 내림차순 정렬"
+    		 },
+    		 select: {
+    	            rows: {
+    	                _: " %d 개 선택",
+    	                0: "선택값 없음",
+    	                1: "1 개 선택"
+    	            }
+    	        }
+        }
+       
     });
   });
 

@@ -51,8 +51,11 @@ public static String gettime(int mountdate){
 }
 %>
 <div>
-	<h3 class="corpor_title"><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3><br>
+	<h3><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3>
+			<div class="box">
 			<div class="box-body">
+			<label for="reservation3">출/퇴근 현황</label>
+			<div class="form-group">
                 <div class="col-md-2">
                   <input type="text" class="form-control" value="<%out.print (getdate(0));%>" readonly="readonly">
                 </div>
@@ -69,10 +72,13 @@ public static String gettime(int mountdate){
                   <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요">
                 </div>
             </div>
-	<br>
+         </div>
+         </div>
+         
+	
 	<div class="box">
               <h3 class="box-title"><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>
-              <br>
+             
               <!-- 아코디언 -->
               <div class="col-md-12">
           <div class="box box-solid">
