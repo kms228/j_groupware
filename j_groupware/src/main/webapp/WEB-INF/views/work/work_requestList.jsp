@@ -78,7 +78,6 @@
                 </tr>
                 </thead>
                 <tbody>
-                
                 <tr role="row" class="odd">
                   <td class="sorting_1">Gecko</td>
                   <td>Firefox 1.0</td>
