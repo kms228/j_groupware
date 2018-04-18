@@ -57,6 +57,12 @@
 <!-- DataTables -->
 <script src="<c:url value="/"/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
+
+<!-- jstree -->
+<script src="<c:url value='/'/>resources/js/jstree.min.js"></script>
+
+
+
 <!-- datatables selector -->
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>
@@ -68,6 +74,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.32/vfs_fonts.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+
 
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
@@ -100,6 +107,11 @@
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/timepicker/bootstrap-timepicker.min.css">
    <!-- DataTables -->
   <link rel="stylesheet" href="<c:url value="/"/>resources/plugins/datatables/dataTables.bootstrap.css">
+
+  
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
+ <link rel="stylesheet" href="<c:url value='/'/>resources/css/style.min.css">
+
   <!-- ztree -->
   <link rel="stylesheet" href="<c:url value='/'/>resources/css/zTreeStyle.css">
   <!-- DataTables selector -->
@@ -108,6 +120,7 @@
   <!-- DataTables button -->
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css">
  
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
