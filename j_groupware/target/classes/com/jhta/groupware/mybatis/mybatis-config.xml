@@ -5,6 +5,13 @@
 <configuration>	
 	<typeAliases>
 		<typeAlias type="com.jhta.groupware.work.vo.WorkVo" alias="work"/>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkTimeVo" alias="worktime"/>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkListVo" alias="worklist"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_TypeVo" alias="worktype"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_LineVo" alias="worklie"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_FileVo" alias="workfile"/>
+		<typeAlias type="com.jhta.groupware.work.vo.HalfTimeVo" alias="halftime"/>
+		
 		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
 		<typeAlias type="com.jhta.groupware.calendar.vo.ScheduleVo" alias="scheduleVo"/>
