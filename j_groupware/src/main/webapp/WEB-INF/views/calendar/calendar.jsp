@@ -38,6 +38,23 @@ $(function () {
 						 console.log(data.sch_title+':'+data.sch_sdate);
 					 }
 		      });
+		  },		 
+		  getPublic : function(){
+			  var selectPublic = document.getElementById("selectPublic");
+			  var option;
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getPosition'/>",
+					 dataType : "json",
+					 success : function(data){
+						 for(i in data){
+							 option = document.createElement("option");
+							 option.text = data[i].pst_name;
+							 option.value = data[i].pst_num;
+							 selectPublic.add(option);							 	 
+						 }						 						 						 						 
+					 }
+		      });
 		  }
 	  };
   })();	  	  
@@ -54,18 +71,37 @@ var modalModal = (function(){
 					 dataType : "json",
 					 success : function(data){
 						 $("#sch_title").html(data.sch_title);
-						 $("#sch_content").html(data.sch_content);
-						 $("#sf_orgfilename").html(data.sf_orgfilename);
-						 console.log(data);
-						 //var obj = JSON.parse(data);
-						 //console.log("obj : "+obj.sf_orgfilename);
-							 						 
+						var sdate = moment(data.sch_sdate);
+						var edate = moment(data.sch_edate);
+						var now = moment();
+																		
+				  		 $("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));
+				  		 if(now<sdate){
+				  			$("#sch_time").html('일정 시작전');
+				  			$("#sch_time_bar").css("width","0%");
+				  		 } else if(now>edate){
+				  			$("#sch_time").html('일정 끝');
+				  			$("#sch_time_bar").css("width","100%");
+				  		 } else {
+				  			var fullTime = moment.duration(edate.diff(sdate));
+				  			var pastTime = moment.duration(moment().diff(sdate));
+				  			var remainTime = moment.duration(edate.diff(moment()));
+				  			var percentage = (Math.ceil(pastTime.as('minutes'))/fullTime.as('minutes'))*100;
+
+				  			$("#sch_time_bar").css("width", percentage+"%");
+					  		$("#sch_time").html(Math.round(remainTime.as('hours')) + ' 시간이 남았습니다.');					  		
+				  		 }
+				  		 $("#sch_place").html(data.sch_place);
+				  		$("#sch_content").html(data.sch_content);						
+						 console.log(data);						 							 						 
 						 if(data.sf_orgfilename){
 				  			$("#sf_orgfilename").html(data.sf_orgfilename);							 
-				  			$("#sf_size").html(data.sf_size+" byte");
+				  			$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
+				  			percentage = Math.floor((data.sf_size/52242880)*100);
+				  			$("#sf_orgfilename_bar").css("width",percentage+"%");
 			  			 } else {
 			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
-			  				$("#sf_size").html('0 byte'); 					
+			  				$("#sf_size").html('0 '+'/ 5000000 byte'); 					
 			  			 }
 					 }
 		      });
@@ -159,10 +195,14 @@ var modalModal = (function(){
                 placement: 'top',
                 container: 'body'
         	});
-        },
+      },
+      eventMouseover : function(){
+    	  $(this).css("cursor","pointer");
+      }
       //events : [],
-      editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
+      //editable  : true
+      //droppable : true, // this allows things to be dropped onto the calendar !!!
+      /* 
       drop      : function (date, allDay) { // this function is called when something is dropped
 
         // retrieve the dropped element's stored Event Object
@@ -186,10 +226,11 @@ var modalModal = (function(){
           // if so, remove the element from the "Draggable Events" list
           $(this).remove()
         }
-      }
+      } */
     });
   	//일정 불러오기
     schedule.getSchedules();
+  	schedule.getPublic();
   	modalModal.getModal('modal-info');
   });
 
@@ -265,17 +306,10 @@ var modalModal = (function(){
                 <label>내용</label>
                 <textarea class="form-control" rows="7" placeholder="Enter ..." name="sch_content"></textarea>
                 <label>공개여부</label>
-                  <select class="form-control" name="sch_public">
-                  	<option value="0">비공개</option>
-                    <option value="7">사원</option>
-                    <option value="6">주임</option>
-                    <option value="5">대리</option>
-                    <option value="4">과장</option>
-                    <option value="3">차장</option>
-                    <option value="2">부장</option>
-                    <option value="1">사장</option>
+                  <select class="form-control" name="sch_public" id="selectPublic">
+                  	<option value="0">비공개</option>                    
                   </select>                  
-                  <label for="inputFile">첨부파일</label>
+                  <label for="inputFile">첨부파일(5MB 이하)</label>
                   <input type="file" id="inputFile" name="file1">
                                                                      
                   <br>
@@ -316,21 +350,39 @@ var modalModal = (function(){
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Info Modal</h4>
+                <h4 class="modal-title">일정 상세</h4>
               </div>
               
               <!-- 일정이름 -->
               <div class="info-box bg-blue">
-  				<span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+  				<span class="info-box-icon"><i class="fa fa-heart-o"></i></span>
   				<div class="info-box-content">
-    			  <span class="info-box-text">일정이름</span>
+    			  <span class="info-box-text">일정이름</span>    			  
     			  <span class="info-box-number" id="sch_title">XXXXX</span>
     			  <!-- The progress section is optional -->
-    			  <div class="progress">
+    			  <!-- <div class="progress">
       				<div class="progress-bar" style="width: 70%"></div>
-    			  </div>
-    			  <span class="progress-description">
+    			  </div> -->
+    			  <!-- <span class="progress-description">
       			  70% Increase in 30 Days
+    			  </span> -->
+  			    </div>
+  			  <!-- /.info-box-content -->
+			  </div>
+			  <!-- /.info-box -->
+			  
+			  <!-- 시작일 ~ 종료일 -->
+			  <div class="info-box bg-blue">
+  				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+  				<div class="info-box-content">
+    			  <span class="info-box-text">시작일과 종료일</span>
+    			  <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
+    			  <!-- The progress section is optional -->
+    			  <div class="progress">
+      				<div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
+    			  </div>
+    			  <span class="progress-description" id="sch_time">
+      			  XX%가 지난 현재 남은 시간 XX Hours
     			  </span>
   			    </div>
   			  <!-- /.info-box-content -->
@@ -350,25 +402,7 @@ var modalModal = (function(){
             	</div>
             	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
           	  </div>
-			  
-			  <!-- 시작일 ~ 종료일 -->
-			  <div class="info-box bg-blue">
-  				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
-  				<div class="info-box-content">
-    			  <span class="info-box-text">시작일과 종료일</span>
-    			  <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
-    			  <!-- The progress section is optional -->
-    			  <div class="progress">
-      				<div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
-    			  </div>
-    			  <span class="progress-description" id="sch_time">
-      			  XX%가 지난 현재 남은 시간 XX Hours
-    			  </span>
-  			    </div>
-  			  <!-- /.info-box-content -->
-			  </div>
-			  <!-- /.info-box -->
-			  			  			  
+			  						  			  			  
 			  <!-- 공개여부 -->
 			  <!-- small box -->
           	  <div class="small-box bg-blue">
@@ -391,7 +425,7 @@ var modalModal = (function(){
     			  <span class="info-box-number" id="sf_orgfilename">File Name</span>
     			  <!-- The progress section is optional -->
     			  <div class="progress">
-      				<div class="progress-bar" style="width: 70%"></div>
+      				<div class="progress-bar" style="width: 0%" id="sf_orgfilename_bar"></div>
     			  </div>
     			  <span class="progress-description" id="sf_size">
       			  xxxxxxx KB
