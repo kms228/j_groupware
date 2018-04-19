@@ -12,11 +12,24 @@ public class LoginVo {
 	private String PST_NUM;
 	private String DEPT_NUM;
 	private String TEAM_NUM;
+	private int WORKING;
 	
 	public LoginVo() {}
+	
+	
+
+	@Override
+	public String toString() {
+		return "LoginVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_ADDR="
+				+ EMP_ADDR + ", EMP_BIRTH=" + EMP_BIRTH + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE
+				+ ", EMP_GENDER=" + EMP_GENDER + ", PST_NUM=" + PST_NUM + ", DEPT_NUM=" + DEPT_NUM + ", TEAM_NUM="
+				+ TEAM_NUM + ", WORKING=" + WORKING + "]";
+	}
+
+
 
 	public LoginVo(int eMP_NUM, String eMP_NAME, String eMP_PHONE, String eMP_ADDR, String eMP_BIRTH, String eMP_EMAIL,
-			String eMP_HIREDATE, String eMP_GENDER, String pST_NUM, String dEPT_NUM, String tEAM_NUM) {
+			String eMP_HIREDATE, String eMP_GENDER, String pST_NUM, String dEPT_NUM, String tEAM_NUM, int wORKING) {
 		super();
 		EMP_NUM = eMP_NUM;
 		EMP_NAME = eMP_NAME;
@@ -29,7 +42,10 @@ public class LoginVo {
 		PST_NUM = pST_NUM;
 		DEPT_NUM = dEPT_NUM;
 		TEAM_NUM = tEAM_NUM;
+		WORKING = wORKING;
 	}
+
+
 
 	public int getEMP_NUM() {
 		return EMP_NUM;
@@ -118,5 +134,14 @@ public class LoginVo {
 	public void setTEAM_NUM(String tEAM_NUM) {
 		TEAM_NUM = tEAM_NUM;
 	}
+
+	public int getWORKING() {
+		return WORKING;
+	}
+
+	public void setWORKING(int wORKING) {
+		WORKING = wORKING;
+	}
+	
 	
 }
