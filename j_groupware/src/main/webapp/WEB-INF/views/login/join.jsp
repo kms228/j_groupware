@@ -245,12 +245,12 @@ var postcode = function(){
               </div>
              <div class="form-group">
                <label for="PHONE">PHONE</label>
-               <input type="text" class="form-control"  name="EMP_PHONE" placeholder="PHONE" required="required">
+               <input type="text" class="form-control"  name="EMP_PHONE" placeholder="PHONE"  >
             </div> 
             <div class="form-group">
                <label for="ADDR">ADDR</label>
                <div class="input-group">
-               <input type="text" class="form-control"  id="address"name="EMP_ADDR" placeholder="ADDR" required="required">
+               <input type="text" class="form-control"  id="address"name="EMP_ADDR" placeholder="ADDR" >
                <span class="input-group-btn">
                <button type="button" class="btn btn-info btn-flat" onclick="postcode()">SearchAddress</button>
                </span>
@@ -258,14 +258,17 @@ var postcode = function(){
             </div>
             <div class="form-group">
             <label>성별선택</label>
-            <select class="form-control select2 select2-hidden-accessible" style="width: 50%;"tabindex="-1" aria-hidden="true">
-            	<option>MAN</option>
-            	<option>WOMAN</option>
+            <select class="form-control select2 select2-hidden-accessible" name="EMP_GENDER" style="width: 50%;"tabindex="-1" aria-hidden="true">
+            	<option value="">선택</option>
+            	<option value="MAN">MAN</option>
+            	<option value="WOMAN" >WOMAN</option>
             </select>
             </div>
             <div>
             <button  type="submit" class="btn btn-block btn-primary" style="width: 30%;">Submit</button>
             </div>
+            
+            
             
             </form>
             

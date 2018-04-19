@@ -39,4 +39,24 @@ public class SignService {
 	public int sdocline(SdocLineVo vo) {
 		return dao.addsdocline(vo);
 	}
+	
+	public List<SdocLineVo> mysigndoc(int emp_num){
+		return dao.mysigndoc(emp_num);
+	}
+	
+	public SignNowVo getsignnow(int sdoc_num) {
+		return dao.getsigndoc(sdoc_num);
+	}
+	
+	public SignVo getnowdoc(int sdoc_num) {
+		return dao.getnowdoc(sdoc_num);
+	}
+	
+	public List<SdocLineVo> getsignline(int sdoc_num){
+		return dao.getsignline(sdoc_num);
+	}
+	
+	public SignLineListVo getempinfo(int emp_num) {
+		return dao.getempinfo(emp_num);
+	}
 }

@@ -34,17 +34,15 @@ public class SignWriteController {
 	}
 	
 	@RequestMapping("/addsign")
-	public String addsign(String ir1,int [] emp_num,String sdoc_title,HttpServletRequest req,int num) {
+	public String addsign(String ir1,int [] emp_num,String sdoc_title,HttpServletRequest req,int num,String content) {
 		System.out.println(ir1);
 		System.out.println(sdoc_title);
 		HttpSession session=req.getSession();
 		System.out.println(num);
+		System.out.println(content);
 		int num1=(Integer)session.getAttribute("emp_num");
 		System.out.println("회원번호:"+num1);
-		for(int i=0;i<emp_num.length;i++) {			
-			System.out.println(emp_num[i]);
-		}
-		SignVo signdoc=new SignVo(0, 0, sdoc_title, ir1, null, num1, num);
+		SignVo signdoc=new SignVo(0, 0, sdoc_title, content, null, num1, num);
 		int n=service.addsigndoc(signdoc);
 		for(int i=0;i<emp_num.length;i++) {
 			SdocLineVo sdocline=new SdocLineVo(0, i+1, 0, emp_num[i], 0);

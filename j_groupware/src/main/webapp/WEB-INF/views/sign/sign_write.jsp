@@ -10,7 +10,7 @@
 	<span class="fa fa-fw fa-file-text"></span> 문서종류 : ${vo.doc_name }
 </h3>
 <hr>
-<form method="post" action="<c:url value='/'/>addsign" id="write_form" enctype="text/plain">
+<form method="post" action="<c:url value='/'/>addsign" id="write_form">
 	<div>
 		<table class="table table-bordered" id="signlinetable">
 			<tr>

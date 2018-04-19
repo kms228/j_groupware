@@ -42,4 +42,24 @@ public class SignDao {
 	public int addsdocline(SdocLineVo vo) {
 		return sqlSession.insert(NAMESPACE+".addsignline",vo);
 	}
+	//내가 결재할 문서번호 얻어오기
+	public List<SdocLineVo> mysigndoc(int emp_num){
+		return sqlSession.selectList(NAMESPACE+".mysigndoc",emp_num);
+	}
+	//내가 결재할 문서정보 얻어오기
+	public SignNowVo getsigndoc(int sdoc_num) {
+		return sqlSession.selectOne(NAMESPACE+".getsigndoc",sdoc_num);
+	}
+	//현재 진행문서 상세보기
+	public SignVo getnowdoc(int sdoc_num) {
+		return sqlSession.selectOne(NAMESPACE+".getnowdoc",sdoc_num);
+	}
+	//진행문서 상세보기의 결재라인 얻어오기
+	public List<SdocLineVo> getsignline(int sdoc_num){
+		return sqlSession.selectList(NAMESPACE+".getsignline",sdoc_num);
+	}
+	//진행문서 상세보기의 결재라인에 대한 각각의 사원정보 추가로 얻어오기
+	public SignLineListVo getempinfo(int emp_num) {
+		return sqlSession.selectOne(NAMESPACE+".getempinfo",emp_num);
+	}
 }

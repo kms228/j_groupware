@@ -20,6 +20,7 @@
 					</c:when>					
 					<c:when test="${ACNT_ID!=null}">
 					<li class="dropdown logout-menu"><a href="<c:url value='/logout'/>">${ACNT_ID }님 로그아웃</a>
+					<li class="dropdown logout-menu"><a href="<c:url value='/memInfo'/>">개인정보</a>
 					</c:when>
 					</c:choose>
 					
@@ -199,46 +200,7 @@
 							<li class="footer"><a href="#">View all tasks</a></li>
 						</ul></li>
 					<!-- User Account: style can be found in dropdown.less -->
-					<li class="dropdown user user-menu"><a href="#"
-						class="dropdown-toggle" data-toggle="dropdown"> <img
-							src="<c:url value='/'/>resources/dist/img/user2-160x160.jpg" class="user-image"
-							alt="User Image"> <span class="hidden-xs">Alexander
-								Pierce</span>
-					</a>
-						<ul class="dropdown-menu">
-							<!-- User image -->
-							<li class="user-header"><img
-								src="<c:url value='/'/>resources/dist/img/user2-160x160.jpg" class="img-circle"
-								alt="User Image">
-
-								<p>
-									Alexander Pierce - Web Developer <small>Member since
-										Nov. 2012</small>
-								</p></li>
-							<!-- Menu Body -->
-							<li class="user-body">
-								<div class="row">
-									<div class="col-xs-4 text-center">
-										<a href="#">Followers</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Sales</a>
-									</div>
-									<div class="col-xs-4 text-center">
-										<a href="#">Friends</a>
-									</div>
-								</div> <!-- /.row -->
-							</li>
-							<!-- Menu Footer-->
-							<li class="user-footer">
-								<div class="pull-left">
-									<a href="#" class="btn btn-default btn-flat">Profile</a>
-								</div>
-								<div class="pull-right">
-									<a href="#" class="btn btn-default btn-flat">Sign out</a>
-								</div>
-							</li>
-						</ul></li>
+					
 					<!-- Control Sidebar Toggle Button -->
 					<li><a href="#" data-toggle="control-sidebar"><i
 							class="fa fa-gears"></i></a></li>

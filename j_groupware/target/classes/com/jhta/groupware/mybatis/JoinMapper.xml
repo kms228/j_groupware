@@ -7,7 +7,7 @@
 	<insert id="insert" parameterType="hashmap">
 		INSERT ALL
 		INTO EMPLOYEE
-		VALUES(SEQ_EMPLOYEE.NEXTVAL,#{EMP_NAME},#{EMP_PHONE},#{EMP_ADDR},#{EMP_BIRTH},#{EMP_EMAIL},SYSDATE,#{EMP_GENDER},7,0,1)
+		VALUES(SEQ_EMPLOYEE.NEXTVAL,#{EMP_NAME},#{EMP_PHONE},#{EMP_ADDR},#{EMP_BIRTH},#{EMP_EMAIL},SYSDATE,#{EMP_GENDER},7,0,1,1)
 		INTO ACCOUNT
 		VALUES(SEQ_ACCOUNT.NEXTVAL,#{ACNT_ID},#{ACNT_PWD},1,SEQ_EMPLOYEE.CURRVAL)
 		SELECT *
@@ -21,4 +21,26 @@
 	<select id="searchemail" parameterType="String" resultType="LoginVo">
 		select * from employee where EMP_EMAIL=#{EMP_EMAIL}
 	</select>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
