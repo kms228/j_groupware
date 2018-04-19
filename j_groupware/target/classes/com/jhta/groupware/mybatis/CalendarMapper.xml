@@ -26,4 +26,7 @@
 	<select id="getSchedule" parameterType="int" resultType="scfileVo">
 		SELECT * FROM SCHEDULE S, SC_FILE F WHERE S.SCH_NUM = F.SCH_NUM(+) AND S.SCH_NUM=#{value}
 	</select>
+	<select id="getPosition" resultType="positionVo">
+		SELECT * FROM POSITION
+	</select>
 </mapper>

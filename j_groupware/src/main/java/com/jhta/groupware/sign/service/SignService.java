@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.sign.dao.SignDao;
 import com.jhta.groupware.sign.vo.DocTypeVo;
+import com.jhta.groupware.sign.vo.SdocLineVo;
 import com.jhta.groupware.sign.vo.SignLineListVo;
+import com.jhta.groupware.sign.vo.SignNowVo;
 import com.jhta.groupware.sign.vo.SignVo;
 
 @Service
@@ -18,8 +20,8 @@ public class SignService {
 		return dao.getdoc(num);
 	}
 	
-	public List<SignVo> nowlist(){
-		return dao.nowlist();
+	public List<SignNowVo> nowlist(int emp_num){
+		return dao.nowlist(emp_num);
 	}
 	
 	public List<SignLineListVo> signlinelist(){
@@ -28,5 +30,13 @@ public class SignService {
 	
 	public List<SignLineListVo> deptlist(){
 		return dao.deptlist();
+	}
+	
+	public int addsigndoc(SignVo vo) {
+		return dao.addsigndoc(vo);
+	}
+	
+	public int sdocline(SdocLineVo vo) {
+		return dao.addsdocline(vo);
 	}
 }

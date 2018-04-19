@@ -74,11 +74,7 @@ public static String gettime(int mountdate){
             </div>
          </div>
          </div>
-         
-	
-	<div class="box">
-              <h3 class="box-title"><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>
-             
+              <h3><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>
               <!-- 아코디언 -->
               <div class="col-md-12">
           <div class="box box-solid">
@@ -104,14 +100,15 @@ public static String gettime(int mountdate){
 								 가용일 : <label style="color:red;">27.5 </label>
 							</div>
 		                </div>
-                     	<label>일자/시간</label>
+                     	<label for="reservation">일자/시간</label>
                			<!-- 연차-->
                			<div class="form-group">
 			                <div class="input-group">
 			                  <div class="input-group-addon">
-			                    <i class="fa fa-calendar"></i>
+			                  <label for="reservation">
+			                    <i class="fa fa-calendar"></i></label>
 			                  </div>
-			                  <input type="text" class="form-control pull-right" id="reservation">
+			                  <input type="text" class="form-control pull-left" id="reservation">
 			                </div>
 			                <!-- /.input group -->
 			              </div>
@@ -155,11 +152,13 @@ public static String gettime(int mountdate){
 								 가용일 : <label style="color:red;">27.5 </label>
 							</div>
 		                </div>
-                     <label>일자/시간</label>
+                     <label for="datepicker">일자/시간</label>
                      <div class="form-group">
 			                <div class="input-group date">
 			                  <div class="input-group-addon">
+			                  <label for="datepicker">
 			                    <i class="fa fa-calendar"></i>
+			                    </label>
 			                  </div>
 			                  <input type="text" class="form-control pull-right" id="datepicker">
 			                </div>
@@ -209,12 +208,12 @@ public static String gettime(int mountdate){
                   <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body">
                       <!-- 지각신청 폼 -->
-                      <label>일자/시간</label>
+                      <label for="timepickerMS1" >일자/시간</label>
                         <!-- time Picker -->
 			              <div class="bootstrap-timepicker">
 			                <div class="form-group">
 			                  <div class="input-group">
-			                    <input type="text" class="form-control timepicker">
+			                    <input type="text" class="form-control timepicker" id="timepickerMS1">
 			
 			                    <div class="input-group-addon">
 			                      <i class="fa fa-clock-o"></i>
@@ -257,7 +256,6 @@ public static String gettime(int mountdate){
                   <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body">
                       <!-- 야근신청 폼 -->
-                      
                       <label>일자/시간</label>
                       <div class="col-md-12">
                       	<div class="col-md-5">
@@ -320,20 +318,22 @@ public static String gettime(int mountdate){
                   <div class="box-header with-border">
                     <h4 class="box-title">
                       <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="collapsed" aria-expanded="false">
-                       		외근(출장)
+                       		외근/출장/교육
                       </a>
                     </h4>
                   </div>
                   <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                     <div class="box-body">
                       <!-- 외근(출장)신청 폼 -->
-                      <label>일자/시간</label>
+                      <label for="reservation2">일자/시간</label>
                       <div class="form-group">
 			                <div class="input-group">
 			                  <div class="input-group-addon">
+			                  <label for="reservation2">
 			                    <i class="fa fa-calendar"></i>
+			                    </label>
 			                  </div>
-			                  <input type="text" class="form-control pull-right" id="reservation2">
+			                  <input type="text" class="form-control pull-left" id="reservation2">
 			                </div>
 			                <!-- /.input group -->
 			              </div>
@@ -352,12 +352,58 @@ public static String gettime(int mountdate){
 		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line5" readonly="readonly">
 		                </div>
 		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">외근(출장) 신청</button>
+		                <button type="submit" class="btn btn-block btn-primary">외근/출장/교육 신청</button>
 		              </div>
                       <!-- /외근(출장)신청 폼 -->
                     </div>
                   </div>
                 </div>
+                <!-- 경조사/기타 -->
+                <div class="panel box box-default">
+                  <div class="box-header with-border">
+                    <h4 class="box-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="collapsed" aria-expanded="false">
+                       		경조사/기타
+                      </a>
+                    </h4>
+                  </div>
+                  <div id="collapseSix" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="box-body">
+                      <!-- 외근(출장)신청 폼 -->
+                      <label for="reservation3">일자/시간</label>
+                      <div class="form-group">
+			                <div class="input-group">
+			                  <div class="input-group-addon">
+			                  <label for="reservation3">
+			                    <i class="fa fa-calendar"></i>
+			                    </label>
+			                  </div>
+			                  <input type="text" class="form-control pull-left" id="reservation3">
+			                </div>
+			                <!-- /.input group -->
+			              </div>
+                      <div class="form-group">
+		                <div>
+		                  <label for="reason5">사유</label>
+		                  </div>
+		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason5"></textarea>
+		                </div>
+		                <div class="form-group">
+		                  <label for="exampleInputFile6">첨부</label>
+		                  <input type="file" id="exampleInputFile6">
+		                </div>
+		                <div class="form-group">
+		                  <label for="line6">결재선 선택</label>
+		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line6" readonly="readonly">
+		                </div>
+		                <div class="box-footer">
+		                <button type="submit" class="btn btn-block btn-primary">경조사/기타 신청</button>
+		              </div>
+                      <!-- /외근(출장)신청 폼 -->
+                    </div>
+                  </div>
+                </div>
+                <!--  -->
               </div>
             </div>
           <!-- /.box-body -->
@@ -365,6 +411,50 @@ public static String gettime(int mountdate){
         <!-- /.box -->
         </div>
        <!-- 아코디언 -->
-       </div>
+       
+      <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> 나의 신청 현황</h3>
+          <div class="box">
+            <div class="box-body">
+              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+             <div class="row"><div class="col-sm-12"><table id="table3" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
+                <thead>
+                <tr role="row">
+                	<th>선택</th>
+                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">구분</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">날짜</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">시간</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">설명</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">첨부</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">신청일</th>
+                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">상태</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                <tr role="row" class="odd">
+                <td></td>
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.0</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.7</td>
+                  <td>A</td><td></td><td></td><td></td><td></td>
+                </tr><tr role="row" class="even">
+                <td></td>
+                  <td class="sorting_1">Gecko</td>
+                  <td>Firefox 1.5</td>
+                  <td>Win 98+ / OSX.2+</td>
+                  <td>1.8</td>
+                  <td>A</td><td></td><td></td><td></td><td>값을 채워넣자</td>
+                </tr></tbody>
+                <tfoot>
+                <tr><th>선택</th><th rowspan="1" colspan="1">번호</th><th rowspan="1" colspan="1">사원 이름</th><th rowspan="1" colspan="1">사원 아이디</th><th rowspan="1" colspan="1">사용일</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th></tr>
+                </tfoot>
+              </table></div></div></div>
+            </div>
+            <!-- /.box-body -->
+          </div>
+       
       </div>
       <!-- /.box-body -->

@@ -1,28 +1,22 @@
 package com.jhta.groupware.sign.vo;
 
-import java.sql.Date;
-
-public class SignVo {
+public class SignDocVo {
 	private int sdoc_num;
 	private int sdoc_state;
 	private String sdoc_title;
 	private String sdoc_content;
-	private Date sdoc_date;
 	private int emp_num;
 	private int doc_num;
-	
-	public SignVo(int sdoc_num, int sdoc_state, String sdoc_title, String sdoc_content, Date sdoc_date, int emp_num,
-			int doc_num) {
+	public SignDocVo(int sdoc_num, int sdoc_state, String sdoc_title, String sdoc_content, int emp_num, int doc_num) {
 		super();
 		this.sdoc_num = sdoc_num;
 		this.sdoc_state = sdoc_state;
 		this.sdoc_title = sdoc_title;
 		this.sdoc_content = sdoc_content;
-		this.sdoc_date = sdoc_date;
 		this.emp_num = emp_num;
 		this.doc_num = doc_num;
 	}
-	public SignVo() {
+	public SignDocVo() {
 		super();
 	}
 	public int getSdoc_num() {
@@ -49,12 +43,6 @@ public class SignVo {
 	public void setSdoc_content(String sdoc_content) {
 		this.sdoc_content = sdoc_content;
 	}
-	public Date getSdoc_date() {
-		return sdoc_date;
-	}
-	public void setSdoc_date(Date sdoc_date) {
-		this.sdoc_date = sdoc_date;
-	}
 	public int getEmp_num() {
 		return emp_num;
 	}
@@ -67,11 +55,6 @@ public class SignVo {
 	public void setDoc_num(int doc_num) {
 		this.doc_num = doc_num;
 	}
-	@Override
-	public String toString() {
-		return "SignVo [sdoc_num=" + sdoc_num + ", sdoc_state=" + sdoc_state + ", sdoc_title=" + sdoc_title
-				+ ", sdoc_content=" + sdoc_content + ", sdoc_date=" + sdoc_date + ", emp_num=" + emp_num + ", doc_num="
-				+ doc_num + "]";
-	}
+	
 	
 }

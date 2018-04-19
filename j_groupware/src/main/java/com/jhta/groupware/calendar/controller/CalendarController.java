@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.groupware.calendar.service.CalendarService;
+import com.jhta.groupware.calendar.vo.PositionVo;
 import com.jhta.groupware.calendar.vo.Sc_FileVo;
 import com.jhta.groupware.calendar.vo.ScheduleVo;
 
@@ -39,9 +40,14 @@ public class CalendarController {
 	}
 	@RequestMapping("/getSchedule")
 	public @ResponseBody Sc_FileVo getScheduleByJson(int sch_num) {
-		
+		System.out.println("sch_num:"+sch_num);
 		Sc_FileVo vo = service.getSchedule(sch_num);
 		System.out.println(vo.getSch_title());
 		return vo;
+	}
+	@RequestMapping("/getPosition")
+	public @ResponseBody List<PositionVo> getPositionByJson() {
+		List<PositionVo> list = service.getPosition();		
+		return list;
 	}
 }

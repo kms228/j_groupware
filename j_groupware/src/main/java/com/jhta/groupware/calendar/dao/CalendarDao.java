@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.groupware.calendar.vo.PositionVo;
 import com.jhta.groupware.calendar.vo.Sc_FileVo;
 import com.jhta.groupware.calendar.vo.ScheduleVo;
 
@@ -28,6 +29,9 @@ public class CalendarDao {
 	}
 	public Sc_FileVo getSchedule(int sch_num) {
 		return session.selectOne(NAMESPACE+".getSchedule",sch_num);
+	}
+	public List<PositionVo> getPosition() {
+		return session.selectList(NAMESPACE+".getPosition");
 	}
 	
 }
