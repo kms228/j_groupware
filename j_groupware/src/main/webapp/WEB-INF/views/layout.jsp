@@ -34,6 +34,7 @@
 <script src="<c:url value='/'/>resources/plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/ko.js"></script>
 <script src="<c:url value='/'/>resources/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="<c:url value='/'/>resources/plugins/datepicker/bootstrap-datepicker.js"></script>
