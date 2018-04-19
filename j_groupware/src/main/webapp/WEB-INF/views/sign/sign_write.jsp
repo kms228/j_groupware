@@ -10,7 +10,7 @@
 	<span class="fa fa-fw fa-file-text"></span> 문서종류 : ${vo.doc_name }
 </h3>
 <hr>
-<form method="post" action="<c:url value='/'/>addsign" id="write_form">
+<form method="post" action="<c:url value='/'/>addsign" id="write_form" enctype="text/plain">
 	<div>
 		<table class="table table-bordered" id="signlinetable">
 			<tr>
@@ -90,6 +90,7 @@
 		$("#submit_btn").click(function() {
 			// 에디터의 내용이 textarea에 적용된다.
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			alert(document.getElementById("ir1").value);
 			$("#write_form").submit();
 		});
 		$("#line_btn").click(function() {

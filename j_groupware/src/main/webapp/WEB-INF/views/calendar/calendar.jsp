@@ -3,11 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <script>
-$(function () {	  
+$(function () {
 //일정 읽기, 전체일정 불러오기
   var schedule = (function(){
+	  var position = {'0':'비공개'};
 	  return {
-		  getSchedules : function(){
+		  initSchedules : function(){
 			  $.ajax({
 				method: "POST",
 				url : "<c:url value='/getSchedules'/>",
@@ -27,6 +28,25 @@ $(function () {
 				}
 			  });  
 		  },
+		  initPublic : function(){
+			  var selectPublic = document.getElementById("selectPublic");
+			  var option;
+			  $.ajax({
+					 method: "get",
+					 url : "<c:url value='/getPosition'/>",
+					 dataType : "json",
+					 success : function(data){						 
+						 for(i in data){				 						 
+							 position[String(data[i].pst_num)]= data[i].pst_name;
+							 option = document.createElement("option");
+							 option.text = data[i].pst_name;
+							 option.value = data[i].pst_num;
+							 selectPublic.add(option);							 	 
+						 }
+					 }
+		      });
+		  },
+		  /* 
 		  getSchedule : function(sch_num){
 			  console.log(sch_num);
 			  $.ajax({
@@ -38,62 +58,57 @@ $(function () {
 						 console.log(data.sch_title+':'+data.sch_sdate);
 					 }
 		      });
-		  },		 
-		  getPublic : function(){
-			  var selectPublic = document.getElementById("selectPublic");
-			  var option;
-			  $.ajax({
-					 method: "get",
-					 url : "<c:url value='/getPosition'/>",
-					 dataType : "json",
-					 success : function(data){
-						 for(i in data){
-							 option = document.createElement("option");
-							 option.text = data[i].pst_name;
-							 option.value = data[i].pst_num;
-							 selectPublic.add(option);							 	 
-						 }						 						 						 						 
-					 }
-		      });
-		  }
+		  },
+		   */
+		  getPosition : function(pst_num){
+			  var string_pst_num = String(pst_num);
+			  return position[string_pst_num];
+		  },
+		  		  
 	  };
   })();	  	  
 var modalModal = (function(){
-	var myModal;
+	var myModal,now,sdate,edate;
+	//시간계산 후 모달에 넣기
+	var setValueForTime = function(sdate,now,edate){
+		if(now<sdate){
+  			$("#sch_time").html('일정 시작전');
+  			$("#sch_time_bar").css("width","0%");
+  		 } else if(now>edate){
+  			$("#sch_time").html('일정 끝');
+  			$("#sch_time_bar").css("width","100%");
+  		 } else {
+  			var allMinutes = moment.duration(edate.diff(sdate)).as('minutes');
+  			var pastMinutes = moment.duration(moment().diff(sdate)).as('minutes');
+  			var remainHours = Math.round(moment.duration(edate.diff(now)).as('hours'));
+  			//console.log('남은시간 :'+remainHours);
+  			//console.log('지난시간(분): '+pastMinutes+'전체시간(분):'+allMinutes);
+  			var percentage = Math.ceil((pastMinutes/allMinutes)*100);
+
+  			$("#sch_time_bar").css("width", percentage+"%");
+	  		$("#sch_time").html(remainHours + ' 시간이 남았습니다.');					  		
+  		 }
+	};
 	return {			  
-		getModal : function(modalId){
+		initModal : function(modalId){
 			myModal = document.getElementById(modalId);
 		},
-		setValue : function(sch_num){
+		setValue : function(sch_num){			
 			  $.ajax({
 					 method: "get",
 					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
 					 dataType : "json",
 					 success : function(data){
+						 sdate = moment(data.sch_sdate);
+						 edate = moment(data.sch_edate);
+						 now = moment();
+						 
 						 $("#sch_title").html(data.sch_title);
-						var sdate = moment(data.sch_sdate);
-						var edate = moment(data.sch_edate);
-						var now = moment();
-																		
-				  		 $("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));
-				  		 if(now<sdate){
-				  			$("#sch_time").html('일정 시작전');
-				  			$("#sch_time_bar").css("width","0%");
-				  		 } else if(now>edate){
-				  			$("#sch_time").html('일정 끝');
-				  			$("#sch_time_bar").css("width","100%");
-				  		 } else {
-				  			var fullTime = moment.duration(edate.diff(sdate));
-				  			var pastTime = moment.duration(moment().diff(sdate));
-				  			var remainTime = moment.duration(edate.diff(moment()));
-				  			var percentage = (Math.ceil(pastTime.as('minutes'))/fullTime.as('minutes'))*100;
-
-				  			$("#sch_time_bar").css("width", percentage+"%");
-					  		$("#sch_time").html(Math.round(remainTime.as('hours')) + ' 시간이 남았습니다.');					  		
-				  		 }
+						 setValueForTime(sdate,now,edate);																								
+						 $("#sch_public").html(schedule.getPosition(String(data.sch_public)));
+				  		 $("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
 				  		 $("#sch_place").html(data.sch_place);
-				  		$("#sch_content").html(data.sch_content);						
-						 console.log(data);						 							 						 
+				  		 $("#sch_content").html(data.sch_content);												 						 							 						
 						 if(data.sf_orgfilename){
 				  			$("#sf_orgfilename").html(data.sf_orgfilename);							 
 				  			$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
@@ -108,8 +123,8 @@ var modalModal = (function(){
 		},
 		viewModal : function(){
 			return $(myModal).modal();
-		}
-	};
+		},		
+	};		
 })();	  	  	  	
 	  
 	//Daterangepicker
@@ -229,14 +244,13 @@ var modalModal = (function(){
       } */
     });
   	//일정 불러오기
-    schedule.getSchedules();
-  	schedule.getPublic();
-  	modalModal.getModal('modal-info');
+    schedule.initSchedules();
+  	schedule.initPublic();
+  	modalModal.initModal('modal-default');
   });
-
 </script>
 
-<!-- Content Wrapper. Contains page content -->
+<!-- Content Wrapper. Contains page content -->  
   <div>
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -339,86 +353,84 @@ var modalModal = (function(){
     </section>
     <!-- /.content -->
   </div>
-  
-  <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-info">
-	Launch Info Modal
-  </button>
-  
-  <div class="modal modal-info fade" id="modal-info">
+
+  <div class="modal fade" id="modal-default">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">일정 상세</h4>
+                <h4 class="modal-title">상세내용</h4>
               </div>
               
-              <!-- 일정이름 -->
-              <div class="info-box bg-blue">
-  				<span class="info-box-icon"><i class="fa fa-heart-o"></i></span>
-  				<div class="info-box-content">
-    			  <span class="info-box-text">일정이름</span>    			  
-    			  <span class="info-box-number" id="sch_title">XXXXX</span>
-    			  <!-- The progress section is optional -->
-    			  <!-- <div class="progress">
-      				<div class="progress-bar" style="width: 70%"></div>
-    			  </div> -->
-    			  <!-- <span class="progress-description">
-      			  70% Increase in 30 Days
-    			  </span> -->
-  			    </div>
-  			  <!-- /.info-box-content -->
-			  </div>
-			  <!-- /.info-box -->
-			  
-			  <!-- 시작일 ~ 종료일 -->
-			  <div class="info-box bg-blue">
-  				<span class="info-box-icon"><i class="fa fa-calendar"></i></span>
-  				<div class="info-box-content">
-    			  <span class="info-box-text">시작일과 종료일</span>
-    			  <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
-    			  <!-- The progress section is optional -->
-    			  <div class="progress">
-      				<div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
-    			  </div>
-    			  <span class="progress-description" id="sch_time">
-      			  XX%가 지난 현재 남은 시간 XX Hours
-    			  </span>
-  			    </div>
-  			  <!-- /.info-box-content -->
-			  </div>
-			  <!-- /.info-box -->
-			  
-			  <!-- 장소 -->
-			  <!-- small box -->
-          	  <div class="small-box bg-blue">
-            	<div class="inner">
-                  <h3>장소<!-- <sup style="font-size: 20px">%</sup> --></h3>
+              <!-- Custom Tabs -->
+          <div class="nav-tabs-custom">
+            <ul class="nav nav-tabs">
+              <li class="active"><a href="#tab_1" data-toggle="tab">작성자</a></li>
+              <li><a href="#tab_2" data-toggle="tab">일정이름</a></li>
+              <li><a href="#tab_3" data-toggle="tab">공개여부</a></li>                            
+              <li><a href="#tab_4" data-toggle="tab">장소</a></li>
+              <li><a href="#tab_5" data-toggle="tab">파일</a></li>
+              <li><a href="#tab_6" data-toggle="tab">시작일과 종료일</a></li>
+            </ul>
+            <div class="tab-content">
+              <div class="tab-pane active" id="tab_1">
+			    <!-- 작성자 -->
+                <div class="info-box bg-aqua">
+  				  <span class="info-box-icon"><i class="glyphicon glyphicon-user"></i></span>
+  				  <div class="info-box-content">
+    			    <span class="info-box-text">작성자</span>    			  
+    			    <span class="info-box-number" id="">XXXXX</span>    			  
+  			      </div>
+  			    <!-- /.info-box-content -->
+			    </div>
+			    <!-- /.info-box -->
 
-              	  <p id="sch_place">XXXXXXXX</p>
-            	</div>
-                <div class="icon">
-                <i class="fa fa-globe"></i>
-            	</div>
-            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
-          	  </div>
-			  						  			  			  
-			  <!-- 공개여부 -->
-			  <!-- small box -->
-          	  <div class="small-box bg-blue">
-            	<div class="inner">
-                  <h3>공개제한<!-- <sup style="font-size: 20px">%</sup> --></h3>
-
-              	  <p id=sch_public>사원</p>
-            	</div>
-                <div class="icon">
-                <i class="fa fa-lock"></i>
-            	</div>
-            	<!-- <a href="#" class="small-box-footer">0 <i class="fa fa-arrow-circle-right"></i></a> -->
-          	  </div>
-          	  
-          	  <!-- 첨부파일 -->
-			  <div class="info-box bg-blue">
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_2">                
+                <!-- 일정이름 -->
+                <div class="info-box bg-aqua">
+  				  <span class="info-box-icon"><i class="fa fa-heart-o"></i></span>
+  				  <div class="info-box-content">
+    			    <span class="info-box-text">일정이름</span>    			  
+    			    <span class="info-box-number" id="sch_title">XXXXX</span>    			  
+  			      </div>
+  			      <!-- /.info-box-content -->
+			    </div>
+			    <!-- /.info-box -->                  
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_3">              
+                <!-- 공개여부 -->
+                <div class="info-box bg-aqua">
+  				  <span class="info-box-icon"><i class="fa fa-lock"></i></span>
+  				  <div class="info-box-content">
+    			    <span class="info-box-text">공개여부</span>    			  
+    			    <span class="info-box-number" id="sch_public">XXX</span>    			  
+  			      </div>
+  			      <!-- /.info-box-content -->
+			    </div>
+			    <!-- /.info-box -->                                                                 
+              </div>
+              <!-- /.tab-pane -->
+              
+              <div class="tab-pane" id="tab_4">              
+                <!-- 장소 -->
+                <div class="info-box bg-aqua">
+  				  <span class="info-box-icon"><i class="fa fa-globe"></i></span>
+  				  <div class="info-box-content">
+    			    <span class="info-box-text">장소</span>    			  
+    			    <span class="info-box-number" id="sch_place">XXXXX</span>    			  
+  			      </div>
+  			    <!-- /.info-box-content -->
+			    </div>
+			    <!-- /.info-box -->              
+              </div>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_5">
+              <!-- 첨부파일 -->
+			  <div class="info-box bg-aqua">
   				<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
   				<div class="info-box-content">
     			  <span class="info-box-text">파일</span>
@@ -434,66 +446,44 @@ var modalModal = (function(){
   			  <!-- /.info-box-content -->
 			  </div>
 			  <!-- /.info-box -->
-          	  
-          	  <!-- 내용 -->
-          	  <div class="box box-primary collapsed-box">
-                <div class="box-header with-border">
-                  <h3 class="box-title">내용</h3>
-
-                  <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                    </button>
-                  </div>
-              	  <!-- /.box-tools -->
-            	</div>
-            	<!-- /.box-header -->
-                <div class="box-body">
-                  <p class="text-muted" id="sch_content">
-                	불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라
-					불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라불라					
-				  </p>
-                </div>
-              <!-- /.box-body -->
               </div>
-              <!-- /.box -->          	  			 
-          	  
-			  <!-- 
-			  <div class="info-box">
-  			  Apply any bg-* class to to the icon to color it
-  				<span class="info-box-icon bg-red"><i class="fa fa-lock"></i></span>
-  				<div class="info-box-content">  				
-    			  <span class="info-box-text">공개여부</span>
-    			  <span class="info-box-number">5</span>
-  				</div>  				
-			  </div> -->
-			  <!-- /.info-box -->			  			  			  			  
-              
-              <!-- <div class="modal-body">
-                <p>One fine body&hellip;</p>
-              </div> -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-outline">수정</button>
-                <button type="button" class="btn btn-outline">삭제</button>
+              <!-- /.tab-pane -->
+              <div class="tab-pane" id="tab_6">
+                <!-- 시작일 ~ 종료일 -->
+			    <div class="info-box bg-aqua">
+  				  <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
+  				  <div class="info-box-content">
+    			    <span class="info-box-text">시작일과 종료일</span>
+    			    <span class="info-box-number" id="sch_date">20XX/X월/X일 ~ 20XX/X월/X일</span>
+    			    <!-- The progress section is optional -->
+    			    <div class="progress">
+      				  <div class="progress-bar" style="width: 70%" id="sch_time_bar"></div>
+    			    </div>
+    			    <span class="progress-description" id="sch_time">
+      			    XX%가 지난 현재 남은 시간 XX Hours
+    			    </span>    			      			     			  
+  			      </div>
+  			    <!-- /.info-box-content -->
+			    </div>
+			    <!-- /.info-box -->
               </div>
             </div>
-            <!-- /.modal-content -->
+            <!-- /.tab-content -->
+          </div>
+          <!-- nav-tabs-custom -->  
+                                     			   			  			  			  						  			  			  			            	            	            	  
+          	  <!-- 내용 -->          	           	  			           	  			  
+              <div class="modal-body">
+                <p class="lead" id="sch_content">XXXX</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary">수정</button>                                                                         
+                <button type="button" class="btn btn-primary">삭제</button>
+              </div>                                          
+            </div>
+            <!-- /.modal-content -->            
           </div>
           <!-- /.modal-dialog -->
         </div>
         <!-- /.modal -->
-        
-        
