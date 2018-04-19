@@ -35,6 +35,7 @@ public class LoginController {
 			System.out.println("된다!!!");
 			session.setAttribute("ACNT_ID", ACNT_ID);
 			session.setAttribute("emp_num", vo.getEMP_NUM() );
+			System.out.println(vo.getEMP_NUM());
 			return "redirect:/";
 		} else {
 			System.out.println("안되!!!");
