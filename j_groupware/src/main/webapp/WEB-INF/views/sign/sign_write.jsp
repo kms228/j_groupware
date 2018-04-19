@@ -70,6 +70,7 @@
 		</div>
 		<input type="button" class="btn btn-primary" value="등록"
 			id="submit_btn"> <input type="hidden" value="${param.num }" name="num">
+			<input type="hidden" name="content" id="content">
 	</div>
 </form>
 <script type="text/javascript">
@@ -89,7 +90,10 @@
 		//‘저장’ 버튼을 누르는 등 저장을 위한 액션을 했을 때 submitContents가 호출된다고 가정한다.
 		$("#submit_btn").click(function() {
 			// 에디터의 내용이 textarea에 적용된다.
+			var content=oEditors.getById["ir1"].getIR();
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			$('#content').val(content);
+			alert(content);
 			$("#write_form").submit();
 		});
 		$("#line_btn").click(function() {

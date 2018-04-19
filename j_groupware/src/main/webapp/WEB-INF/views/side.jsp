@@ -17,7 +17,8 @@
           <ul class="treeview-menu">
             <li class="active"><a href="<c:url value='/'/>signnew"><i class="fa fa-circle-o"></i>새문서작성</a></li>
             <li><a href="<c:url value='/nowlist'/>"><i class="fa fa-circle-o"></i>진행결재문서</a></li>
-             <li><a href="index2.html"><i class="fa fa-circle-o"></i>완료결재문서</a></li>
+             <li><a href="<c:url value='/signlist'/>"><i class="fa fa-circle-o"></i>결재문서함</a></li>
+             <li><a href="<c:url value='/oklist'/>"><i class="fa fa-circle-o"></i>완료문서함</a></li>
           </ul>
         </li>
         <li>
