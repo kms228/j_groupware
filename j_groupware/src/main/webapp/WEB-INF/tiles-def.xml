@@ -25,6 +25,6 @@
 		<put-attribute name="main" value="/WEB-INF/views/{1}/{2}.jsp"/>
 	</definition>
 	<definition name=".*" extends=".main">
-		<put-attribute name="main" value="/WEB-INF/views/{1}/{1}.jsp"/>
+		<put-attribute name="main" value="/WEB-INF/views/{1}.jsp"/>
 	</definition>
 </tiles-definitions>

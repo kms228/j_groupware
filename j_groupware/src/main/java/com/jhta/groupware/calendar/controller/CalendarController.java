@@ -31,7 +31,7 @@ public class CalendarController {
 	}
 	@RequestMapping("/calendar")
 	public String calendar() {			
-		return ".calendar";
+		return ".calendar.calendar";
 	}
 	@RequestMapping("/getSchedules")
 	public @ResponseBody List<Sc_FileVo> getSchedulesByJson() {
