@@ -32,11 +32,11 @@
 		<!-- 혁수 -->
 		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
 		<!-- 민수 -->
-		<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>		
-		<mapper resource="com/jhta/groupware/mybatis/SetWorkMapper.xml"/>
-		<mapper resource="com/jhta/groupware/mybatis/RequestWorkMapper.xml"/>
-		<mapper resource="com/jhta/groupware/mybatis/RequestWorkListMapper.xml"/>
-		<mapper resource="com/jhta/groupware/mybatis/ResponseWorkListMapper.xml"/>
-		<mapper resource="com/jhta/groupware/mybatis/WorkListMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/WorkMapper.xml"/>		
+		<mapper resource="com/jhta/groupware/mybatis/work/SetWorkMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/RequestWorkMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/RequestWorkListMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/ResponseWorkListMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/WorkListMapper.xml"/>
 	</mappers>	
 </configuration>
