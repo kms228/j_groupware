@@ -159,7 +159,7 @@
 		              <input type="submit" value="저장" class="btn btn-block btn-primary" >
 		              <input type="button" value="확인" class="btn btn-block btn-primary" id="btn1">
 		              </div>
-		             
+		               
 		              </form>
 		            </div>
 		            <!-- /.box-body -->
