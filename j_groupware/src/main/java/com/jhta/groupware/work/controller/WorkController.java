@@ -5,10 +5,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class WorkController {
 
-	@RequestMapping("/requestWork")
-	public String work_request() {
-		return ".work.work_request";
-	}
 	@RequestMapping("/requestWorkList")
 	public String work_requestList() {
 		return ".work.work_requestList";
