@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.SetWorkMapper">
+	<update id="updateWorkTime" parameterType="map">
+		update worktime set wtime_start=to_date(#{wtime_start},'hh24:mi'),wtime_end=to_date(#{wtime_end},'hh24:mi') where wtime_num=1
+	</update>
+	<update id="updateHalfTime" parameterType="map">
+		update halftime 
+		set 
+		htime_start=to_date(#{htime_start},'hh24:mi'),htime_end=to_date(#{htime_end},'hh24:mi'),
+		htime_start2=to_date(#{htime_start2},'hh24:mi'),htime_end2=to_date(#{htime_end2},'hh24:mi')
+		where htime_num=1
+	</update>
+	
+	<select id="selectWorkTime" resultType="worktime">
+		select *
+		<!--
+		to_char(wtime_start,'hh24:mi'),to_char(wtime_end,'hh24:mi') 
+		  -->
+ 		from worktime where wtime_num=1
+	</select>
+	<select id="selectHalfTime" resultType="halftime">
+		select *
+		<!--
+		to_char(htime_start,'hh24:mi'),to_char(htime_end,'hh24:mi'),
+		to_char(htime_start2,'hh24:mi'),to_char(htime_end2,'hh24:mi')
+		  -->
+		from halftime
+		where htime_num=1
+	</select>
+</mapper>

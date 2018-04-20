@@ -21,10 +21,7 @@ public class WorkController {
 	public String work() {
 		return ".work.work";
 	}
-	@RequestMapping("/setWork")
-	public String work_set() {
-		return ".work.work_set";
-	}
+	
 	@RequestMapping("/workList")
 	public String work_list() {
 		return ".work.work_list";

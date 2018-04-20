@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!-- DataTables -->
 <script src="<c:url value='/'/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<c:url value='/'/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -9,7 +10,8 @@
 <div>
 	<h3><span class="glyphicon glyphicon-cog"></span> 근태 설정</h3>
 	<div class="box">
-		<div class="col-md-12">
+	
+		<div class="box-body">
           <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
@@ -21,22 +23,21 @@
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
                 <!--  -->
-				
 		          <div class="box">
 		            <div class="box-header">
 		              <h3 class="box-title"><span class="glyphicon glyphicon-time"></span> 시간 설정</h3>
 		            </div>
 		            <!-- /.box-header -->
 		            <div class="box-body table-responsive no-padding">
-		            <form>
+		            
+		            <!-- 출퇴근 반차 폼set -->
+		            <form method="post" action="<c:url value='/updateWorkTime'/>">
 		              <table class="table table-hover">
 		                <tbody>
 			                <tr>
 			                  <th>출/퇴근 시간</th>
 			                  <td>
 			                  <div class="col-md-6">
-			                  	
-			                  	
 			                  	<div class="input-group">
 					                <div class="input-group-btn">
 					                  <button type="button" class="btn btn-primary">출근</button>
@@ -44,7 +45,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="wtime_start" id="start1" value="<fmt:formatDate value="${wVo.wtime_start}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -62,7 +63,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="wtime_end" value="<fmt:formatDate value="${wVo.wtime_end}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -84,7 +85,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="htime_start" value="<fmt:formatDate value="${hVo.htime_start}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -101,7 +102,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="htime_end" value="<fmt:formatDate value="${hVo.htime_end}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -123,7 +124,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="htime_start2" value="<fmt:formatDate value="${hVo.htime_start2}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -140,7 +141,7 @@
 					                <!-- /btn-group -->
 					                <div class="bootstrap-timepicker">
 					                  <div class="input-group">
-					                    <input type="text" class="form-control timepicker">
+					                    <input type="text" class="form-control timepicker" name="htime_end2" value="<fmt:formatDate value="${hVo.htime_end2}" pattern="HH:mm"/>">
 					                    <div class="input-group-addon">
 					                      <i class="fa fa-clock-o"></i>
 					                    </div>
@@ -155,9 +156,10 @@
 		              </table>
 		              <br>
 		               <div class="box-footer">
-		              <input type="submit" value="저장" class="btn btn-block btn-primary">
+		              <input type="submit" value="저장" class="btn btn-block btn-primary" >
+		              <input type="button" value="확인" class="btn btn-block btn-primary" id="btn1">
 		              </div>
-		             
+		               
 		              </form>
 		            </div>
 		            <!-- /.box-body -->
@@ -370,5 +372,13 @@
           <!-- nav-tabs-custom -->
         </div>
 	</div>
+	<script>
+		$(function(){
+			$("#btn1").click(function(){
+				alert($("#start1").val());
+			});
+		});
+	
+	</script>
 </div>
 

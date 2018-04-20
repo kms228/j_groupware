@@ -8,7 +8,7 @@
 		<typeAlias type="com.jhta.groupware.work.vo.WorkTimeVo" alias="worktime"/>
 		<typeAlias type="com.jhta.groupware.work.vo.WorkListVo" alias="worklist"/>
 		<typeAlias type="com.jhta.groupware.work.vo.Work_TypeVo" alias="worktype"/>
-		<typeAlias type="com.jhta.groupware.work.vo.Work_LineVo" alias="worklie"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_LineVo" alias="workline"/>
 		<typeAlias type="com.jhta.groupware.work.vo.Work_FileVo" alias="workfile"/>
 		<typeAlias type="com.jhta.groupware.work.vo.HalfTimeVo" alias="halftime"/>
 		
@@ -23,7 +23,6 @@
 		<typeAlias type="com.jhta.groupware.sign.vo.SdocLineVo" alias="sdocline"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignNowVo" alias="signnow"/>
 	</typeAliases>
-	
 
 	<mappers>
     	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
@@ -32,5 +31,7 @@
     	<mapper resource="com/jhta/groupware/mybatis/JoinMapper.xml"/>
     	<mapper resource="com/jhta/groupware/mybatis/LoginMapper.xml"/>
 		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
+		
+		<mapper resource="com/jhta/groupware/mybatis/SetWorkMapper.xml"/>
 	</mappers>	
 </configuration>
