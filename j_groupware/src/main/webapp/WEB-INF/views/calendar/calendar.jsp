@@ -7,6 +7,7 @@ $(function () {
 //일정 읽기, 전체일정 불러오기
   var schedule = (function(){
 	  var position = {'0':'비공개'};
+	  
 	  return {
 		  initSchedules : function(){
 			  $.ajax({
@@ -19,7 +20,7 @@ $(function () {
 					  events.push({			
 									id : data[i].sch_num,
 								    title : data[i].sch_title,
-							        start : $.fullCalendar.moment(data[i].sch_sdate),				            
+							        start : $.fullCalendar.moment(data[i].sch_sdate),         
 							        end : $.fullCalendar.moment(data[i].sch_edate),
 							        description : data[i].sch_content,
 					  });				    										
@@ -29,46 +30,39 @@ $(function () {
 			  });  
 		  },
 		  initPublic : function(){
-			  var selectPublic = document.getElementById("selectPublic");
+			  var create_public = document.getElementById("create_public");
+			  var mod_public = document.getElementById("mod_public");
 			  var option;
 			  $.ajax({
 					 method: "get",
 					 url : "<c:url value='/getPosition'/>",
 					 dataType : "json",
 					 success : function(data){						 
-						 for(i in data){				 						 
+						 for(i in data){							 							 
 							 position[String(data[i].pst_num)]= data[i].pst_name;
 							 option = document.createElement("option");
 							 option.text = data[i].pst_name;
 							 option.value = data[i].pst_num;
-							 selectPublic.add(option);							 	 
+							 create_public.appendChild(option);		 	 							 
+							 option = document.createElement("option");
+							 option.text = data[i].pst_name;
+							 option.value = data[i].pst_num;
+							 mod_public.appendChild(option);
 						 }
 					 }
 		      });
-		  },
-		  /* 
-		  getSchedule : function(sch_num){
-			  console.log(sch_num);
-			  $.ajax({
-					 method: "get",
-					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
-					 dataType : "json",
-					 async : false,
-					 success : function(data){
-						 console.log(data.sch_title+':'+data.sch_sdate);
-					 }
-		      });
-		  },
-		   */
+		  },		  		  		  
 		  getPosition : function(pst_num){
 			  var string_pst_num = String(pst_num);
 			  return position[string_pst_num];
-		  },
-		  		  
+		  },		  		  
 	  };
   })();	  	  
-var modalModal = (function(){
-	var myModal,modLisnr,delLisnr,now,sdate,edate;
+
+var modalModal = (function(modal,modifyBtn,deleteBtn){
+	var myModal=document.getElementById(modal)
+	var myModifyBtn=document.getElementById(modifyBtn);
+	var myDeleteBtn=document.getElementById(deleteBtn);
 	//시간계산 후 모달에 넣기
 	var setValueForTime = function(sdate,now,edate){
 		if(now<sdate){
@@ -81,34 +75,29 @@ var modalModal = (function(){
   			var allMinutes = moment.duration(edate.diff(sdate)).as('minutes');
   			var pastMinutes = moment.duration(moment().diff(sdate)).as('minutes');
   			var remainHours = Math.round(moment.duration(edate.diff(now)).as('hours'));
-  			//console.log('남은시간 :'+remainHours);
-  			//console.log('지난시간(분): '+pastMinutes+'전체시간(분):'+allMinutes);
   			var percentage = Math.ceil((pastMinutes/allMinutes)*100);
 
   			$("#sch_time_bar").css("width", percentage+"%");
 	  		$("#sch_time").html(remainHours + ' 시간이 남았습니다.');					  		
   		 }
 	};
-	return {			  
-		initModal : function(modalId,modId,delId){
-			myModal = document.getElementById(modalId);
-			modLisnr = document.getElementById(modId).addEventListener("click");
-			delLisnr = document.getElementById(delId).addEventListener("click",);
-		},
-		setValue : function(sch_num){			
+	return {
+		data : null,
+		setValue : function(sch_num){		
 			  $.ajax({
 					 method: "get",
 					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
 					 dataType : "json",
 					 success : function(data){
-						 sdate = moment(data.sch_sdate);
-						 edate = moment(data.sch_edate);
-						 now = moment();
+						 this.data=data;
+						 var sdate = moment(data.sch_sdate);
+						 var edate = moment(data.sch_edate);
+						 var now = moment();
 						 
 						 $("#pst_name").html(data.pst_name);
 						 $("#pst_name").append(" "+data.emp_name);
 						 $("#sch_title").html(data.sch_title);
-						 setValueForTime(sdate,now,edate);																								
+						 setValueForTime(sdate,now,edate);																							
 						 $("#sch_public").html(schedule.getPosition(String(data.sch_public)));
 				  		 $("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
 				  		 $("#sch_place").html(data.sch_place);
@@ -122,17 +111,25 @@ var modalModal = (function(){
 			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
 			  				$("#sf_size").html('0 '+'/ 5000000 byte'); 					
 			  			 }
+						 myModifyBtn.addEventListener("click", function(){					  
+								$("#modTitle").val(data.sch_title);
+								$("#modPlace").val(data.sch_place);					
+								$("#daterangepicker_start_mod").val(moment(data.sch_sdate).format('YYYY/MM/DD HH:mm'));
+								$("#daterangepicker_end_mod").val(moment(data.sch_edate).format('YYYY/MM/DD HH:mm'));
+								$("#modContent").val(data.sch_content);
+								$("#mod_public").val(data.sch_public);
+					 	});	
 					 }
-		      });
+		      });			  			  
 		},		
 		viewModal : function(){
 			return $(myModal).modal();
-		},
+		},		
 	};		
-})();	  	  	  	
+})('modal-default','modifyBtn','deleteBtn');
 	  
 	//Daterangepicker
-	  $('#daterangepicker_start').daterangepicker({
+	  $('#daterangepicker_start,#daterangepicker_end,#daterangepicker_start_mod,#daterangepicker_end_mod').daterangepicker({
 		  timePicker24Hour: true,
 		  singleDatePicker: true,
 		  timePicker: true,
@@ -143,20 +140,7 @@ var modalModal = (function(){
 			  applyLabel : '작성',
 			  cancelLabel: '취소'
 		  }		   
-	  });	    
-	  $('#daterangepicker_end').daterangepicker({
-		  timePicker24Hour: true,
-		  singleDatePicker: true,
-		  timePicker: true,
-		  autoclose: true,
-		  timePickerIncrement: 30, 
-		  locale:{
-			  format: 'YYYY/MM/DD HH:mm',
-			  applyLabel : '작성',
-			  cancelLabel: '취소'  
-		  }
-	  });
-	  
+	  });	    	 
     /* initialize the external events
      -----------------------------------------------------------------*/
     function init_events(ele) {
@@ -191,7 +175,7 @@ var modalModal = (function(){
         m    = date.getMonth(),
         y    = date.getFullYear()
         
-    $('#calendar').fullCalendar({      
+    $('#calendar').fullCalendar({
       header    : {
         left  : 'prev,next today',
         center: 'title',
@@ -201,14 +185,14 @@ var modalModal = (function(){
       },
       locale:'ko',    
       //Random default events            
-      eventClick : function(event){			
-					modalModal.viewModal();
+      eventClick : function(event){					
 					modalModal.setValue(event.id);
+					modalModal.viewModal();
 	  },
 	  eventRender : function(event,element){
         	$(element).popover({
         		title : event.title,
-        		content : '<p>'+event.start.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.end.format('YYYY/MM/DD A hh:mm')+'</p><p>'+event.description+'</p>',
+        		content : '<p>'+event.start.format('MM월 DD일 A hh시 mm분')+'</p><p>'+event.end.format('MM월 DD일 A hh시 mm분')+'</p><p>'+event.description+'</p>',
         		html : true,
         		trigger: 'hover',
                 placement: 'top',
@@ -223,7 +207,6 @@ var modalModal = (function(){
   	//일정 불러오기
     schedule.initSchedules();
   	schedule.initPublic();
-  	modalModal.initModal('modal-default');
   });
 </script>
 
@@ -257,33 +240,33 @@ var modalModal = (function(){
               	<form method="post" action="<c:url value='/'/>schedule" enctype="multipart/form-data">
               	<input type="hidden" name="emp_num" value="3">
                 <label>일정이름</label>
-                <input type="text" name="sch_title" class="form-control" placeholder="Enter ...">
+                <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="modTitle">
                 <label>장소</label>
-                <input type="text" name="sch_place" class="form-control" placeholder="Enter ...">           
+                <input type="text" name="sch_place" class="form-control" placeholder="Enter ..." id="modPlace">           
               <!-- Date -->
                 <label>시작일:</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start">
+                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start_mod">
                 </div>
                 <label>종료일:</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end">
+                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end_mod">
                 </div>
                 
                 <label>내용</label>
-                <textarea class="form-control" rows="7" placeholder="Enter ..." name="sch_content"></textarea>
+                <textarea class="form-control" rows="7" placeholder="Enter ..." name="sch_content" id="modContent"></textarea>
                 <label>공개여부</label>
-                  <select class="form-control" name="sch_public" id="selectPublic">
+                  <select class="form-control" name="sch_public" id="mod_public">
                   	<option value="0">비공개</option>                    
                   </select>                  
                   <label for="inputFile">첨부파일(5MB 이하)</label>
-                  <input type="file" id="inputFile" name="file1">
+                  <input type="file" id="inputFile" name="file1" >
                                                                      
                   <br>
                   <input type="submit" class="btn btn-primary" value="일정 수정">
@@ -317,20 +300,20 @@ var modalModal = (function(){
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start">
+                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start_mod">
                 </div>
                 <label>종료일:</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end">
+                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end_mod">
                 </div>
                 
                 <label>내용</label>
                 <textarea class="form-control" rows="7" placeholder="Enter ..." name="sch_content"></textarea>
                 <label>공개여부</label>
-                  <select class="form-control" name="sch_public" id="selectPublic">
+                  <select class="form-control" name="sch_public" id="create_public">
                   	<option value="0">비공개</option>                    
                   </select>                  
                   <label for="inputFile">첨부파일(5MB 이하)</label>
@@ -488,7 +471,7 @@ var modalModal = (function(){
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="modifySchedule">수정</button>                                                                         
+                <button type="button" class="btn btn-primary" id="modifyBtn">수정</button>                                                                         
                 <button type="button" class="btn btn-primary" id="deleteSchedule">삭제</button>
               </div>                                          
             </div>
