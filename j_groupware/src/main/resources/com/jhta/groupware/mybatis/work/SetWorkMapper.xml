@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.groupware.mybatis.SetWorkMapper">
+<mapper namespace="com.jhta.groupware.mybatis.work.SetWorkMapper">
 	<update id="updateWorkTime" parameterType="map">
 		update worktime set wtime_start=to_date(#{wtime_start},'hh24:mi'),wtime_end=to_date(#{wtime_end},'hh24:mi') where wtime_num=1
 	</update>

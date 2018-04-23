@@ -1,13 +1,22 @@
 package com.jhta.groupware.work.vo;
 
 import java.sql.Date;
-
+//출퇴근내역
 public class WorkListVo {
-	private int wlist_num;
-	private Date wlist_start;
-	private Date wlist_end;
-	private int wlist_type;
-	private int emp_num;
+	private int wlist_num;//PK
+	private Date wlist_start;//시작date
+	private Date wlist_end;//마지막date
+	private int wlist_type;//출퇴근타입
+	/*(1.근무/2.연차/3.반차/4.지각/5.야근/6.외근/7.경조사(기타))
+	 * 1. 근무 - 출근시간보다 빨리 출근버튼을 눌렀을 경우에만 wlist_start : 출근시간 / wlist_end : 퇴근시간
+	 * 2. 연차 - wlist_start : 연차시작날짜 / wlist_end : 연차마지막날짜
+	 * 3. 반차 - 반차날짜(오전/오후) - 반차(오전)일 경우 출근은 반차(오후) 시작전에 해야 지각처리 안됨  
+	 * 4. 지각 - 출근시간과 계산 후 넣기
+	 * 5. 야근 - 퇴근시간과 계산 후 넣기
+	 * 6. 외근 - 외근시작날짜 / 외근마지막날짜
+	 * 7. 경조사 - 경조사시작날짜 / 경조사 마지막날짜
+	 * */
+	private int emp_num;//사원번호(FK)
 	
 	public WorkListVo() {}
 
