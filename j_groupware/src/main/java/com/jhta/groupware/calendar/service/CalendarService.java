@@ -21,7 +21,8 @@ public class CalendarService {
 	
 	public int insert(ScheduleVo vo, MultipartFile file1, HttpSession session) {
 		int result = dao.insertSchedule(vo);
-		if(file1!=null) {
+		if(file1.isEmpty()==false) {
+			System.out.println("파일의 이름은?:"+file1.getName());			
 			ManipulateFile file = new ManipulateFile(file1,session);		
 			String saveFileName = file.copyFileToServer("/resources/upload/calendar");
 			System.out.println(saveFileName);
@@ -30,7 +31,10 @@ public class CalendarService {
 		}				
 		return result;
 	}
-
+	public int update(ScheduleVo vo, MultipartFile file1, HttpSession session) {
+		return 0;
+	}
+	
 	public List<Sc_FileVo> getSchedules(String id) {
 		List<Sc_FileVo> vo = dao.getSchedules(id);
 		for(Sc_FileVo vo1:vo) {
@@ -51,5 +55,5 @@ public class CalendarService {
 
 	public List<PositionVo> getPosition() {
 		return dao.getPosition();
-	}
+	}	
 }

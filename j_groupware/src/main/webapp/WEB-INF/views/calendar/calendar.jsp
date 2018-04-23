@@ -8,8 +8,53 @@ $(function () {
   var schedule = (function(){
 	  var position = {'0':'비공개'};
 	  
+	  var initSchedules = function(){
+		  $.ajax({
+			method: "POST",
+			url : "<c:url value='/getSchedules'/>",
+			dataType : "json",
+			success : function(data){
+				var events = new Array();
+				for(i in data){					
+				  events.push({			
+								id : data[i].sch_num,
+							    title : data[i].sch_title,
+						        start : $.fullCalendar.moment(data[i].sch_sdate),         
+						        end : $.fullCalendar.moment(data[i].sch_edate),
+						        description : data[i].sch_content,
+				  });				    										
+				}
+			$('#calendar').fullCalendar('addEventSource',events);
+			}
+		  });  
+	  };
+	  var initPublic = function(){
+		  var create_public = document.getElementById("create_public");
+		  var mod_public = document.getElementById("mod_public");
+		  var option;
+		  $.ajax({
+				 method: "get",
+				 url : "<c:url value='/getPosition'/>",
+				 dataType : "json",
+				 success : function(data){						 
+					 for(i in data){							 							 
+						 position[String(data[i].pst_num)]= data[i].pst_name;
+						 option = document.createElement("option");
+						 option.text = data[i].pst_name;
+						 option.value = data[i].pst_num;
+						 create_public.appendChild(option);		 	 							 
+						 option = document.createElement("option");
+						 option.text = data[i].pst_name;
+						 option.value = data[i].pst_num;
+						 mod_public.appendChild(option);
+					 }
+				 }
+	      });
+	  };
+	  initPublic();
+	  initSchedules();
 	  return {
-		  initSchedules : function(){
+/* 		  initSchedules : function(){
 			  $.ajax({
 				method: "POST",
 				url : "<c:url value='/getSchedules'/>",
@@ -51,7 +96,8 @@ $(function () {
 						 }
 					 }
 		      });
-		  },		  		  		  
+		  },
+		   */
 		  getPosition : function(pst_num){
 			  var string_pst_num = String(pst_num);
 			  return position[string_pst_num];
@@ -60,7 +106,7 @@ $(function () {
   })();	  	  
 
 var modalModal = (function(modal,modifyBtn,deleteBtn){
-	var myModal=document.getElementById(modal)
+	var myModal=document.getElementById(modal);
 	var myModifyBtn=document.getElementById(modifyBtn);
 	var myDeleteBtn=document.getElementById(deleteBtn);
 	//시간계산 후 모달에 넣기
@@ -111,13 +157,16 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
 			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
 			  				$("#sf_size").html('0 '+'/ 5000000 byte'); 					
 			  			 }
-						 myModifyBtn.addEventListener("click", function(){					  
+						 myModifyBtn.addEventListener("click", function(){				  
 								$("#modTitle").val(data.sch_title);
 								$("#modPlace").val(data.sch_place);					
 								$("#daterangepicker_start_mod").val(moment(data.sch_sdate).format('YYYY/MM/DD HH:mm'));
 								$("#daterangepicker_end_mod").val(moment(data.sch_edate).format('YYYY/MM/DD HH:mm'));
 								$("#modContent").val(data.sch_content);
 								$("#mod_public").val(data.sch_public);
+								document.getElementById("modifySchedule").style.display='block';
+								document.getElementById("createSchedule").style.display='none';
+								$(myModal).modal("hide");								
 					 	});	
 					 }
 		      });			  			  
@@ -204,9 +253,19 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
       }
       
     });
+        
   	//일정 불러오기
-    schedule.initSchedules();
-  	schedule.initPublic();
+    //schedule.initSchedules();
+  	//schedule.initPublic();
+  	
+  	document.getElementById("btnCreate").addEventListener('click',function(){
+    	document.getElementById("modifySchedule").style.display='none';
+		document.getElementById("createSchedule").style.display='block';
+    });
+  	document.getElementById("modifyFile").addEventListener('change',function(){  		  		  		  		
+        var x = document.getElementById("modifyFile").value;
+  		document.getElementById("help-block").innerHTML = x;
+  	});
   });
 </script>
 
@@ -229,15 +288,29 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
         <div class="col-md-3">
           
           <!-- /. box -->
-          <div class="box box-primary" id="modifySchedule">
+          <div class="box box-primary" id="modifySchedule" style="display:none;">
             <div class="box-header with-border">
               <h3 class="box-title">일정수정</h3>
+              
+              <!-- tools box -->
+              <div class="pull-right box-tools">
+                <!-- button with a dropdown -->
+                <div class="btn-group">
+                  <button type="button" class="btn btn-success btn-sm dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bars"></i></button>
+                  <ul class="dropdown-menu pull-right" role="menu">
+                    <li><button class="btn btn-block btn-default" id="btnCreate">일정등록으로 전환</button></li>                    
+                  </ul>
+                </div>
+              </div>
+              <!-- /. tools -->
+              
             </div>
             <div class="box-body">
                                                                   
               <!-- text input -->
               <div class="form-group">
-              	<form method="post" action="<c:url value='/'/>schedule" enctype="multipart/form-data">
+              	<form method="post" action="<c:url value='/updateSchedule'/>" enctype="multipart/form-data">
               	<input type="hidden" name="emp_num" value="3">
                 <label>일정이름</label>
                 <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="modTitle">
@@ -265,12 +338,19 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
                   <select class="form-control" name="sch_public" id="mod_public">
                   	<option value="0">비공개</option>                    
                   </select>                  
-                  <label for="inputFile">첨부파일(5MB 이하)</label>
-                  <input type="file" id="inputFile" name="file1" >
-                                                                     
+                  
+				<label>첨부파일(5MB 이하)</label>                  
+                  <div class="form-group">
+                    <div class="btn btn-default btn-file">
+                      <i class="fa fa-paperclip"></i> 파일첨부
+                      <input type="file" name="attachment" id="modifyFile">
+                    </div>
+                    <p class="help-block" id="help-block"></p>
+                  </div>
+                                                                 
                   <br>
-                  <input type="submit" class="btn btn-primary" value="일정 수정">
-                  </form>                                                             
+                  <input type="submit" class="btn btn-primary" value="일정 수정">                  
+                  </form>                                                                              
               </div>                                                  
               <!-- /.form group -->
                             
@@ -315,9 +395,9 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
                 <label>공개여부</label>
                   <select class="form-control" name="sch_public" id="create_public">
                   	<option value="0">비공개</option>                    
-                  </select>                  
+                  </select>           
                   <label for="inputFile">첨부파일(5MB 이하)</label>
-                  <input type="file" id="inputFile" name="file1">
+                  <input type="file" id="inputFile" name="file1" >                                          
                                                                      
                   <br>
                   <input type="submit" class="btn btn-primary" value="일정 등록">
@@ -471,7 +551,7 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="modifyBtn">수정</button>                                                                         
+                <button type="button" class="btn btn-primary" id="modifyBtn">수정하기</button>                                                                         
                 <button type="button" class="btn btn-primary" id="deleteSchedule">삭제</button>
               </div>                                          
             </div>
