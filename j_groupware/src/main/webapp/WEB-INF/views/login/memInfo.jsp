@@ -71,9 +71,10 @@
             	<option value="WOMAN" >WOMAN</option>
             </select>
             </div>
-            <div>
-            <button  type="submit" class="btn btn-block btn-primary" style="width: 30%;">회원 정보 수정</button>
-            </div>
+            
+            <button type="submit" class="btn btn-primary">회원 정보 수정</button>
+            <button type="reset" class="btn btn-primary">회원 정보 취소</button> 
+
             <input type="hidden" name="EMP_NUM" value="${EMP_NUM}">
             </form>
             
