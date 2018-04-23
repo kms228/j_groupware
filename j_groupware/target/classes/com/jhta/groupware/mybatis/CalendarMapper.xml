@@ -24,7 +24,9 @@
 				WHERE EMP_NUM=(SELECT EMP_NUM FROM ACCOUNT WHERE ACNT_ID=#{value}))
 	</select>
 	<select id="getSchedule" parameterType="int" resultType="scfileVo">
-		SELECT * FROM SCHEDULE S, SC_FILE F WHERE S.SCH_NUM = F.SCH_NUM(+) AND S.SCH_NUM=#{value}
+		SELECT S.*, F.*,P.PST_NAME,E.EMP_NAME
+		FROM SCHEDULE S, SC_FILE F, EMPLOYEE E, POSITION P
+		WHERE S.SCH_NUM = F.SCH_NUM(+) AND E.EMP_NUM = S.EMP_NUM AND E.PST_NUM = P.PST_NUM AND S.SCH_NUM=#{value}
 	</select>
 	<select id="getPosition" resultType="positionVo">
 		SELECT * FROM POSITION

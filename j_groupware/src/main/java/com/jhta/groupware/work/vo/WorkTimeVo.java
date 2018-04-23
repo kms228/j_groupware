@@ -1,6 +1,6 @@
 package com.jhta.groupware.work.vo;
 
-import java.sql.Date;
+import java.util.Date;
 
 public class WorkTimeVo {
 	private int wtime_num;
