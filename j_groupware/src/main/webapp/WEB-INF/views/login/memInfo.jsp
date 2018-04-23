@@ -5,25 +5,24 @@
 
 
 
-	<h1>사원등록하기</h1>
+	<h1>${EMP_NAME}님의 개인정보입니다.</h1>
 
-
-		<form method="post" name="frm" onsubmit="return joinsubmit()" action="<c:url value='/join'/>">
+		<form method="post"  action="<c:url value='/memUpdate'/>">
 			<div class="form-group">
                <label for="ID">ID(*)</label>
-               <input type="text" class="form-control" id="id" name="ACNT_ID" placeholder="id" required="required">
+               <input type="text" class="form-control" id="id" name="ACNT_ID" placeholder="id" required="required" value="${ACNT_ID}" readonly="readonly">
                <span id="idchk"></span>
             </div>
             <div class="form-group">
-              <!--  <label for="PWD">PWD(*)</label> -->
+              <!--  <label for="PWD">PWD(*)</label> --> 
                <div class="row">
                <div class="col-xs-4">
                <label for="PWD">PWD1(*)</label>
-               <input type="password"class="form-control" id="pwd1" name="ACNT_PWD" placeholder="PWD입력" required="required">
+               <input type="password"class="form-control" id="pwd1" name="ACNT_PWD" value="${ACNT_PWD}" placeholder="PWD입력" required="required">
                </div>
                <div class="col-xs-4">
                <label for="PWD">PWD2(*)</label>
-               <input type="password" class="form-control" id="pwd2" name="ACNT_PWD2" placeholder="PWD확인" required="required">
+               <input type="password" class="form-control" id="pwd2" name="ACNT_PWD2" value="${ACNT_PWD}" placeholder="PWD확인" required="required">
                </div> 
                </div>
                <span id="pwdchk"></span>
@@ -32,32 +31,33 @@
                <label for="email">EMAIL(*)</label>
                <div class="input-group">
                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-               <input type="email" class="form-control" id="email" name="EMP_EMAIL" placeholder="EMAIL" required="required" >
+               <input type="email" class="form-control" id="email" name="EMP_EMAIL" placeholder="EMAIL" required="required" value="${EMP_EMAIL}" >
                </div>
                <span id="emailchk"></span>
             </div>
              <div class="form-group">
                <label for="NAME">NAME(*)</label>
-               <input type="text" class="form-control"  name="EMP_NAME" placeholder="NAME" required="required">
+               <input type="text" class="form-control"  name="EMP_NAME" placeholder="NAME" required="required" value="${EMP_NAME}">
             </div>
+            <!--  
             <div class="form-group">
                 <label>BITRHDAY</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="date" name="EMP_BIRTH" class="form-control pull-right"  required="required">
+                  <input type="text"  name="EMP_BIRTH" class="form-control pull-right"  required="required" value="${EMP_BIRTH}">
                 </div>
-                <!-- /.input group -->
               </div>
+               -->
              <div class="form-group">
                <label for="PHONE">PHONE</label>
-               <input type="text" class="form-control"  name="EMP_PHONE" placeholder="PHONE"  >
+               <input type="text" class="form-control"  name="EMP_PHONE" placeholder="PHONE" value="${EMP_PHONE}">
             </div> 
             <div class="form-group">
                <label for="ADDR">ADDR</label>
                <div class="input-group">
-               <input type="text" class="form-control"  id="address"name="EMP_ADDR" placeholder="ADDR" >
+               <input type="text" class="form-control"  id="address"name="EMP_ADDR" placeholder="ADDR" value="${EMP_ADDR}" >
                <span class="input-group-btn">
                <button type="button" class="btn btn-info btn-flat" onclick="postcode()">SearchAddress</button>
                </span>
@@ -66,17 +66,15 @@
             <div class="form-group">
             <label>성별선택</label>
             <select class="form-control select2 select2-hidden-accessible" name="EMP_GENDER" style="width: 50%;"tabindex="-1" aria-hidden="true">
-            	<option value="">선택</option>
+            	<option value="${EMP_GENDER}">${EMP_GENDER}</option>
             	<option value="MAN">MAN</option>
             	<option value="WOMAN" >WOMAN</option>
             </select>
             </div>
             <div>
-            <button  type="submit" class="btn btn-block btn-primary" style="width: 30%;">Submit</button>
+            <button  type="submit" class="btn btn-block btn-primary" style="width: 30%;">회원 정보 수정</button>
             </div>
-            
-            
-            
+            <input type="hidden" name="EMP_NUM" value="${EMP_NUM}">
             </form>
             
                            
