@@ -13,13 +13,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.groupware.sign.service.SignService;
 import com.jhta.groupware.sign.vo.SdocLineVo;
+import com.jhta.groupware.sign.vo.SignLineDocVo;
 import com.jhta.groupware.sign.vo.SignNowVo;
 
 @Controller
 public class SignListController {
 	@Autowired private SignService service;
 	
-	@RequestMapping("/signlist")
+	/*@RequestMapping("/signlist")
 	public ModelAndView signlist(HttpServletRequest req) {
 		ModelAndView mv=new ModelAndView(".sign.sign_list");
 		HttpSession session=req.getSession();
@@ -33,6 +34,17 @@ public class SignListController {
 			signnow.add(signdoc);
 		}
 		mv.addObject("signnow",signnow);
+		return mv;
+	}*/
+	
+	@RequestMapping("/signlist")
+	public ModelAndView signlist(HttpServletRequest req) {
+		ModelAndView mv=new ModelAndView(".sign.sign_list");
+		HttpSession session=req.getSession();
+		int emp_num=(Integer)session.getAttribute("emp_num");
+		List<SignLineDocVo> list =  service.linesigndoc(emp_num);
+		System.out.println(list);
+		mv.addObject("signnow",list);
 		return mv;
 	}
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.sign.vo.DocTypeVo;
 import com.jhta.groupware.sign.vo.SdocLineVo;
+import com.jhta.groupware.sign.vo.SignLineDocVo;
 import com.jhta.groupware.sign.vo.SignLineListVo;
 import com.jhta.groupware.sign.vo.SignNowVo;
 import com.jhta.groupware.sign.vo.SignVo;
@@ -61,5 +62,10 @@ public class SignDao {
 	//진행문서 상세보기의 결재라인에 대한 각각의 사원정보 추가로 얻어오기
 	public SignLineListVo getempinfo(int emp_num) {
 		return sqlSession.selectOne(NAMESPACE+".getempinfo",emp_num);
+	}
+	
+	//내가 결재할 문서정도 얻어오기 수정버전
+	public List<SignLineDocVo> linesigndoc(int emp_num){
+		return sqlSession.selectList(NAMESPACE+".linesigndoc",emp_num);
 	}
 }

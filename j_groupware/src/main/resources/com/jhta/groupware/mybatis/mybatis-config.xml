@@ -22,6 +22,7 @@
 		<typeAlias type="com.jhta.groupware.calendar.vo.PositionVo" alias="positionVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SdocLineVo" alias="sdocline"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignNowVo" alias="signnow"/>
+		<typeAlias type="com.jhta.groupware.sign.vo.SignLineDocVo" alias="linesigndoc"/>
 	</typeAliases>
 
 	<mappers>

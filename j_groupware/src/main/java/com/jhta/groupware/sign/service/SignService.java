@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jhta.groupware.sign.dao.SignDao;
 import com.jhta.groupware.sign.vo.DocTypeVo;
 import com.jhta.groupware.sign.vo.SdocLineVo;
+import com.jhta.groupware.sign.vo.SignLineDocVo;
 import com.jhta.groupware.sign.vo.SignLineListVo;
 import com.jhta.groupware.sign.vo.SignNowVo;
 import com.jhta.groupware.sign.vo.SignVo;
@@ -58,5 +59,9 @@ public class SignService {
 	
 	public SignLineListVo getempinfo(int emp_num) {
 		return dao.getempinfo(emp_num);
+	}
+	
+	public List<SignLineDocVo> linesigndoc(int emp_num){
+		return dao.linesigndoc(emp_num);
 	}
 }

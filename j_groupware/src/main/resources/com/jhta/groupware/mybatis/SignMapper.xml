@@ -39,6 +39,9 @@
 	<select id="getempinfo" resultType="signlineVo" parameterType="int">
 		select emp_name,pst_name from employee emp,position pst where emp.pst_num=pst.pst_num and emp.emp_num=#{emp_num} 
 	</select>
+	<select id="linesigndoc" parameterType="int" resultType="linesigndoc">
+		select aa.*,dt.doc_name,emp.emp_name,dp.dept_name from(select sd.doc_num,sd.sdoc_date,sd.sdoc_num, sd.sdoc_title,sd.sdoc_state,sl.sline_num,sl.sline_state,sl.emp_num slemp, sd.emp_num sdemp  from sign_doc sd, sdoc_line sl where sd.sdoc_num=sl.sdoc_num and sl.emp_num=#{emp_num} and sl.sline_state=0)aa,doc_type dt,employee emp,dept dp where dt.doc_num=aa.doc_num and aa.slemp=emp.emp_num and emp.dept_num=dp.dept_num 
+	</select>
 </mapper>
 
 
