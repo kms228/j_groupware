@@ -5,6 +5,13 @@
 <configuration>	
 	<typeAliases>
 		<typeAlias type="com.jhta.groupware.work.vo.WorkVo" alias="work"/>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkTimeVo" alias="worktime"/>
+		<typeAlias type="com.jhta.groupware.work.vo.WorkListVo" alias="worklist"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_TypeVo" alias="worktype"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_LineVo" alias="workline"/>
+		<typeAlias type="com.jhta.groupware.work.vo.Work_FileVo" alias="workfile"/>
+		<typeAlias type="com.jhta.groupware.work.vo.HalfTimeVo" alias="halftime"/>
+		
 		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
 		<typeAlias type="com.jhta.groupware.calendar.vo.ScheduleVo" alias="scheduleVo"/>
@@ -16,14 +23,20 @@
 		<typeAlias type="com.jhta.groupware.sign.vo.SdocLineVo" alias="sdocline"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignNowVo" alias="signnow"/>
 	</typeAliases>
-	
 
 	<mappers>
-    	<mapper resource="com/jhta/groupware/mybatis/WorkMapper.xml"/>
+		<!-- 형진 -->
     	<mapper resource="com/jhta/groupware/mybatis/SignMapper.xml"/>
-
     	<mapper resource="com/jhta/groupware/mybatis/JoinMapper.xml"/>
     	<mapper resource="com/jhta/groupware/mybatis/LoginMapper.xml"/>
+		<!-- 혁수 -->
 		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
+		<!-- 민수 -->
+		<mapper resource="com/jhta/groupware/mybatis/work/WorkMapper.xml"/>		
+		<mapper resource="com/jhta/groupware/mybatis/work/SetWorkMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/RequestWorkMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/RequestWorkListMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/ResponseWorkListMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/work/WorkListMapper.xml"/>
 	</mappers>	
 </configuration>

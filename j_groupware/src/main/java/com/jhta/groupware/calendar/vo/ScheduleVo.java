@@ -11,6 +11,8 @@ public class ScheduleVo {
 	private String sch_place;
 	private int sch_public;
 	private int emp_num;
+	private String pst_name;
+	private String emp_name;
 	
 	public ScheduleVo(int sch_num, String sch_title, String sch_content, Date sch_sdate, Date sch_edate,
 			String sch_place, int sch_public, int emp_num) {
@@ -71,5 +73,17 @@ public class ScheduleVo {
 	}
 	public void setEmp_num(int emp_num) {
 		this.emp_num = emp_num;
-	}			
+	}
+	public String getPst_name() {
+		return pst_name;
+	}
+	public void setPst_name(String pst_name) {
+		this.pst_name = pst_name;
+	}
+	public String getEmp_name() {
+		return emp_name;
+	}
+	public void setEmp_name(String emp_name) {
+		this.emp_name = emp_name;
+	}	
 }

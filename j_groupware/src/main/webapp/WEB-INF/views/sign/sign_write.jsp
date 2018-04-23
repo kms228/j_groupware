@@ -90,6 +90,7 @@
 		$("#submit_btn").click(function() {
 			// 에디터의 내용이 textarea에 적용된다.
 			oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+			alert(document.getElementById("ir1").value);
 			$("#write_form").submit();
 		});
 		$("#line_btn").click(function() {

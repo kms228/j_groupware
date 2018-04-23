@@ -291,9 +291,9 @@
 	        $('#calendar').fullCalendar({      
 	          //노출메뉴
 	          header    : {
-	        	  left:'',
+	        	  left:'prev,next,today',
 	        	  center:'title',
-	              right : 'prev,next,today'
+	              right : ''
 	          },
 	          buttonText: {     
 	          },

@@ -1,55 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.Calendar"%>
 <%@ page import="java.util.Date"%>
 <%@ page import="java.text.DecimalFormat"%>
-<%!
-//년월일 구하기
-public static String getdate(int mountdate){
-   //mountdate = 해당 숫자만큼 더해진 날짜를 반환
-   DecimalFormat df = new DecimalFormat("00");
-   Calendar calendar = Calendar.getInstance();
- 
-   calendar.add(calendar.DATE, mountdate);
-   String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도
-   String month = df.format(calendar.get(Calendar.MONTH) + 1); //달
-   String day = df.format(calendar.get(Calendar.DATE)); //날짜
-   int dow = calendar.get(Calendar.DAY_OF_WEEK);
-   
-   String date = year +'년'+ month+'월' + day+'일'+'('+getdow(dow)+')';   //8자리 숫자
-   return date;
-}
-public static String getdow(int dow){
-	if(dow==1){return "일";}
-	else if(dow==2){return "월";}
-	else if(dow==3){return "화";}
-	else if(dow==4){return "수";}
-	else if(dow==5){return "목";}
-	else if(dow==6){return "금";}
-	else{return "토";}
-}
-//년도 구하기
-public static String getyear(int mountdate){
-	DecimalFormat df = new DecimalFormat("00");
-	Calendar calendar = Calendar.getInstance();
-	calendar.add(calendar.DATE, mountdate);
-	String year = Integer.toString(calendar.get(Calendar.YEAR)); //년도
-	String date = year+'년';
-	return date;
-}
-//시분초 구하기
-public static String gettime(int mountdate){
-	DecimalFormat df = new DecimalFormat("00");
-	Calendar calendar = Calendar.getInstance();
-	calendar.add(calendar.DATE, mountdate);
-	String hour = df.format(calendar.get(Calendar.HOUR));//시
-	String minute = df.format(calendar.get(Calendar.MINUTE));//분
-	String secont = df.format(calendar.get(Calendar.SECOND));//초
-	String date = hour+':'+minute;
-	return date;
-}
-%>
+
 <div>
 	<h3><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3>
 			<div class="box">
@@ -57,20 +13,30 @@ public static String gettime(int mountdate){
 			<label for="reservation3">출/퇴근 현황</label>
 			<div class="form-group">
                 <div class="col-md-2">
-                  <input type="text" class="form-control" value="<%out.print (getdate(0));%>" readonly="readonly">
+                  <input type="text" class="form-control" value="" readonly="readonly" id="nowDate">
                 </div>
-                <div class="col-md-1">
-                  <button type="button" class="btn btn-block btn-primary" id="btn_workstart" title="출근" style="width: 100px">출근</button>
-                </div>
-                <div class="col-md-2">
-                  <input type="text" class="form-control" readonly="readonly" placeholder="출근버튼을 누르세요">
-                </div>
-                <div class="col-md-1">
-                  <button type="button" class="btn btn-block btn-danger" id="btn_workend" title="퇴근" style="width: 100px">퇴근</button>
-                </div>
-                <div class="col-md-2">
-                  <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요">
-                </div>
+                <!-- 출근폼 -->
+                <form method="post" action="" id="workstartForm">
+                	<input type="hidden" name="emp_num" value="${emp_num }">
+	                <div class="col-md-1">
+	                  <button type="button" class="btn btn-block btn-primary" id="btn_workstart" title="출근" style="width: 100px">출근</button>
+	                </div>
+	                <div class="col-md-2">
+	                  <input type="text" class="form-control" readonly="readonly" placeholder="출근버튼을 누르세요" id="text_workstart" name="wlist_start">
+	                </div>
+                </form>
+                 <!-- /출근폼 -->
+                <!-- 퇴근폼 -->
+                <form method="post" action="" id="workendForm">
+               	 	<input type="hidden" name="emp_num" value="${emp_num }">
+	                <div class="col-md-1">
+	                  <button type="button" class="btn btn-block btn-danger" id="btn_workend" title="퇴근" style="width: 100px">퇴근</button>
+	                </div>
+	                <div class="col-md-2">
+	                  <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요" id="text_workend" name="wlist_end">
+	                </div>
+                </form>
+                 <!-- /퇴근폼 -->
             </div>
          </div>
          </div>
@@ -456,5 +422,46 @@ public static String gettime(int mountdate){
             <!-- /.box-body -->
           </div>
        
+<script type="text/javascript">
+	$(function(){
+		var nowDate = moment().format('YYYY/MM/DD h:mm:ss a');
+		setInterval(function() {
+			nowDate = moment().format('YYYY/MM/DD h:mm:ss a');
+			$("#nowDate").val(nowDate);
+		}, 1000);
+		//출근버튼
+		$("#btn_workstart").click(function(){
+			if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
+				var result = confirm('출근하시겠습니까?');
+				if(result){
+					var startTime = moment().format('HH:mm');
+					$("#text_workstart").val(startTime);	
+					$("#workstartForm").submit();
+				}
+			}else{
+				alert("이미 출근하셨습니다.");
+			}
+		});
+		//퇴근버튼
+		$("#btn_workend").click(function(){
+			if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
+				alert("출근시간이 입력되지 않았습니다.");
+			}else{
+				if($("#text_workend").val()==null||$("#text_workend").val()==''){
+					var result = confirm('퇴근하시겠습니까?');
+					if(result){
+						var endTime = moment().format('HH:mm');
+						$("#text_workend").val(endTime);
+						$("#workendForm").submit();
+					}
+				}else{
+					alert("이미 퇴근하셨습니다.");
+				}
+			}
+		});
+		
+		
+	});
+</script>
       </div>
       <!-- /.box-body -->

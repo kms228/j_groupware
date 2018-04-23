@@ -7,8 +7,7 @@ public class Sc_FileVo extends ScheduleVo{
 	private long sf_size;
 	private int sch_num;
 			
-	public Sc_FileVo() {
-	}
+	public Sc_FileVo() {}
 	public Sc_FileVo(int sf_num, String sf_savefilename, String sf_orgfilename, long sf_size, int sch_num) {
 		this.sf_num = sf_num;
 		this.sf_savefilename = sf_savefilename;
