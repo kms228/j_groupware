@@ -21,7 +21,17 @@
 	<select id="searchemail" parameterType="String" resultType="LoginVo">
 		select * from employee where EMP_EMAIL=#{EMP_EMAIL}
 	</select>
+	<select id="memInfo" parameterType="int" resultType="LoginVo">
+		select * from EMPLOYEE where EMP_NUM=#{emp_num}
+	</select>
 	
+	<update id="acUpdate" parameterType="account">
+		update ACCOUNT set ACNT_PWD=#{ACNT_PWD} where ACNT_ID=#{ACNT_ID}
+	</update>
+	<update id="empUpdate" parameterType="LoginVo">
+		update EMPLOYEE set EMP_NAME=#{EMP_NAME},EMP_PHONE=#{EMP_PHONE},EMP_ADDR=#{EMP_ADDR},EMP_GENDER=#{EMP_GENDER},EMP_EMAIL=#{EMP_EMAIL}
+		where EMP_NUM=#{EMP_NUM}
+	</update>
 	
 </mapper>
 
