@@ -21,10 +21,17 @@ public class CalendarController {
 	@Autowired private CalendarService service;
 	
 	@RequestMapping(value="/schedule",method=RequestMethod.POST)
-	public String schedule(ScheduleVo vo,MultipartFile file1, HttpSession session) {		
+	public String insert(ScheduleVo vo,MultipartFile file1, HttpSession session) {		
 //		System.out.println(vo.getSch_sdate());
 //		System.out.println(vo.getSch_edate());
 		int result = service.insert(vo,file1,session);
+		System.out.println("결과:"+result);
+		
+		return "redirect:/calendar";
+	}
+	@RequestMapping(value="/updateSchedule",method=RequestMethod.POST)
+	public String update(ScheduleVo vo,MultipartFile file1, HttpSession session) {		
+		int result = service.update(vo,file1,session);
 		System.out.println("결과:"+result);
 		
 		return "redirect:/calendar";
