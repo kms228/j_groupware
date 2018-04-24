@@ -2,10 +2,12 @@ package com.jhta.groupware.work.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,14 +20,49 @@ import com.jhta.groupware.work.vo.WorkListVo;
 public class RequestWorkController {
 	@Autowired private RequestWorkService requestWorkService;
 	@Autowired private SetWorkService setWorkService;
-	@RequestMapping("/requestWork")
-	public ModelAndView work_request(@RequestParam Map<String, Object> map) {
+	
+	@RequestMapping("/requestWork/{emp_num}")
+	public ModelAndView work_request(@PathVariable String emp_num) {
 		ModelAndView mv = new ModelAndView(".work.work_request");
-		WorkListVo vo = requestWorkService.selectRequestWork(map);
-		System.out.println("WorkListVo.toString : "+vo.toString());
-		mv.addObject("work");
+		//오늘날짜 구하기
+		Date today = new Date();
+		SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+		String wlist_start = date.format(today);
+		//사원번호와 오늘날짜 집어넣기
+		Map<String, Object> map = new HashMap<>();
+		map.put("emp_num", emp_num);
+		map.put("wlist_start",wlist_start );
+		//해당사원번호의 오늘날짜에 대한 PK받아오기
+		WorkListVo vo =  requestWorkService.selectRequestWorkNum(map);
+		int wlist_num = vo.getWlist_num();
+		//받아온 PK로 출퇴근시간 받아오기
+		WorkListVo vo1 = requestWorkService.selectRequestWork(wlist_num);
+		mv.addObject("work", vo1);
 		return mv;
 	}
+	//퇴근버튼(출퇴근 테이블 업데이트)
+	@RequestMapping("/workEnd")
+	public String work_end(@RequestParam Map<String, Object>map) {
+		try {
+			//오늘날짜 구하기
+			Date today = new Date();
+			SimpleDateFormat date = new SimpleDateFormat("yyyy/MM/dd");
+			String wlist_start = date.format(today);
+			//오늘날짜 집어넣기
+			map.put("wlist_start",wlist_start );
+			//해당사원번호의 오늘날짜에 대한 PK받아오기
+			WorkListVo vo =  requestWorkService.selectRequestWorkNum(map);
+			int wlist_num = vo.getWlist_num();
+			//출퇴근 테이블 퇴근시간 업데이트
+			map.put("wlist_num", wlist_num);
+			requestWorkService.insertRequestWorkEnd(map);
+			return "redirect:/requestWork/"+map.get("emp_num");
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			return ".main";
+		}
+	}
+	//출근버튼
 	@RequestMapping("/workStart")
 	public String work_start(@RequestParam Map<String,Object> map) {
 		System.out.println("--------------------RequestWorkController map---------------------");
@@ -52,7 +89,7 @@ public class RequestWorkController {
 				map.put("wlist_type","4");
 			}
 			requestWorkService.insertRequestWorkStart(map);
-			return "redirect:/requestWork";
+			return "redirect:/requestWork/"+map.get("emp_num");
 		}catch(Exception e) {
 			System.out.println("출근시작 버튼 Exception:"+e.getMessage());
 			return ".main";
@@ -60,3 +97,12 @@ public class RequestWorkController {
 		
 	}
 }
+
+
+
+
+
+
+
+
+
