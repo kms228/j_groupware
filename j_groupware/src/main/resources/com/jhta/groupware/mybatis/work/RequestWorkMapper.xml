@@ -2,5 +2,25 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.groupware.mybatis.RequestWorkMapper">
+<mapper namespace="com.jhta.groupware.mybatis.work.RequestWorkMapper">
+	<insert id="insertWorkStart" parameterType="map">
+		insert into worklist 
+		values(seq_worklist.nextval, to_date(#{wlist_start},'YYYY/MM/DD hh24:mi'), null , #{wlist_type} ,#{emp_num})
+	</insert>
+	<update id="insertWorkEnd" parameterType="map">
+		update worklist set wlist_end=to_date(#{wlist_end},'YYYY/MM/DD hh24:mi') where wlist_num=#{wlist_num}
+	</update>
+	<select id="selectWorkListNum" parameterType="map" resultType="worklist">
+		select wlist_num from
+			(
+			select wlist_num,to_char(wlist_start,'yyyy/mm/dd') as wlist_start 
+			from worklist 
+			where emp_num=#{emp_num}
+			)aa 
+		where aa.wlist_start=#{wlist_start}
+	</select>
+	<select id="selectWork" parameterType="int" resultType="worklist">
+		select * from worklist where wlist_num=#{wlist_num}
+	</select>
+	
 </mapper>

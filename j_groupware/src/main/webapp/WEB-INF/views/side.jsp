@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div>
 	 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -31,7 +32,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<c:url value='/requestWork'/>"><i class="fa fa-circle-o"></i> 근태 신청</a></li>
+
+            <li><a href="<c:url value='/requestWork/${emp_num }'/>"><i class="fa fa-circle-o"></i> 근태 신청</a></li>
             <li><a href="<c:url value='/requestWorkList'/>"><i class="fa fa-circle-o"></i> 신청 내역</a></li>
             <li><a href="<c:url value='/responseWorkList'/>"><i class="fa fa-circle-o"></i> 승인 요청 내역</a></li>
             <li><a href="<c:url value='/work'/>"><i class="fa fa-circle-o"></i> 근태 현황 보기</a></li>
@@ -144,4 +146,7 @@
     </section>
     <!-- /.sidebar -->
   </aside>
+  <script type="text/javascript">
+  
+  </script>
 </div>

@@ -2,9 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="java.util.Calendar"%>
-<%@ page import="java.util.Date"%>
-<%@ page import="java.text.DecimalFormat"%>
 
 <div>
 	<h3><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3>
@@ -12,31 +9,75 @@
 			<div class="box-body">
 			<label for="reservation3">출/퇴근 현황</label>
 			<div class="form-group">
-                <div class="col-md-2">
-                  <input type="text" class="form-control" value="" readonly="readonly" id="nowDate">
-                </div>
-                <!-- 출근폼 -->
-                <form method="post" action="" id="workstartForm">
-                	<input type="hidden" name="emp_num" value="${emp_num }">
-	                <div class="col-md-1">
-	                  <button type="button" class="btn btn-block btn-primary" id="btn_workstart" title="출근" style="width: 100px">출근</button>
-	                </div>
-	                <div class="col-md-2">
-	                  <input type="text" class="form-control" readonly="readonly" placeholder="출근버튼을 누르세요" id="text_workstart" name="wlist_start">
-	                </div>
-                </form>
-                 <!-- /출근폼 -->
-                <!-- 퇴근폼 -->
-                <form method="post" action="" id="workendForm">
-               	 	<input type="hidden" name="emp_num" value="${emp_num }">
-	                <div class="col-md-1">
-	                  <button type="button" class="btn btn-block btn-danger" id="btn_workend" title="퇴근" style="width: 100px">퇴근</button>
-	                </div>
-	                <div class="col-md-2">
-	                  <input type="text" class="form-control" readonly="readonly" placeholder="퇴근버튼을 누르세요" id="text_workend" name="wlist_end">
-	                </div>
-                </form>
-                 <!-- /퇴근폼 -->
+                  <div class="col-md-3">
+			                  	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-default"  >날짜</button>
+					                </div>
+					                <!-- /btn-group -->
+					               
+					                  <div class="input-group">
+					                    <input type="text" class="form-control" id="nowDate" readonly="readonly" name="wlist_start" >
+					                  </div>
+					                  <!-- /.input group -->
+					                <!-- /.form group -->
+					             
+					              </div>
+					              </div>
+					                <div class="col-md-3">
+			                  	<div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="button" class="btn btn-default" >시간</button>
+					                </div>
+					                <!-- /btn-group -->
+					               
+					                  <div class="input-group">
+					                    <input type="text" class="form-control" id="nowTime" readonly="readonly" >
+					                  </div>
+					                  <!-- /.input group -->
+					                <!-- /.form group -->
+					             
+					              </div>
+					              </div>
+					              
+                <div class="col-md-3">
+                	<form onsubmit="return workStart();" method="post" action="<c:url value='/workStart'/>">
+	                	<input type="hidden" name="emp_num" value="${emp_num }">
+	                	<input type="hidden" name="wlist_start" id="real_workstart">
+	                	<input type="hidden" name="wlist_type" id="wlist_type" value="1">
+			            <div class="input-group">
+					    	<div class="input-group-btn">
+					        	<button type="submit" class="btn btn-primary">출근</button>
+					        </div>
+					        <!-- /btn-group -->
+					        <div class="input-group">
+					        	<input type="text" class="form-control" readonly="readonly" id="text_workstart"
+					        	value="<fmt:formatDate value="${work.wlist_start}" pattern="HH:mm"/>">
+					        </div>
+					        <!-- /.input group -->
+						</div>
+					</form>
+					<!-- /.form group -->
+				</div>
+				<div class="col-md-3">
+					              <form onsubmit="return workEnd();" action="<c:url value='/workEnd'/>" method="post">
+					              <input type="hidden" name="emp_num" value="${emp_num }">
+					              <input type="hidden" name="wlist_end" id="real_workend">
+					              <div class="input-group">
+					                <div class="input-group-btn">
+					                  <button type="submit" class="btn btn-danger">퇴근</button>
+					                </div>
+					                <!-- /btn-group -->
+					                  <div class="input-group">
+					                    <input type="text" class="form-control" id="text_workend" readonly="readonly"
+					                    value="<fmt:formatDate value="${work.wlist_end}" pattern="HH:mm"/>">
+					                  </div>
+					                  <!-- /.input group -->
+					              </div>
+					              </form>
+					           </div>
+					            <br>
+           
             </div>
          </div>
          </div>
@@ -424,44 +465,65 @@
        
 <script type="text/javascript">
 	$(function(){
-		var nowDate = moment().format('YYYY/MM/DD h:mm:ss a');
+		//날짜
+		var nowDate = moment().format('YYYY/MM/DD');
+		$("#nowDate").val(nowDate);
+		//시간
 		setInterval(function() {
-			nowDate = moment().format('YYYY/MM/DD h:mm:ss a');
-			$("#nowDate").val(nowDate);
+			var nowTime = moment().format('HH:mm:ss');
+			$("#nowTime").val(nowTime);
 		}, 1000);
-		//출근버튼
-		$("#btn_workstart").click(function(){
-			if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
-				var result = confirm('출근하시겠습니까?');
-				if(result){
-					var startTime = moment().format('HH:mm');
-					$("#text_workstart").val(startTime);	
-					$("#workstartForm").submit();
-				}
-			}else{
-				alert("이미 출근하셨습니다.");
-			}
-		});
-		//퇴근버튼
-		$("#btn_workend").click(function(){
-			if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
-				alert("출근시간이 입력되지 않았습니다.");
-			}else{
-				if($("#text_workend").val()==null||$("#text_workend").val()==''){
-					var result = confirm('퇴근하시겠습니까?');
-					if(result){
-						var endTime = moment().format('HH:mm');
-						$("#text_workend").val(endTime);
-						$("#workendForm").submit();
-					}
-				}else{
-					alert("이미 퇴근하셨습니다.");
-				}
-			}
-		});
-		
-		
+		selectWorkTime();
 	});
+	
+	function selectWorkTime(){
+		
+	}
+	
+	//출근버튼
+	function workStart(){
+		if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
+			var result = confirm('출근하시겠습니까?');
+			if(result){
+				var requestTime = moment().format('YYYY/MM/DD HH:mm');
+				$("#real_workstart").val(requestTime);
+				alert(requestTime+" 출근");
+				
+				var startTime = moment().format('HH:mm');
+				$("#text_workstart").val(startTime);
+				return true;
+			}else{
+				return false;
+			}
+		}else{
+			alert("이미 출근하셨습니다.");
+			return false;
+		}
+	};
+	//퇴근버튼
+	function workEnd(){
+		if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
+			alert("출근시간이 입력되지 않았습니다.");
+			return false;
+		}else{
+			if($("#text_workend").val()==null||$("#text_workend").val()==''){
+				var result = confirm('퇴근하시겠습니까?');
+				if(result){
+					var requestTime = moment().format('YYYY/MM/DD HH:mm');
+					$("#real_workend").val(requestTime);
+					var endTime = moment().format('HH:mm');
+					$("#text_workend").val(endTime);
+					alert(requestTime+" 퇴근");
+					return true;
+				}else{
+					return false;
+				}
+			}else{
+				alert("이미 퇴근하셨습니다.");
+				return false;
+			}
+		}
+	};
 </script>
       </div>
       <!-- /.box-body -->

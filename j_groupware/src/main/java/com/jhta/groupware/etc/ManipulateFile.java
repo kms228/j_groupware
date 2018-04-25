@@ -63,4 +63,12 @@ public class ManipulateFile {
 			file.mkdirs();
 		}
 	}
+	public int deleteFile(String fileName) {
+		boolean result = false;
+		File file = new File(fileName);
+		if(file.exists()&&file.isFile()) {
+			result = file.delete();
+		}
+		return result ? 1:0;
+	}
 }

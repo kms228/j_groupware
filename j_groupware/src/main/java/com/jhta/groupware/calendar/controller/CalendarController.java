@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -54,7 +56,22 @@ public class CalendarController {
 	}
 	@RequestMapping("/getPosition")
 	public @ResponseBody List<PositionVo> getPositionByJson() {
-		List<PositionVo> list = service.getPosition();		
+		List<PositionVo> list = service.getPosition();
+		
 		return list;
+	}
+	@RequestMapping(value="/deleteSchedule",produces="application/json;charset=utf-8")
+	public @ResponseBody String deleteSchedule(@RequestBody Sc_FileVo vo,HttpSession session) {
+		System.out.println("RequestBody: "+vo.getSch_num());
+		int result = service.deleteSchedule(vo,session);
+		System.out.println("result 반환값 : "+result);
+		JSONObject json = new JSONObject();
+		if(result>0) {
+			json.put("result", "삭제 성공");
+		} else {
+			json.put("result", "삭제 실패");
+		}
+		System.out.println("jsonObject 반환값 : "+json.toString());
+		return json.toString();
 	}
 }

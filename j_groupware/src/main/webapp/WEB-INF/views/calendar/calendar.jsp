@@ -3,7 +3,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <script>
-$(function () {
+$(function () {		
 //일정 읽기, 전체일정 불러오기
   var schedule = (function(){
 	  var position = {'0':'비공개'};
@@ -15,13 +15,14 @@ $(function () {
 			dataType : "json",
 			success : function(data){
 				var events = new Array();
-				for(i in data){					
+				for(i in data){										
 				  events.push({			
 								id : data[i].sch_num,
 							    title : data[i].sch_title,
 						        start : $.fullCalendar.moment(data[i].sch_sdate),         
 						        end : $.fullCalendar.moment(data[i].sch_edate),
-						        description : data[i].sch_content,
+						        description : data[i].sch_content						        
+						        //allDay : true
 				  });				    										
 				}
 			$('#calendar').fullCalendar('addEventSource',events);
@@ -54,61 +55,37 @@ $(function () {
 	  initPublic();
 	  initSchedules();
 	  return {
-/* 		  initSchedules : function(){
-			  $.ajax({
-				method: "POST",
-				url : "<c:url value='/getSchedules'/>",
-				dataType : "json",
-				success : function(data){
-					var events = new Array();
-					for(i in data){					
-					  events.push({			
-									id : data[i].sch_num,
-								    title : data[i].sch_title,
-							        start : $.fullCalendar.moment(data[i].sch_sdate),         
-							        end : $.fullCalendar.moment(data[i].sch_edate),
-							        description : data[i].sch_content,
-					  });				    										
-					}
-				$('#calendar').fullCalendar('addEventSource',events);
-				}
-			  });  
-		  },
-		  initPublic : function(){
-			  var create_public = document.getElementById("create_public");
-			  var mod_public = document.getElementById("mod_public");
-			  var option;
-			  $.ajax({
-					 method: "get",
-					 url : "<c:url value='/getPosition'/>",
-					 dataType : "json",
-					 success : function(data){						 
-						 for(i in data){							 							 
-							 position[String(data[i].pst_num)]= data[i].pst_name;
-							 option = document.createElement("option");
-							 option.text = data[i].pst_name;
-							 option.value = data[i].pst_num;
-							 create_public.appendChild(option);		 	 							 
-							 option = document.createElement("option");
-							 option.text = data[i].pst_name;
-							 option.value = data[i].pst_num;
-							 mod_public.appendChild(option);
-						 }
-					 }
-		      });
-		  },
-		   */
 		  getPosition : function(pst_num){
 			  var string_pst_num = String(pst_num);
 			  return position[string_pst_num];
-		  },		  		  
+		  },
+		  deleteSchedule : function(eventData){			  
+			  var req;			  
+			  req = new XMLHttpRequest();			  
+			  req.onreadystatechange = function(){
+				if(req.readyState === XMLHttpRequest.DONE){//4
+					$("#modal-default").modal('hide');
+				  if(req.status === 200){					
+					$("#calendar").fullCalendar('removeEvents',eventData.sch_num);					
+				  } else {
+					alert("Error loading page");
+				  }
+				}  
+			  };
+			  var url = "<c:url value='/deleteSchedule'/>";
+			  req.open('POST',url,true);
+			  req.setRequestHeader('Content-Type','application/json');			  
+			  req.send(JSON.stringify(eventData));			  
+		  }
 	  };
   })();	  	  
 
-var modalModal = (function(modal,modifyBtn,deleteBtn){
-	var myModal=document.getElementById(modal);
-	var myModifyBtn=document.getElementById(modifyBtn);
-	var myDeleteBtn=document.getElementById(deleteBtn);
+var modalModal = (function(schedule){	
+	var eventData;
+	var mySchedule = schedule;
+	var myModal=document.getElementById('modal-default');
+	var myModifyBtn=document.getElementById('modifyBtn');
+	var myDeleteBtn=document.getElementById('deleteBtn');
 	//시간계산 후 모달에 넣기
 	var setValueForTime = function(sdate,now,edate){
 		if(now<sdate){
@@ -126,56 +103,68 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
   			$("#sch_time_bar").css("width", percentage+"%");
 	  		$("#sch_time").html(remainHours + ' 시간이 남았습니다.');					  		
   		 }
-	};
-	return {
-		data : null,
+	};	
+	var setModifyForm = function(){
+		//console.log(eventData);
+		$("#sch_num").val(eventData.sch_num);
+		$("#modTitle").val(eventData.sch_title);
+		$("#modPlace").val(eventData.sch_place);					
+		$("#daterangepicker_start_mod").val(moment(eventData.sch_sdate).format('YYYY/MM/DD HH:mm'));
+		$("#daterangepicker_end_mod").val(moment(eventData.sch_edate).format('YYYY/MM/DD HH:mm'));
+		$("#modContent").val(eventData.sch_content);
+		$("#mod_public").val(eventData.sch_public);
+		if(eventData.sf_orgfilename){
+			$("#mod_orgfilename").html(eventData.sf_orgfilename);	
+		} else {
+			$("#mod_orgfilename").html('파일이 없어요.');
+		}								
+		document.getElementById("modifySchedule").style.display='block';
+		document.getElementById("createSchedule").style.display='none';
+		$(myModal).modal("hide");	
+		defaultModal();
+	};	
+	myModifyBtn.addEventListener('click',setModifyForm);
+	return {		
 		setValue : function(sch_num){		
 			  $.ajax({
-					 method: "get",
-					 url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
-					 dataType : "json",
-					 success : function(data){
-						 this.data=data;
-						 var sdate = moment(data.sch_sdate);
-						 var edate = moment(data.sch_edate);
-						 var now = moment();
+				method: "get",
+				url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+				dataType : "json",
+			    success : function(data){
+			    	eventData = data;
+			    	console.log(eventData);
+					var sdate = moment(data.sch_sdate);
+					var edate = moment(data.sch_edate);
+					var now = moment();
 						 
-						 $("#pst_name").html(data.pst_name);
-						 $("#pst_name").append(" "+data.emp_name);
-						 $("#sch_title").html(data.sch_title);
-						 setValueForTime(sdate,now,edate);																							
-						 $("#sch_public").html(schedule.getPosition(String(data.sch_public)));
-				  		 $("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
-				  		 $("#sch_place").html(data.sch_place);
-				  		 $("#sch_content").html(data.sch_content);												 						 							 						
-						 if(data.sf_orgfilename){
-				  			$("#sf_orgfilename").html(data.sf_orgfilename);							 
-				  			$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
-				  			percentage = Math.floor((data.sf_size/52242880)*100);
-				  			$("#sf_orgfilename_bar").css("width",percentage+"%");
-			  			 } else {
-			  				$("#sf_orgfilename").html('파일이 없어요.'); 					
-			  				$("#sf_size").html('0 '+'/ 5000000 byte'); 					
-			  			 }
-						 myModifyBtn.addEventListener("click", function(){				  
-								$("#modTitle").val(data.sch_title);
-								$("#modPlace").val(data.sch_place);					
-								$("#daterangepicker_start_mod").val(moment(data.sch_sdate).format('YYYY/MM/DD HH:mm'));
-								$("#daterangepicker_end_mod").val(moment(data.sch_edate).format('YYYY/MM/DD HH:mm'));
-								$("#modContent").val(data.sch_content);
-								$("#mod_public").val(data.sch_public);
-								document.getElementById("modifySchedule").style.display='block';
-								document.getElementById("createSchedule").style.display='none';
-								$(myModal).modal("hide");								
-					 	});	
-					 }
-		      });			  			  
-		},		
+					$("#pst_name").html(data.pst_name);
+				    $("#pst_name").append(" "+data.emp_name);
+					$("#sch_title").html(data.sch_title);
+					setValueForTime(sdate,now,edate);																							
+					$("#sch_public").html(schedule.getPosition(String(data.sch_public)));
+				  	$("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
+				  	$("#sch_place").html(data.sch_place);
+				  	$("#sch_content").html(data.sch_content);												 						 							 						
+					if(data.sf_orgfilename){
+				  		$("#sf_orgfilename").html(data.sf_orgfilename);							 
+				  		$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
+				  		percentage = Math.floor((data.sf_size/52242880)*100);
+				  		$("#sf_orgfilename_bar").css("width",percentage+"%");
+			  		} else {
+			  			$("#sf_orgfilename").html('파일이 없어요.'); 					
+			  			$("#sf_size").html('0 '+'/ 5000000 byte'); 					
+			  		}															
+				}
+			  });
+		},
+		deleteSchedule : function(){
+			mySchedule.deleteSchedule(eventData);			
+		},
 		viewModal : function(){
 			return $(myModal).modal();
-		},		
+		}		
 	};		
-})('modal-default','modifyBtn','deleteBtn');
+})(schedule);
 	  
 	//Daterangepicker
 	  $('#daterangepicker_start,#daterangepicker_end,#daterangepicker_start_mod,#daterangepicker_end_mod').daterangepicker({
@@ -250,23 +239,56 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
       },
       eventMouseover : function(){
     	  $(this).css("cursor","pointer");
-      }
-      
+      }      
     });
-        
-  	//일정 불러오기
-    //schedule.initSchedules();
-  	//schedule.initPublic();
-  	
+    
+    var defaultModal = function(){
+		$("div.nav-tabs-custom > ul.nav.nav-tabs").find("li.active").removeClass("active");
+		$("div.nav-tabs-custom > ul.nav.nav-tabs li:nth-child(1)").addClass("active");
+		$("div.nav-tabs-custom > div.tab-content").find("div.tab-pane.active").removeClass("active");
+		$("div.nav-tabs-custom > div.tab-content > div:nth-child(1)").addClass("active");		
+	};
   	document.getElementById("btnCreate").addEventListener('click',function(){
     	document.getElementById("modifySchedule").style.display='none';
 		document.getElementById("createSchedule").style.display='block';
     });
   	document.getElementById("modifyFile").addEventListener('change',function(){  		  		  		  		
-        var x = document.getElementById("modifyFile").value;
-  		document.getElementById("help-block").innerHTML = x;
+        var x = document.getElementById("modifyFile").files[0].name;
+  		document.getElementById("mod_orgfilename").innerHTML = x;
   	});
-  });
+  	document.getElementById("closeModalBtn").addEventListener('click',defaultModal);
+  	document.getElementById("deleteModalBtn").addEventListener('click',modalModal.deleteSchedule);
+  	
+  	//일정등록 유효성 검사 항목
+  	document.getElementById("createForm").addEventListener('submit', function(evt){
+  		var title = $("#cr8Title").val();
+  		var place = $("#cr8Place").val();
+  		var sdate = moment($("#daterangepicker_start").val());
+  		var edate = moment($("#daterangepicker_end").val());  		
+  		var result = moment.duration().subtract(sdate.diff(edate));
+  		var swit = false;
+  		//console.log(result);
+  		if(title.length>15 || title.length<=0){
+  			alert('일정제목은 최소 1자, 최대 15자로 작성해주세요.');
+  			swit = true;
+  		}
+  		if(place.length>10 || place.length<=0){
+  			alert('장소 이름은 최소 1자, 최대 10자로 작성해주세요.');
+  			swit = true;  			
+  		}
+  		if(result._milliseconds<=0){
+  			alert('시작일이 종료일보다 같거나 앞에 있습니다.');
+  			swit = true;
+  		}
+  		if(swit){
+  			evt.preventDefault();
+  		}
+  	});
+  	/* function(){
+		defaultModal();
+		$("#modal-default").modal("hide");
+	} */
+});
 </script>
 
 <!-- Content Wrapper. Contains page content -->  
@@ -311,7 +333,8 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
               <!-- text input -->
               <div class="form-group">
               	<form method="post" action="<c:url value='/updateSchedule'/>" enctype="multipart/form-data">
-              	<input type="hidden" name="emp_num" value="3">
+              	<input type="hidden" name="sch_num" id="sch_num" value="">
+              	<input type="hidden" name="emp_num" id="emp_num" value="3">
                 <label>일정이름</label>
                 <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="modTitle">
                 <label>장소</label>
@@ -339,16 +362,14 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
                   	<option value="0">비공개</option>                    
                   </select>                  
                   
-				<label>첨부파일(5MB 이하)</label>                  
+				<label>첨부파일(50MB 이하)</label>                  
                   <div class="form-group">
                     <div class="btn btn-default btn-file">
                       <i class="fa fa-paperclip"></i> 파일첨부
-                      <input type="file" name="attachment" id="modifyFile">
-                    </div>
-                    <p class="help-block" id="help-block"></p>
-                  </div>
-                                                                 
-                  <br>
+                      <input type="file" name="file1" id="modifyFile">
+                    </div>                    
+                      <p class="help-block" id="mod_orgfilename">파일 없음</p>                                       
+                  </div>                                                                 
                   <input type="submit" class="btn btn-primary" value="일정 수정">                  
                   </form>                                                                              
               </div>                                                  
@@ -368,33 +389,33 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
                                                                   
               <!-- text input -->
               <div class="form-group">
-              	<form method="post" action="<c:url value='/'/>schedule" enctype="multipart/form-data">
+              	<form method="post" action="<c:url value='/'/>schedule" enctype="multipart/form-data" id="createForm">
               	<input type="hidden" name="emp_num" value="3">
                 <label>일정이름</label>
-                <input type="text" name="sch_title" class="form-control" placeholder="Enter ...">
+                <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="cr8Title">
                 <label>장소</label>
-                <input type="text" name="sch_place" class="form-control" placeholder="Enter ...">           
+                <input type="text" name="sch_place" class="form-control" placeholder="Enter ..." id="cr8Place">           
               <!-- Date -->
                 <label>시작일:</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start_mod">
+                  <input type="text" name="sch_sdate" class="form-control pull-right" id="daterangepicker_start">
                 </div>
                 <label>종료일:</label>
                 <div class="input-group date">
                   <div class="input-group-addon">
                     <i class="fa fa-calendar"></i>
                   </div>
-                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end_mod">
+                  <input type="text" name="sch_edate" class="form-control pull-right" id="daterangepicker_end">
                 </div>
                 
                 <label>내용</label>
                 <textarea class="form-control" rows="7" placeholder="Enter ..." name="sch_content"></textarea>
                 <label>공개여부</label>
                   <select class="form-control" name="sch_public" id="create_public">
-                  	<option value="0">비공개</option>                    
+                  	<option value="0">비공개</option>
                   </select>           
                   <label for="inputFile">첨부파일(5MB 이하)</label>
                   <input type="file" id="inputFile" name="file1" >                                          
@@ -439,7 +460,7 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
               <!-- Custom Tabs -->
           <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
-              <li class="active"><a href="#tab_1" data-toggle="tab">작성자</a></li>
+              <li class="active" id="activeClass"><a href="#tab_1" data-toggle="tab">작성자</a></li>
               <li><a href="#tab_2" data-toggle="tab">일정이름</a></li>
               <li><a href="#tab_3" data-toggle="tab">공개여부</a></li>                            
               <li><a href="#tab_4" data-toggle="tab">장소</a></li>
@@ -550,9 +571,9 @@ var modalModal = (function(modal,modifyBtn,deleteBtn){
                 <p class="lead" id="sch_content">XXXX</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="closeModalBtn">닫기</button>
                 <button type="button" class="btn btn-primary" id="modifyBtn">수정하기</button>                                                                         
-                <button type="button" class="btn btn-primary" id="deleteSchedule">삭제</button>
+                <button type="button" class="btn btn-primary" id="deleteModalBtn">삭제</button>
               </div>                                          
             </div>
             <!-- /.modal-content -->            
