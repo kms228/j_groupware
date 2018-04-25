@@ -20,9 +20,6 @@ public class RequestWorkDao {
 		System.out.println("wlist_start : "+map.get("wlist_start"));
 		System.out.println("wlist_type : "+map.get("wlist_type"));
 		System.out.println("map.tostring() : "+map.toString());
-		System.out.println("emp_num 타입 : "+map.get("emp_num").getClass().getName());
-		System.out.println("wlist_start 타입 : "+map.get("wlist_start").getClass().getName());
-		System.out.println("wlist_type 타입 : "+map.get("wlist_type").getClass().getName());
 		System.out.println("------------------RequestWorkDao insert 전--------------------");
 		int n =  sqlSession.insert(NAMESPACE+".insertWorkStart", map);
 		System.out.println("------------------RequestWorkDao insert 후--------------------");
@@ -34,19 +31,22 @@ public class RequestWorkDao {
 		return n;
 	}
 	//퇴근시간 입력
-	public void insertRequestWorkEnd() {
-		
+	public int insertRequestWorkEnd(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".insertWorkEnd", map);
 	}
-	//저장된 출근/퇴근 시간 가져오기
-	public WorkListVo selectRequestWork(Map<String, Object>map) {
-		return sqlSession.selectOne(NAMESPACE+".selectWorkList",map);
+	//해당 사원의 당일 근태넘버 wlist_num(PK)가져오기
+	public WorkListVo selectRequestWorkNum(Map<String, Object>map) {
+		System.out.println("PK구하기 위한 map.tostring : "+map.toString());
+		WorkListVo vo =  sqlSession.selectOne(NAMESPACE+".selectWorkListNum",map);
+		System.out.println("select PK : "+vo.toString());
+		return vo;
 	}
-	//퇴근시간 가져오기
-	public void selectRequestWorkEnd() {
-		
+	//출퇴근시간 가져오기
+	public WorkListVo selectRequestWork(int wlist_num) {
+		System.out.println("해당 근태정보 구하기 위한 wlist_num(PK)"+wlist_num);
+		WorkListVo vo =  sqlSession.selectOne(NAMESPACE+".selectWork",wlist_num);
+		System.out.println("select worklist : "+vo.toString());
+		return vo;
 	}
-	//출근시간 가져오기
-	public void selectRequestWorkStart() {
-		
-	}
+	
 }

@@ -52,8 +52,7 @@
 					        <!-- /btn-group -->
 					        <div class="input-group">
 					        	<input type="text" class="form-control" readonly="readonly" id="text_workstart"
-					        	value="<fmt:formatDate value="${work.wlist_start}" pattern="HH:mm"/>"
-					        	>
+					        	value="<fmt:formatDate value="${work.wlist_start}" pattern="HH:mm"/>">
 					        </div>
 					        <!-- /.input group -->
 						</div>
@@ -61,7 +60,7 @@
 					<!-- /.form group -->
 				</div>
 				<div class="col-md-3">
-					              <form onsubmit="return workEnd();" action="" method="post">
+					              <form onsubmit="return workEnd();" action="<c:url value='/workEnd'/>" method="post">
 					              <input type="hidden" name="emp_num" value="${emp_num }">
 					              <input type="hidden" name="wlist_end" id="real_workend">
 					              <div class="input-group">
@@ -70,7 +69,8 @@
 					                </div>
 					                <!-- /btn-group -->
 					                  <div class="input-group">
-					                    <input type="text" class="form-control" id="text_workend" readonly="readonly">
+					                    <input type="text" class="form-control" id="text_workend" readonly="readonly"
+					                    value="<fmt:formatDate value="${work.wlist_end}" pattern="HH:mm"/>">
 					                  </div>
 					                  <!-- /.input group -->
 					              </div>
@@ -473,7 +473,13 @@
 			var nowTime = moment().format('HH:mm:ss');
 			$("#nowTime").val(nowTime);
 		}, 1000);
+		selectWorkTime();
 	});
+	
+	function selectWorkTime(){
+		
+	}
+	
 	//출근버튼
 	function workStart(){
 		if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
