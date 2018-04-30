@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class EmpInfoController {
 	@RequestMapping(value="/empinfo",method=RequestMethod.GET)
-	public String empinfo() {
+	public String empinfo(int EMP_NUM) {
+		
 		return ".login.empinfo";
 	}
 }
+  
