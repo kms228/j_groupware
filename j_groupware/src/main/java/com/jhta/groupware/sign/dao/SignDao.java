@@ -1,6 +1,7 @@
 package com.jhta.groupware.sign.dao;
 
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -67,5 +68,10 @@ public class SignDao {
 	//내가 결재할 문서정도 얻어오기 수정버전
 	public List<SignLineDocVo> linesigndoc(int emp_num){
 		return sqlSession.selectList(NAMESPACE+".linesigndoc",emp_num);
+	}
+	
+	//결재 문서 결재 승인하기
+	public int signOk(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+".signOk",map);
 	}
 }
