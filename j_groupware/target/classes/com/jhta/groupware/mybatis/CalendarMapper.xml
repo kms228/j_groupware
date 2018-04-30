@@ -27,8 +27,20 @@
 		SELECT S.*, F.*,P.PST_NAME,E.EMP_NAME
 		FROM SCHEDULE S, SC_FILE F, EMPLOYEE E, POSITION P
 		WHERE S.SCH_NUM = F.SCH_NUM(+) AND E.EMP_NUM = S.EMP_NUM AND E.PST_NUM = P.PST_NUM AND S.SCH_NUM=#{value}
-	</select>
+	</select>	
 	<select id="getPosition" resultType="positionVo">
 		SELECT * FROM POSITION
 	</select>
+	<select id="getSc_file" parameterType="int" resultType="scfileVo">
+		SELECT * FROM SC_FILE WHERE sch_num = #{value}
+	</select>
+	<update id="updateSchedule" parameterType="scheduleVo">
+		UPDATE SCHEDULE SET SCH_TITLE=#{sch_title}, SCH_CONTENT=#{sch_content} ,SCH_SDATE=#{sch_sdate} ,SCH_EDATE=#{sch_edate} ,SCH_PLACE=#{sch_place} ,SCH_PUBLIC=#{sch_public} WHERE SCH_NUM=#{sch_num}
+	</update>
+	<delete id="deleteSc_file" parameterType="int">
+		DELETE FROM SC_FILE WHERE SCH_NUM=#{value}
+	</delete>
+	<delete id="deleteSchedule" parameterType="int">
+		DELETE FROM SCHEDULE WHERE SCH_NUM=#{value}
+	</delete>
 </mapper>

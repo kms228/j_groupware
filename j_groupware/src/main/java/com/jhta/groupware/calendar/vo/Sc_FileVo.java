@@ -17,7 +17,7 @@ public class Sc_FileVo extends ScheduleVo{
 	}
 	public int getSf_num() {
 		return sf_num;
-	}
+	}	
 	public void setSf_num(int sf_num) {
 		this.sf_num = sf_num;
 	}

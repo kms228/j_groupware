@@ -16,9 +16,19 @@ public class RequestWorkService {
 		return requestWorkDao.insertRequestWorkStart(map);
 	}
 	
-	public WorkListVo selectRequestWork(Map<String, Object>map) {
-		return requestWorkDao.selectRequestWork(map);
+	public int insertRequestWorkEnd(Map<String, Object>map) {
+		return requestWorkDao.insertRequestWorkEnd(map);
 	}
+	
+	public WorkListVo selectRequestWorkNum(Map<String, Object>map) {
+		return requestWorkDao.selectRequestWorkNum(map);
+	}
+	
+	public WorkListVo selectRequestWork(int wlist_num) {
+		return requestWorkDao.selectRequestWork(wlist_num);
+	}
+	
+	
 	
 	
 }
