@@ -1,5 +1,6 @@
 package com.jhta.groupware.sign.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,9 @@ public class SignService {
 	
 	public List<SignLineDocVo> linesigndoc(int emp_num){
 		return dao.linesigndoc(emp_num);
+	}
+	
+	public int signOk(HashMap<String, Object> map) {
+		return dao.signOk(map);
 	}
 }

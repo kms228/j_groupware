@@ -24,7 +24,7 @@
                 <tr role="row" class="odd">
 	                  <td class="sorting_1">${vo.sdoc_num }</td>
 	                  <td>${vo.doc_name }</td>
-	                  <td>${vo.sdoc_title }</td>
+	                  <td><a href="<c:url value='/'/>signdetail?sdoc_num=${vo.sdoc_num}">${vo.sdoc_title }</a></td>
 	                  <td>${vo.emp_name }</td>
 	                  <td>${vo.dept_name }</td>
 	                  <td>${vo.sdoc_date }</td>
