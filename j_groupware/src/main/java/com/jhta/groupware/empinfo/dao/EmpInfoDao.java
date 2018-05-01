@@ -26,13 +26,13 @@ public class EmpInfoDao {
 		return sqlsession.selectOne(NAMESAPCE+".getcarrer", EMP_NUM);
 	}
 	public HistoryVo getHis(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+"gethis", EMP_NUM);
+		return sqlsession.selectOne(NAMESAPCE+".gethis", EMP_NUM);
 	}
 	public PositionVo getPos(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+"getpos", EMP_NUM);
+		return sqlsession.selectOne(NAMESAPCE+".getpos", EMP_NUM);
 	}
 	public DeptVo getDept(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+"getdept", EMP_NUM);
+		return sqlsession.selectOne(NAMESAPCE+".getdept", EMP_NUM);
 	}
 	
 

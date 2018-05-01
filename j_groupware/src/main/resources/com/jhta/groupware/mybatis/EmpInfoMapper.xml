@@ -34,12 +34,8 @@
 		from HistoryVo where EMP_NUM=#{EMP_NUM}
 	</select>
 	
-	<select id="gethis" parameterType="int" resultType="HistoryVo">
-		select *
-		from HistoryVo where EMP_NUM=#{EMP_NUM}
-	</select>
 	
-	<select id="getpos" parameterType="int" resultType="PositionVo">
+	<select id="getpos" parameterType="int" resultType="PosiVo">
 		select p.PST_NAME,p.PST_NUM from POSITION p join EMPLOYEE e 
 		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM};
 	</select>
