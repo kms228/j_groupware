@@ -47,7 +47,7 @@
 </table>
 
 
-<h1></h1>
+<p>${vo1.EMP_NAME } / ${vo5.PST_NAME} / ${vo6.DEPT_NAME }</p>
 
 <div class="nav-tabs-custom">
             <ul class="nav nav-tabs">
@@ -58,19 +58,24 @@
             
             <div class="tab-content">
               <div class="tab-pane" id="academic">
-              
+              <span>학력</span>
+              <span>${vo2.ACD_NAME}</span>
               
               
               </div>
 
-              <div class="tab-pane active" id="career">         
+              <div class="tab-pane active" id="career">  
+              <span>경력</span>
+              <span>${vo3.CRR_WORK}</span>       
 
-
+	
 
               </div>
 
               <div class="tab-pane" id="history">
-
+              <span>근무이력</span>
+              <span>${vo4.HIS_DEPT}</span>
+				
 
 
               </div>

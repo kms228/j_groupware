@@ -14,17 +14,44 @@
 		FROM DUAL
 	</insert>
 
-	<select id="searchid" parameterType="String" resultType="account">
+	<select id="getemp" parameterType="int" resultType="loginVo">
 		select *
-		from account where ACNT_ID=#{ACNT_ID}
+		from EMPLOYEE where EMP_NUM=#{EMP_NUM}
+	</select>
+	
+	<select id="getacad" parameterType="int" resultType="AcademicVo">
+		select *
+		from ACADEMIC where EMP_NUM=#{EMP_NUM}
 	</select>
 
+	<select id="getcarrer" parameterType="int" resultType="CareerVo">
+		select *
+		from CAREER where EMP_NUM=#{EMP_NUM}
+	</select>
 
-	<update id="empUpdate" parameterType="LoginVo">
-		update EMPLOYEE set EMP_NAME=#{EMP_NAME},EMP_PHONE=#{EMP_PHONE},EMP_ADDR=#{EMP_ADDR},EMP_GENDER=#{EMP_GENDER},EMP_EMAIL=#{EMP_EMAIL}
-		where EMP_NUM=#{EMP_NUM}
-	</update>
+	<select id="gethis" parameterType="int" resultType="HistoryVo">
+		select *
+		from HistoryVo where EMP_NUM=#{EMP_NUM}
+	</select>
 	
+	<select id="gethis" parameterType="int" resultType="HistoryVo">
+		select *
+		from HistoryVo where EMP_NUM=#{EMP_NUM}
+	</select>
+	
+	<select id="getpos" parameterType="int" resultType="PositionVo">
+		select p.PST_NAME,p.PST_NUM from POSITION p join EMPLOYEE e 
+		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM};
+	</select>
+	
+	<select id="getdept" parameterType="int" resultType="DeptVo">
+		select D.DEPT_NAME,D.DEPT_NUM from DEPT D join EMPLOYEE e 
+		on D.DEPT_NUM=e.DEPT_NUM where emp_num=#{EMP_NUM};
+	</select>
+	
+	
+	
+
 </mapper>
 
 

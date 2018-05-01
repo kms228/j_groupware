@@ -27,7 +27,7 @@
 		<typeAlias type="com.jhta.groupware.acadeemic.vo.AcademicVo" alias="AcademicVo"/>
 		<typeAlias type="com.jhta.groupware.career.vo.CareerVo" alias="CareerVo"/>
 		<typeAlias type="com.jhta.groupware.history.vo.HistoryVo" alias="HistoryVo"/>
-		<typeAlias type="com.jhta.groupware.career.vo.CareerVo." alias="CareerVo"/>
+		<typeAlias type="com.jhta.groupware.position.vo.PositionVo" alias="PositionVo"/>
 		<typeAlias type="com.jhta.groupware.dept.vo.DeptVo" alias="DeptVo"/>
 
 	</typeAliases>
