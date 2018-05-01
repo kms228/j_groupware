@@ -31,19 +31,25 @@
 
 	<select id="gethis" parameterType="int" resultType="HistoryVo">
 		select *
-		from HistoryVo where EMP_NUM=#{EMP_NUM}
+		from History where EMP_NUM=#{EMP_NUM}
 	</select>
 	
 	
 	<select id="getpos" parameterType="int" resultType="PosiVo">
 		select p.PST_NAME,p.PST_NUM from POSITION p join EMPLOYEE e 
-		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM};
+		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM}
 	</select>
 	
 	<select id="getdept" parameterType="int" resultType="DeptVo">
 		select D.DEPT_NAME,D.DEPT_NUM from DEPT D join EMPLOYEE e 
-		on D.DEPT_NUM=e.DEPT_NUM where emp_num=#{EMP_NUM};
+		on D.DEPT_NUM=e.DEPT_NUM where emp_num=#{EMP_NUM}
 	</select>
+	
+	<select id="getacc" parameterType="int" resultType="account">
+		select *
+		from ACCOUNT where EMP_NUM=#{EMP_NUM}
+	</select>
+	
 	
 	
 	

@@ -1,5 +1,8 @@
 package com.jhta.groupware.empinfo.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +15,7 @@ import com.jhta.groupware.dept.vo.DeptVo;
 import com.jhta.groupware.empinfo.service.EmpInfoService;
 import com.jhta.groupware.history.vo.HistoryVo;
 import com.jhta.groupware.login.vo.LoginVo;
+import com.jhta.groupware.member.vo.MemberAccountVo;
 import com.jhta.groupware.position.vo.PositionVo;
 
 @Controller
@@ -20,8 +24,10 @@ public class EmpInfoController {
 	private EmpInfoService service;
 	
 	@RequestMapping(value="/empinfo",method=RequestMethod.GET)
-	public ModelAndView empinfo(int EMP_NUM) {
+	public ModelAndView empinfo(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView(".login.empinfo");
+		HttpSession session = req.getSession();
+		int EMP_NUM=(Integer)session.getAttribute("emp_num");
 		
 		LoginVo vo1 = service.getEmp(EMP_NUM);
 		AcademicVo vo2=service.getAcad(EMP_NUM);
@@ -29,6 +35,7 @@ public class EmpInfoController {
 		HistoryVo vo4=service.getHis(EMP_NUM);
 		PositionVo vo5=service.getPos(EMP_NUM);
 		DeptVo vo6=service.getDept(EMP_NUM);
+		MemberAccountVo vo7=service.getAcc(EMP_NUM);
 		
 		mv.addObject("vo1",vo1);
 		mv.addObject("vo2",vo2);
@@ -36,6 +43,7 @@ public class EmpInfoController {
 		mv.addObject("vo4",vo4);
 		mv.addObject("vo5",vo5);
 		mv.addObject("vo6",vo6);
+		mv.addObject("vo7",vo7);
 		
 		return mv;
 	}

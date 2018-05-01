@@ -34,7 +34,7 @@ public class LoginController {
 			System.out.println(ACNT_ID);
 			System.out.println("µÈ´Ù!!!");
 			session.setAttribute("ACNT_ID", ACNT_ID);
-			session.setAttribute("emp_num", vo.getEMP_NUM() );
+			session.setAttribute("EMP_NUM", vo.getEMP_NUM() );
 			System.out.println(vo.getEMP_NUM());
 			return "redirect:/";
 		} else {

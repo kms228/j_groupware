@@ -9,6 +9,7 @@ import com.jhta.groupware.career.vo.CareerVo;
 import com.jhta.groupware.dept.vo.DeptVo;
 import com.jhta.groupware.history.vo.HistoryVo;
 import com.jhta.groupware.login.vo.LoginVo;
+import com.jhta.groupware.member.vo.MemberAccountVo;
 import com.jhta.groupware.position.vo.PositionVo;
 
 @Repository
@@ -33,6 +34,9 @@ public class EmpInfoDao {
 	}
 	public DeptVo getDept(int EMP_NUM) {
 		return sqlsession.selectOne(NAMESAPCE+".getdept", EMP_NUM);
+	}
+	public MemberAccountVo getAcc(int EMP_NUM) {
+		return sqlsession.selectOne(NAMESAPCE+".getacc", EMP_NUM);
 	}
 	
 

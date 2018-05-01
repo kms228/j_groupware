@@ -10,6 +10,7 @@ import com.jhta.groupware.dept.vo.DeptVo;
 import com.jhta.groupware.empinfo.dao.EmpInfoDao;
 import com.jhta.groupware.history.vo.HistoryVo;
 import com.jhta.groupware.login.vo.LoginVo;
+import com.jhta.groupware.member.vo.MemberAccountVo;
 import com.jhta.groupware.position.vo.PositionVo;
 
 @Service
@@ -38,8 +39,12 @@ public class EmpInfoService {
 		return vo5;
 	}
 	public DeptVo getDept(int EMP_NUM) {
-		DeptVo vo5=dao.getDept(EMP_NUM);
-		return vo5;
+		DeptVo vo6=dao.getDept(EMP_NUM);
+		return vo6;
+	}
+	public MemberAccountVo getAcc(int EMP_NUM) {
+		MemberAccountVo vo7=dao.getAcc(EMP_NUM);
+		return vo7;
 	}
 	
 }
