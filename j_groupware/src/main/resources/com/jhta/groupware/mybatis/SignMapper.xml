@@ -42,6 +42,10 @@
 	<select id="linesigndoc" parameterType="int" resultType="linesigndoc">
 		select aa.*,dt.doc_name,emp.emp_name,dp.dept_name from(select sd.doc_num,sd.sdoc_date,sd.sdoc_num, sd.sdoc_title,sd.sdoc_state,sl.sline_num,sl.sline_state,sl.emp_num slemp, sd.emp_num sdemp  from sign_doc sd, sdoc_line sl where sd.sdoc_num=sl.sdoc_num and sl.emp_num=#{emp_num} and sl.sline_state=0)aa,doc_type dt,employee emp,dept dp where dt.doc_num=aa.doc_num and aa.slemp=emp.emp_num and emp.dept_num=dp.dept_num 
 	</select>
+	
+	<update id="signOk" parameterType="hashmap">
+		update sdoc_line set sline_state=1 where emp_num=#{emp_num} and sline_num=#{sline_num}
+	</update>
 </mapper>
 
 

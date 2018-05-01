@@ -38,7 +38,7 @@ public class RequestWorkDao {
 	public WorkListVo selectRequestWorkNum(Map<String, Object>map) {
 		System.out.println("PK구하기 위한 map.tostring : "+map.toString());
 		WorkListVo vo =  sqlSession.selectOne(NAMESPACE+".selectWorkListNum",map);
-		System.out.println("select PK : "+vo.toString());
+		//System.out.println("select PK : "+vo.toString());
 		return vo;
 	}
 	//출퇴근시간 가져오기
