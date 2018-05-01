@@ -16,7 +16,7 @@ $(function () {
 			success : function(data){
 				var events = new Array();
 				for(i in data){										
-				  events.push({			
+				  events.push({
 								id : data[i].sch_num,
 							    title : data[i].sch_title,
 						        start : $.fullCalendar.moment(data[i].sch_sdate),         
@@ -76,7 +76,17 @@ $(function () {
 			  req.open('POST',url,true);
 			  req.setRequestHeader('Content-Type','application/json');			  
 			  req.send(JSON.stringify(eventData));			  
-		  }
+		  },	
+		  getSchedule : function(sch_num, callbackFunc){
+			  $.ajax({
+					method: "get",
+					url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
+					dataType : "json",
+				    success : function(data){
+				    	callbackFunc(data);													 																					
+					}
+			  });
+		  }		  
 	  };
   })();	  	  
 
@@ -104,65 +114,87 @@ var modalModal = (function(schedule){
 	  		$("#sch_time").html(remainHours + ' 시간이 남았습니다.');					  		
   		 }
 	};	
-	var setModifyForm = function(){
-		//console.log(eventData);
-		$("#sch_num").val(eventData.sch_num);
-		$("#modTitle").val(eventData.sch_title);
-		$("#modPlace").val(eventData.sch_place);					
-		$("#daterangepicker_start_mod").val(moment(eventData.sch_sdate).format('YYYY/MM/DD HH:mm'));
-		$("#daterangepicker_end_mod").val(moment(eventData.sch_edate).format('YYYY/MM/DD HH:mm'));
-		$("#modContent").val(eventData.sch_content);
-		$("#mod_public").val(eventData.sch_public);
-		if(eventData.sf_orgfilename){
-			$("#mod_orgfilename").html(eventData.sf_orgfilename);	
-		} else {
-			$("#mod_orgfilename").html('파일이 없어요.');
-		}								
-		document.getElementById("modifySchedule").style.display='block';
-		document.getElementById("createSchedule").style.display='none';
-		$(myModal).modal("hide");	
-		defaultModal();
-	};	
-	myModifyBtn.addEventListener('click',setModifyForm);
-	return {		
-		setValue : function(sch_num){		
-			  $.ajax({
-				method: "get",
-				url : "<c:url value='/getSchedule?sch_num="+sch_num+"'/>",
-				dataType : "json",
-			    success : function(data){
-			    	eventData = data;
-			    	console.log(eventData);
-					var sdate = moment(data.sch_sdate);
-					var edate = moment(data.sch_edate);
-					var now = moment();
-						 
-					$("#pst_name").html(data.pst_name);
-				    $("#pst_name").append(" "+data.emp_name);
-					$("#sch_title").html(data.sch_title);
-					setValueForTime(sdate,now,edate);																							
-					$("#sch_public").html(schedule.getPosition(String(data.sch_public)));
-				  	$("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
-				  	$("#sch_place").html(data.sch_place);
-				  	$("#sch_content").html(data.sch_content);												 						 							 						
-					if(data.sf_orgfilename){
-				  		$("#sf_orgfilename").html(data.sf_orgfilename);							 
-				  		$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
-				  		percentage = Math.floor((data.sf_size/52242880)*100);
-				  		$("#sf_orgfilename_bar").css("width",percentage+"%");
-			  		} else {
-			  			$("#sf_orgfilename").html('파일이 없어요.'); 					
-			  			$("#sf_size").html('0 '+'/ 5000000 byte'); 					
-			  		}															
-				}
-			  });
+	return {	
+		setValue : function(data){
+			eventData = data;
+			var sdate = moment(data.sch_sdate);
+			var edate = moment(data.sch_edate);
+			var now = moment();
+				 
+			$("#pst_name").html(data.pst_name);
+		    $("#pst_name").append(" "+data.emp_name);
+			$("#sch_title").html(data.sch_title);
+			setValueForTime(sdate,now,edate);																					
+			$("#sch_public").html(schedule.getPosition(String(data.sch_public)));
+		  	$("#sch_date").html(sdate.format('LLL')+'~'+edate.format('LLL'));				  		 
+		  	$("#sch_place").html(data.sch_place);
+		  	$("#sch_content").html(data.sch_content);												 						 							 						
+			if(data.sf_orgfilename){
+		  		$("#sf_orgfilename").html(data.sf_orgfilename);							 
+		  		$("#sf_size").html(data.sf_size+" byte"+'/ 52242880 byte');
+		  		percentage = Math.floor((data.sf_size/52242880)*100);
+		  		$("#sf_orgfilename_bar").css("width",percentage+"%");
+	  		} else {
+	  			$("#sf_orgfilename").html('파일이 없어요.'); 					
+	  			$("#sf_size").html('0 '+'/ 5000000 byte'); 					
+	  		}						
 		},
 		deleteSchedule : function(){
-			mySchedule.deleteSchedule(eventData);			
+			$.ajax({
+				 method : 'get',
+				 url : "<c:url value='/accessAuth?sch_num="+eventData.sch_num+"'/>",
+				 dataType : "json",
+				 success : function(data){
+					 if(data.result){
+						 mySchedule.deleteSchedule(eventData);	 
+					 } else {
+						 alert('삭제 권한이 없습니다.');
+					 }					 		 
+				 }
+			});
 		},
 		viewModal : function(){
 			return $(myModal).modal();
-		}		
+		},		
+		setModifyForm : function(){
+			$.ajax({
+				 method : 'get',
+				 url : "<c:url value='/accessAuth?sch_num="+eventData.sch_num+"'/>",
+				 dataType : "json",
+				 success : function(data){
+					 console.log(data.result);
+					if(data.result){
+						//console.log(eventData);
+						$("#sch_num").val(eventData.sch_num);
+						$("#modTitle").val(eventData.sch_title);
+						$("#modPlace").val(eventData.sch_place);					
+						$("#daterangepicker_start_mod").val(moment(eventData.sch_sdate).format('YYYY/MM/DD HH:mm'));
+						$("#daterangepicker_end_mod").val(moment(eventData.sch_edate).format('YYYY/MM/DD HH:mm'));
+						$("#modContent").val(eventData.sch_content);
+						$("#mod_public").val(eventData.sch_public);
+						if(eventData.sf_orgfilename){
+							$("#mod_orgfilename").html(eventData.sf_orgfilename);	
+						} else {
+							$("#mod_orgfilename").html('파일이 없어요.');
+						}								
+						document.getElementById("modifySchedule").style.display='block';
+						document.getElementById("createSchedule").style.display='none';
+						$(myModal).modal("hide");	
+						defaultModal();	
+					} else {
+						alert('수정권한이 없습니다.');
+					}		 
+			 	 }
+			});
+		},
+		downloadFile : function(){			
+			console.log(eventData.sf_orgfilename);
+			if(eventData.sf_orgfilename != null){
+				location.href = "<c:url value='/file?sch_num="+eventData.sch_num+"'/>";	
+			} else {
+				alert('파일이 없습니다.');
+			}
+		}
 	};		
 })(schedule);
 	  
@@ -222,9 +254,9 @@ var modalModal = (function(schedule){
       buttonText: {     
       },
       locale:'ko',    
-      //Random default events            
-      eventClick : function(event){					
-					modalModal.setValue(event.id);
+      //Random default events        
+      eventClick : function(event){
+    	  			schedule.getSchedule(event.id,modalModal.setValue);
 					modalModal.viewModal();
 	  },
 	  eventRender : function(event,element){
@@ -258,7 +290,8 @@ var modalModal = (function(schedule){
   	});
   	document.getElementById("closeModalBtn").addEventListener('click',defaultModal);
   	document.getElementById("deleteModalBtn").addEventListener('click',modalModal.deleteSchedule);
-  	
+  	document.getElementById("modifyModalBtn").addEventListener('click',modalModal.setModifyForm);  	
+  	document.getElementById("downloadBtn").addEventListener('click',modalModal.downloadFile);
   	//일정등록 유효성 검사 항목
   	document.getElementById("createForm").addEventListener('submit', function(evt){
   		var title = $("#cr8Title").val();
@@ -291,8 +324,97 @@ var modalModal = (function(schedule){
 });
 </script>
 
+  <!-- The Right Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+	<!-- Create the tabs -->
+    <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+      <li class="active"><a href="#control-sidebar-users-tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
+      <li><a href="#control-sidebar-chatting-tab" data-toggle="tab"><i class="fa fa-commenting"></i></a></li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <!-- Contacts are loaded here -->
+      <div class="tab-pane active" id="control-sidebar-users-tab">
+	  <!-- <div class="direct-chat-contacts"> -->
+	   <!--  <ul class="contacts-list"> -->
+	    <ul class="control-sidebar-menu">
+		  <li>
+		    <a href="#">				          
+			  <i class="menu-icon fa fa-birthday-cake bg-red"></i>		    
+			  <!-- <img class="contacts-list-img" src="https://vignette.wikia.nocookie.net/undertale/images/e/ef/Reunited.png/revision/latest?cb=20160211165705" alt="User Image"> -->
+			    <div class="contacts-list-info">
+			      <span class="contacts-list-name">Count Dracula<small class="contacts-list-date pull-right">2/28/2015</small></span>
+			      <span class="contacts-list-msg">How have you been? I was...</span>
+			    </div>
+			    <!-- /.contacts-list-info -->
+			</a>
+		  </li>
+		  <!-- End Contact Item -->
+		</ul>
+		<!-- /.contatcts-list -->
+	  </div>
+	  <!-- /.direct-chat-pane -->
+      
+      <!-- Home tab content -->
+      <div class="tab-pane direct-chat-primary" id="control-sidebar-chatting-tab">
+        <!-- <h3 class="control-sidebar-heading">사람 이름</h3> -->
+		
+		<!-- Message. Default to the left -->
+                    <div class="direct-chat-msg">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->
+                      <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="">
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        Is this template really for free? That's unbelievable!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+		
+		<!-- Message to the right -->
+                    <div class="direct-chat-msg right">
+                      <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
+                      </div>
+                      <!-- /.direct-chat-info -->                      
+                      <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="">
+                      <!-- /.direct-chat-img -->
+                      <div class="direct-chat-text">
+                        You better believe it!
+                      </div>
+                      <!-- /.direct-chat-text -->
+                    </div>
+                    <!-- /.direct-chat-msg -->
+		<!-- <div class="box-footer"> -->
+	 <form action="#" method="post">
+	 <div class="input-group">
+	   <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+	   <span class="input-group-btn">
+		 <button type="submit" class="btn btn-primary btn-flat">전송</button>
+	   </span>
+	 </div>
+	 </form>
+   </div>
+      <!-- </div> -->
+      <!-- /.tab-pane -->
+            
+   </div>    
+   <!-- Content of the sidebar goes here -->   
+</aside>
+<!-- The sidebar's background -->
+<!-- This div must placed right after the sidebar for it to work-->
+<div class="control-sidebar-bg"></div>
+
+
+<button class="btn btn-default" data-toggle="control-sidebar">Toggle Right Sidebar</button>
 <!-- Content Wrapper. Contains page content -->  
-  <div>
+  <div>  
+  
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
@@ -334,7 +456,7 @@ var modalModal = (function(schedule){
               <div class="form-group">
               	<form method="post" action="<c:url value='/updateSchedule'/>" enctype="multipart/form-data">
               	<input type="hidden" name="sch_num" id="sch_num" value="">
-              	<input type="hidden" name="emp_num" id="emp_num" value="3">
+              	<!-- <input type="hidden" name="emp_num" id="emp_num" value="3"> -->
                 <label>일정이름</label>
                 <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="modTitle">
                 <label>장소</label>
@@ -368,8 +490,8 @@ var modalModal = (function(schedule){
                       <i class="fa fa-paperclip"></i> 파일첨부
                       <input type="file" name="file1" id="modifyFile">
                     </div>                    
-                      <p class="help-block" id="mod_orgfilename">파일 없음</p>                                       
-                  </div>                                                                 
+                      <p class="help-block" id="mod_orgfilename">파일 없음</p>                                                                    			          			  
+                  </div>                                                                                 
                   <input type="submit" class="btn btn-primary" value="일정 수정">                  
                   </form>                                                                              
               </div>                                                  
@@ -390,7 +512,7 @@ var modalModal = (function(schedule){
               <!-- text input -->
               <div class="form-group">
               	<form method="post" action="<c:url value='/'/>schedule" enctype="multipart/form-data" id="createForm">
-              	<input type="hidden" name="emp_num" value="3">
+              	<!-- <input type="hidden" name="emp_num" value="3"> -->
                 <label>일정이름</label>
                 <input type="text" name="sch_title" class="form-control" placeholder="Enter ..." id="cr8Title">
                 <label>장소</label>
@@ -417,7 +539,7 @@ var modalModal = (function(schedule){
                   <select class="form-control" name="sch_public" id="create_public">
                   	<option value="0">비공개</option>
                   </select>           
-                  <label for="inputFile">첨부파일(5MB 이하)</label>
+                  <label for="inputFile">첨부파일(50MB 이하)</label>
                   <input type="file" id="inputFile" name="file1" >                                          
                                                                      
                   <br>
@@ -527,6 +649,7 @@ var modalModal = (function(schedule){
 			  <div class="info-box bg-aqua">
   				<span class="info-box-icon"><i class="fa fa-file-o"></i></span>
   				<div class="info-box-content">
+  				  <button type="button" class="btn btn-primary pull-right" id="downloadBtn">다운로드</button>
     			  <span class="info-box-text">파일</span>
     			  <span class="info-box-number" id="sf_orgfilename">File Name</span>
     			  <!-- The progress section is optional -->
@@ -572,7 +695,7 @@ var modalModal = (function(schedule){
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="closeModalBtn">닫기</button>
-                <button type="button" class="btn btn-primary" id="modifyBtn">수정하기</button>                                                                         
+                <button type="button" class="btn btn-primary" id="modifyModalBtn">수정하기</button>                                                                         
                 <button type="button" class="btn btn-primary" id="deleteModalBtn">삭제</button>
               </div>                                          
             </div>
