@@ -34,11 +34,17 @@ public class RequestWorkController {
 		map.put("wlist_start",wlist_start );
 		//해당사원번호의 오늘날짜에 대한 PK받아오기
 		WorkListVo vo =  requestWorkService.selectRequestWorkNum(map);
-		int wlist_num = vo.getWlist_num();
-		//받아온 PK로 출퇴근시간 받아오기
-		WorkListVo vo1 = requestWorkService.selectRequestWork(wlist_num);
-		mv.addObject("work", vo1);
-		return mv;
+		if(vo!=null) {
+			int wlist_num = vo.getWlist_num();
+			//받아온 PK로 출퇴근시간 받아오기
+			WorkListVo vo1 = requestWorkService.selectRequestWork(wlist_num);
+			mv.addObject("work", vo1);
+			return mv;
+		}else {
+			return mv;
+		}
+		
+		
 	}
 	//퇴근버튼(출퇴근 테이블 업데이트)
 	@RequestMapping("/workEnd")

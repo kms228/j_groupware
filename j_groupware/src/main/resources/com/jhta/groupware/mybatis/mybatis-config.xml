@@ -11,6 +11,7 @@
 		<typeAlias type="com.jhta.groupware.work.vo.Work_LineVo" alias="workline"/>
 		<typeAlias type="com.jhta.groupware.work.vo.Work_FileVo" alias="workfile"/>
 		<typeAlias type="com.jhta.groupware.work.vo.HalfTimeVo" alias="halftime"/>
+		<typeAlias type="com.jhta.groupware.work.vo.AnnualVo" alias="annual"/>
 		
 		<typeAlias type="com.jhta.groupware.member.vo.MemberAccountVo" alias="account"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.DocTypeVo" alias="doctype"/>
