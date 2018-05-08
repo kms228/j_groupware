@@ -43,15 +43,22 @@ function addChatlist(){
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
-function showChatlist(users){	
+function showChatlist(users){
+	var acnt_id;
 	for(i in users){
+		acnt_id = users[i].acnt_id;
 		$("#userList").append(
-				'<li id="'+users[i].acnt_id +'"><a href="#control-sidebar-chatting-tab" data-toggle="tab"><i class="menu-icon fa fa-birthday-cake bg-red"></i><div class="contacts-list-info">'+
+				'<li><a href="#control-sidebar-chatting-tab" data-toggle="tab" id="'+users[i].acnt_id +'"><i class="menu-icon fa fa-birthday-cake bg-red"></i><div class="contacts-list-info">'+
 				'<span class="contacts-list-name">'+users[i].pst_name+' '+users[i].emp_name+'<small class="contacts-list-date pull-right">2/28/2015</small></span>'+
-				'<span class="contacts-list-msg">i will message for you</span></div></a></li>');		
-	}		
+				'<span class="contacts-list-msg">i will message for you</span></div></a></li>');
+		$("#"+acnt_id).on('click',function(e){
+			$("#userTab").removeClass("active");
+			$("#chatTab").addClass("active");
+			$("#control-sidebar-users-tab").removeClass("active");
+			$("#control-sidebar-chatting-tab").addClass("active");
+		});
+	}
 }
-
 /*function checkSession(callbackfunction){
 	$.ajax({
 		method: "get",

@@ -42,7 +42,7 @@ public class GreetingController {
     public void sendMessage(Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
         System.out.println("гоюл");
-    }
+    }    
 //    @MessageMapping("/endpoint")
 //    @SendTo("/topic/greetings")    
 //    public ResponseEntity<String> stomp(String request) {

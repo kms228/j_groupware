@@ -30,8 +30,6 @@ public class UserList {
 			}
 		}	
 		return false;		
-	}
-	
-	
+	}			
 	
 }
