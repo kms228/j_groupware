@@ -17,12 +17,23 @@ public class EmpListController {
 	
 	@RequestMapping("/emplist")
 	public ModelAndView emplist(HttpServletRequest req) {
-		System.out.println("emplist..........");
 		ModelAndView mv = new ModelAndView(".login.emplist");
 		HttpSession session=req.getSession();
 		int EMP_NUM=(Integer)session.getAttribute("emp_num");
 		System.out.println(EMP_NUM);
 		
+		
+		
+		
 		return mv;
 	}
 }
+
+
+
+
+
+
+
+
+

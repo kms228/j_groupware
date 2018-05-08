@@ -31,6 +31,7 @@
 		<typeAlias type="com.jhta.groupware.history.vo.HistoryVo" alias="HistoryVo"/>
 		<typeAlias type="com.jhta.groupware.position.vo.PositionVo" alias="PosiVo"/>
 		<typeAlias type="com.jhta.groupware.dept.vo.DeptVo" alias="DeptVo"/>
+		<typeAlias type="com.jhta.groupware.emplist.vo.EmpListVo" alias="EmpListVo"/>
 	</typeAliases>
 
 	<mappers>
@@ -39,6 +40,7 @@
     	<mapper resource="com/jhta/groupware/mybatis/JoinMapper.xml"/>
     	<mapper resource="com/jhta/groupware/mybatis/LoginMapper.xml"/>
     	<mapper resource="com/jhta/groupware/mybatis/EmpInfoMapper.xml"/>
+    	<mapper resource="com/jhta/groupware/mybatis/EmpListMapper.xml"/>
 		<!-- 혁수 -->
 		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
 		<mapper resource="com/jhta/groupware/mybatis/ChatMapper.xml"/>
