@@ -1,5 +1,8 @@
 package com.jhta.groupware.empinfo.dao;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,14 +23,16 @@ public class EmpInfoDao {
 	public LoginVo getEmp(int EMP_NUM) {
 		return sqlsession.selectOne(NAMESAPCE+".getemp", EMP_NUM);
 	}
-	public AcademicVo getAcad(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+".getacad", EMP_NUM);
+	public List<AcademicVo> getAcad(int EMP_NUM) {
+		System.out.println("dao");
+		return sqlsession.selectList(NAMESAPCE+".getacad", EMP_NUM);
 	}
-	public CareerVo getCareer(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+".getcarrer", EMP_NUM);
+	public List<CareerVo> getCareer(int EMP_NUM) {
+		System.out.println("dao getCareer");
+		return sqlsession.selectList(NAMESAPCE+".getcarrer", EMP_NUM);
 	}
-	public HistoryVo getHis(int EMP_NUM) {
-		return sqlsession.selectOne(NAMESAPCE+".gethis", EMP_NUM);
+	public List<HistoryVo> getHis(int EMP_NUM) {
+		return sqlsession.selectList(NAMESAPCE+".gethis", EMP_NUM);
 	}
 	public PositionVo getPos(int EMP_NUM) {
 		return sqlsession.selectOne(NAMESAPCE+".getpos", EMP_NUM);
@@ -38,7 +43,32 @@ public class EmpInfoDao {
 	public MemberAccountVo getAcc(int EMP_NUM) {
 		return sqlsession.selectOne(NAMESAPCE+".getacc", EMP_NUM);
 	}
-	
+	//삭제
+	public int delete(int ACD_NUM) {
+		return sqlsession.delete(NAMESAPCE+".delaca",ACD_NUM);
+	}
+	//추가
+	public int insertacc(HashMap<String,Object>map) {
+		return sqlsession.insert(NAMESAPCE+".insertacc",map);
+	}
+	//경력////////////////////
+	//삭제
+	public int deletecar(int CRR_NUM) {
+		return sqlsession.delete(NAMESAPCE+".delcar",CRR_NUM);
+	}
+	//추가
+	public int insertcar(HashMap<String,Object>map) {
+		return sqlsession.insert(NAMESAPCE+".insertcar",map);
+	}
+	//근무////////////////////
+	//삭제
+	public int deletehis(int HIS_NUM) {
+	return sqlsession.delete(NAMESAPCE+".delhis",HIS_NUM);
+	}
+	//추가
+	public int inserthis(HashMap<String,Object>map) {
+	return sqlsession.insert(NAMESAPCE+".inserthis",map);
+	}
 
 }
 
