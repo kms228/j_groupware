@@ -23,11 +23,9 @@
 			        </div>
                     <div class="col-md-9">
 	                  <select class="form-control" id="select3" style="display: none;">
-	                    <option>연차</option>
-	                    <option>option 2</option>
-	                    <option>option 3</option>
-	                    <option>option 4</option>
-	                    <option>option 5</option>
+	                    <c:forEach items="${wlist }" var="wVo">
+	                    	<option>${wVo.wtype_name }</option>
+	                    </c:forEach>
 	                  </select>
                 	</div>
                 	</div>
@@ -40,7 +38,7 @@
 			                  <div class="input-group-addon">
 			                    <i class="fa fa-calendar"></i>
 			                  </div>
-			                  <input type="text" class="form-control pull-right" id="reservation3">
+			                  <input type="text" class="form-control pull-left" id="reservation3">
 			                </div>
 			                <!-- /.input group -->
 			              </div>

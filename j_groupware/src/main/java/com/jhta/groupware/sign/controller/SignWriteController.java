@@ -94,6 +94,7 @@ public class SignWriteController {
 			ob.put("text",vo.getDept_name());
 			arr.put(ob);
 		}
+		System.out.println(arr.toString());
 		for(SignLineListVo vo:list) {
 			JSONObject ob=new JSONObject();
 			ob.put("id", vo.getEmp_num());

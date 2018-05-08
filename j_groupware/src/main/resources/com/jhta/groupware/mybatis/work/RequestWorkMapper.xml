@@ -3,12 +3,17 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.groupware.mybatis.work.RequestWorkMapper">
+	<!-- /////////////////////////////////////////////출퇴근관련///////////////////////////////////////////////// -->
+	<!-- 출근입력 -->
 	<insert id="insertWorkStart" parameterType="map">
 		insert into worklist (wlist_num,wlist_start,wlist_type,emp_num) values(seq_worklist.nextval, to_date(#{wlist_start},'YYYY/MM/DD hh24:mi'), #{wlist_type} ,#{emp_num})
 	</insert>
+	<!-- 퇴근입력 -->
 	<update id="insertWorkEnd" parameterType="map">
 		update worklist set wlist_end=to_date(#{wlist_end},'YYYY/MM/DD hh24:mi') where wlist_num=#{wlist_num}
 	</update>
+	<!-- 출퇴근 이력 갖고오기 -->
+	<!-- 해당사원의 당일날짜에 대한 출퇴근이력넘버wlist_num구하기 -->
 	<select id="selectWorkListNum" parameterType="map" resultType="worklist">
 		select wlist_num from
 			(
@@ -18,12 +23,59 @@
 			)aa 
 		where aa.wlist_start=#{wlist_start}
 	</select>
+	<!-- 출퇴근기록 가져오기 -->
 	<select id="selectWork" parameterType="int" resultType="worklist">
 		select * from worklist where wlist_num=#{wlist_num}
 	</select>
-	
+	<!-- /////////////////////////////////////////////연차관련//////////////////////////////////////////////////// -->
+	<!-- 현재 연차 확인 -->
 	<select id="selectAnn" parameterType="int" resultType="annual">
 		select * from annual where emp_num=#{emp_num}
 	</select>
+	<!-- ///////////////////////////////////////////근태신청관련//////////////////////////////////////////////////// -->	
+	<!-- 연차신청(연차추가)/외근/경조사 -->
+	<insert id="insertAnn" parameterType="map">
+		insert into work values(seq_work.nextval,to_date(#{work_sdate},'YYYY/MM/DD'),to_date(#{work_edate},'YYYY/MM/DD'),#{work_content},sysdate,0,#{emp_num},#{wtype_num})
+	</insert>
+	<!-- 연차신청(파일올리기) -->
+	<insert id="insertAnnFile" parameterType="map">
+		insert into work_file values(SEQ_WORK_FILE.NEXTVAL,#{wfile_savefilename},#{wfile_orgfilename},#{wfile_size},seq_work.currval)
+	</insert>
+	<!-- 연차신청(결재순서설정) -->
+	<insert id="insertAnnSign" parameterType="map">
+		insert into work_line values(seq_wline.nextval,#{wline_level},0,seq_work.currval,#{emp_num})
+	</insert>
+	<!-- 반차/지각/야근신청 -->
+	<insert id="insertHalf" parameterType="map">
+		insert into work values(seq_work.nextval,to_date(#{work_sdate},'YYYY/MM/DD'),to_date(#{work_edate},'HH24:MI'),#{work_content},sysdate,0,#{emp_num},#{wtype_num})
+	</insert>
+	
+	<!-- ///////////////////////////////////////////신청현황보기//////////////////////////////////////////////////// -->
+	<!-- 나의 신청현황 -->
+	<select id="selectMyRequest" parameterType="int" resultType="com.jhta.groupware.work.vo.WorkandWorkfileVo">
+		select work.work_num, work_sdate, work_edate, work_content, work_regdate, work_state, wtype_num, work_file.WFILE_ORGFILENAME 
+		from work, work_file
+		where work.work_num=work_file.work_num and emp_num=#{emp_num}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </mapper>
