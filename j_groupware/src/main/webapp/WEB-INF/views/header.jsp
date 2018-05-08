@@ -18,7 +18,7 @@
 										
          
           
-              <li class="login-menu"><a href="<c:url value='/emplist'/>">회원리스트</a>
+              <!-- <li class="login-menu"><a href="<c:url value='/emplist'/>">사원리스트</a> -->
             
             
             <!-- 
