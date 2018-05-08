@@ -20,33 +20,62 @@
 	</select>
 	
 	<select id="getacad" parameterType="int" resultType="AcademicVo">
-		select *
-		from ACADEMIC where EMP_NUM=#{EMP_NUM}
+		select ACD_NUM,ACD_GRADUATION,ACD_NAME,ACD_MAJOR,ACD_SCORE,EMP_NUM 
+		from academic where EMP_NUM=#{EMP_NUM}
 	</select>
 
 	<select id="getcarrer" parameterType="int" resultType="CareerVo">
-		select *
+		select CRR_NUM,CRR_SDATE,CRR_EDATE,EMP_NUM,CRR_POSITION,CRR_DEPT,CRR_NAME,CRR_WORK
 		from CAREER where EMP_NUM=#{EMP_NUM}
 	</select>
 
 	<select id="gethis" parameterType="int" resultType="HistoryVo">
 		select *
-		from HistoryVo where EMP_NUM=#{EMP_NUM}
+		from History where EMP_NUM=#{EMP_NUM}
 	</select>
-	
-	
 	<select id="getpos" parameterType="int" resultType="PosiVo">
 		select p.PST_NAME,p.PST_NUM from POSITION p join EMPLOYEE e 
-		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM};
+		on p.PST_NUM=e.PST_NUM where emp_num=#{EMP_NUM}
 	</select>
 	
 	<select id="getdept" parameterType="int" resultType="DeptVo">
 		select D.DEPT_NAME,D.DEPT_NUM from DEPT D join EMPLOYEE e 
-		on D.DEPT_NUM=e.DEPT_NUM where emp_num=#{EMP_NUM};
+		on D.DEPT_NUM=e.DEPT_NUM where emp_num=#{EMP_NUM}
+	</select>
+	<select id="getacc" parameterType="int" resultType="account">
+		select *
+		from ACCOUNT where EMP_NUM=#{EMP_NUM}
 	</select>
 	
 	
 	
+	<delete id="delaca" parameterType="int">
+		delete from academic where ACD_NUM=#{ACD_NUM}
+	</delete>
+	<insert id="insertacc">
+		insert into academic 
+		values(SEQ_ACADEMIC.NEXTVAL,to_date(#{ACD_GRADUATION},'YYYY/MM/DD'),#{ACD_NAME},#{ACD_MAJOR},#{ACD_SCORE},#{EMP_NUM})
+	</insert>
+	
+	<delete id="delcar" parameterType="int">
+		delete from CAREER where CRR_NUM=#{CRR_NUM}
+	</delete>
+	<insert id="insertcar">
+		insert into CAREER 
+		values(SEQ_CAREER.NEXTVAL,to_date(#{CRR_SDATE},'YY/MM/DD'),to_date(#{CRR_EDATE},'YY/MM/DD'),
+		#{CRR_NAME},#{CRR_DEPT},#{CRR_POSITION},#{CRR_WORK},#{EMP_NUM})
+	</insert>
+	
+	<delete id="delhis" parameterType="int">
+		delete from HISTORY where HIS_NUM=#{HIS_NUM}
+	</delete>
+	<insert id="inserthis">	
+		insert into HISTORY 
+		values(SEQ_HISTORY.NEXTVAL,to_date(#{HIS_DATE},'YYYY/MM/DD'),
+		#{HIS_DEPT},#{HIS_POSITION},#{HIS_WORK},#{EMP_NUM})
+	</insert>																				
+								
+																					
 
 </mapper>
 
