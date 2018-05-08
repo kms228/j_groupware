@@ -186,7 +186,7 @@ $(function () {
     );
 
     //Date picker
-    $('#datepicker').datepicker({
+    $('#datepicker,#datepicker2,#datepicker3').datepicker({
       autoclose: true
     });
 
@@ -223,7 +223,7 @@ $(function () {
          },
          order: [[ 1, 'asc' ]],
         //갯수별보기 
-    	lengthMenu : [ [ 5, 10,25, 50,100, -1 ], [ 5, 10,25, 50,100, "All" ] ],
+    	lengthMenu : [ [  10,25, 50,100, -1 ], [  10,25, 50,100, "All" ] ],
     	//언어패치
     	language: {
     		

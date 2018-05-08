@@ -1,5 +1,6 @@
 package com.jhta.groupware.work.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.work.dao.RequestWorkDao;
 import com.jhta.groupware.work.vo.WorkListVo;
+import com.jhta.groupware.work.vo.WorkandWorkfileVo;
 
 @Service
 public class RequestWorkService {
@@ -28,7 +30,24 @@ public class RequestWorkService {
 		return requestWorkDao.selectRequestWork(wlist_num);
 	}
 	
+	public int insertAnn(Map<String, Object>map) {
+		return requestWorkDao.insertAnn(map);
+	}
 	
+	public int insertAnnFile(Map<String, Object>map) {
+		return requestWorkDao.insertAnnFile(map);
+	}
 	
+	public int insertAnnSign(Map<String, Object>map) {
+		return requestWorkDao.insertAnnSign(map);
+	}
+	
+	public List<WorkandWorkfileVo> selectMyRequest(int emp_num){
+		return requestWorkDao.selectMyRequest(emp_num);
+	}
+	
+	public int insertHalf(Map<String, Object>map) {
+		return requestWorkDao.insertHalf(map);
+	}
 	
 }

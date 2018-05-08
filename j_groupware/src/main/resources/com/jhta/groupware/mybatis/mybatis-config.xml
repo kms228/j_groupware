@@ -30,7 +30,6 @@
 		<typeAlias type="com.jhta.groupware.history.vo.HistoryVo" alias="HistoryVo"/>
 		<typeAlias type="com.jhta.groupware.position.vo.PositionVo" alias="PosiVo"/>
 		<typeAlias type="com.jhta.groupware.dept.vo.DeptVo" alias="DeptVo"/>
-
 	</typeAliases>
 
 	<mappers>

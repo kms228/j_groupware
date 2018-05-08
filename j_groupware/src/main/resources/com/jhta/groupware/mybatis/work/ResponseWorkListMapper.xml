@@ -3,4 +3,47 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.groupware.mybatis.work.ResponseWorkListMapper">
+	<select id="selectWorkType" resultType="worktype">
+		select wtype_name from work_type
+	</select>
+	<select id="selectResponseList" parameterType="map" resultType="com.jhta.groupware.work.vo.RequestListVo">
+		select work.work_num, work_sdate, work_edate,work_content, work_regdate, work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
+		    decode( wtype_num,
+		            1,(work_edate-work_sdate)||'일',
+		            5,(work_edate-work_sdate)||'일',
+		            6,(work_edate-work_sdate)||'일',
+		            2,
+		                decode(to_char(work_edate,'hh24'),
+		                    11,'0.5일 오전',
+		                    12,'0.5일 오후'
+		                ),           
+		            3,to_char(work_edate,'hh24:mi'),
+		            4,to_char(work_edate,'hh24:mi')
+		    )"caldate",
+		    decode( wtype_num,
+		            1,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		            5,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		            6,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		            2,to_char(work_sdate,'yyyy/mm/dd'),   
+		            3,to_char(work_sdate,'yyyy/mm/dd'),
+		            4,to_char(work_sdate,'yyyy/mm/dd')
+    		)"term"
+		from work, work_file, employee
+		<where>
+			(work.work_num=work_file.work_num and employee.emp_num=work.emp_num) 
+			<if test="work_sdate!=null and work_sdate!=''">
+				and (to_char(work_sdate,'yyyy/mm/dd') between #{work_sdate} and #{work_edate} )			
+			</if>
+			<if test="emp_num2=!null and emp_num2!=''">
+				and work.emp_num in
+				<foreach collection="alist" item="emp_num" open="(" close=")" separator=",">
+					#{emp_num}
+				</foreach>
+			</if>
+			<if test="wtype_num!=0">
+				and wtype_num=#{wtype_num}
+			</if>
+			and work_sdate=0
+		</where>
+	</select>
 </mapper>
