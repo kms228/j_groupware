@@ -19,7 +19,7 @@ public class ManipulateFile {
 	public ManipulateFile(MultipartFile file,HttpSession session) {
 		this.file = file;
 		this.session = session;
-	}
+	}	
 	
 	//session.getServletContext().getRealPath()에서 더 붙일 경로명을 'String path' 넣음
 	public String copyFileToServer(String path) {
@@ -55,7 +55,7 @@ public class ManipulateFile {
 			}
 		}
 		return path+File.separator+savefilename;
-	}
+	}	
 	
 	private void makeDirectory(String uploadPath) {
 		File file=new File(uploadPath);

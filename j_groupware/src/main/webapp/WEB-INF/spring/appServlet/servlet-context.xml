@@ -15,7 +15,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- 파일업로드 설정 
+	<!-- 파일업로드 설정
 		id속성주의! : 반드시 id값이 multipartResolver가 되어야함
 	-->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -23,11 +23,19 @@
 		<beans:property name="maxUploadSize" value="52242880"/>
 	</beans:bean>
 
+	<!--///////////////////// 파일다운로드 관련  ////////////////////////////-->
+	<beans:bean id="filedownloadView" class="com.jhta.groupware.view.FileDownloadView"/>
+	<!-- 뷰이름이 bean의 id속성과 일치하면 해당 뷰를 실행 -->
+	<beans:bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<!-- 뷰리절버가 여러개 있는경우 order로 순서를 지정해준다. -->
+		<beans:property name="order" value="1"/>
+	</beans:bean>
+
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
-		<beans:property name="order" value="2"/>
+		<beans:property name="order" value="3"/>
 	</beans:bean>
 	
 	<!-- ///////////////////////////////// 타일즈 설정 /////////////////////////////////// -->
@@ -41,7 +49,7 @@
 	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="viewNames" value=".*"/>
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView"/>
-		<beans:property name="order" value="1"/>
+		<beans:property name="order" value="2"/>
 	</beans:bean>	
 	
 	<!-- //////////////////////////////////////////////////////////////////////////// -->

@@ -76,7 +76,7 @@ public class EmpInfoService {
 	}
 	//근무이력추가
 	public int inserthis(HashMap<String,Object>map) {
-	return dao.inserthis(map);
+	return dao.inserthis(map);  
 	}
 	
 }

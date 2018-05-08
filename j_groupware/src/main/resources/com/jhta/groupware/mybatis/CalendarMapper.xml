@@ -43,4 +43,10 @@
 	<delete id="deleteSchedule" parameterType="int">
 		DELETE FROM SCHEDULE WHERE SCH_NUM=#{value}
 	</delete>
+	<select id="getEmp_num" parameterType="string" resultType="int">
+		SELECT emp_num FROM ACCOUNT WHERE ACNT_ID = #{value}
+	</select>
+	<select id="accessAuth" parameterType="map" resultType="int">
+		SELECT COUNT(*) RESULT FROM SCHEDULE S,(SELECT * FROM ACCOUNT WHERE ACNT_ID = #{id}) A WHERE S.EMP_NUM = A.EMP_NUM AND S.SCH_NUM = #{sch_num}		
+	</select>
 </mapper>

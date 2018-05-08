@@ -1,5 +1,6 @@
 package com.jhta.groupware.calendar.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -44,5 +45,11 @@ public class CalendarDao {
 	}
 	public int deleteSchedule(int sch_num) {
 		return session.delete(NAMESPACE+".deleteSchedule",sch_num);
+	}
+	public int getEmp_num(String id) {
+		return session.selectOne(NAMESPACE+".getEmp_num", id);
+	}
+	public int modAuth(HashMap<String,Object> map) {
+		return session.selectOne(NAMESPACE+".accessAuth", map);
 	}
 }
