@@ -14,13 +14,6 @@
 			<div class="navbar-custom-menu">
 				<ul class="nav navbar-nav">
 					<!-- Messages: style can be found in dropdown.less-->
-<<<<<<< HEAD
-              <!-- <li class="login-menu"><a href="<c:url value='/emplist'/>">사원리스트</a> -->
-=======
-
->>>>>>> branch 'master' of https://github.com/kms228/j_groupware.git
-
-            
             <!-- 
             <div class="dropdown-menu">
           DIRECT CHAT PRIMARY

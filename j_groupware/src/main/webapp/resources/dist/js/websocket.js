@@ -18,13 +18,8 @@ function connect() {
     stompClient = Stomp.over(socket);    
     stompClient.connect({}, function (frame) {
         setConnected(true);
-        console.log('Connected: ' + frame);
-        //alert(frame);               
-//        stompClient.subscribe('/topic/greetings', function (greeting) {
-//            showGreeting(JSON.parse(greeting.body).content);
-//        });                                
+        console.log('Connected: ' + frame);                      
         stompClient.subscribe('/topic/add/result', function(users) {
-            //alert('subscribe 야호');        
             showChatlist(JSON.parse(users.body));            
         });
         addChatlist();
@@ -48,21 +43,12 @@ function addChatlist(){
 function showGreeting(message) {
     $("#greetings").append("<tr><td>" + message + "</td></tr>");
 }
-function showChatlist(users){
-	var ul,li,a,i,div,span1,span2;
-	console.log(users);
-	console.log(users[0].emp_name);
-	ul = document.querySelector("ul#userList");
-	li = document.createElement("li");
-	a = document.createElement("a");
-	console.log('li'+li);
-	//console.log('userList'+ul);
+function showChatlist(users){	
 	for(i in users){
 		$("#userList").append(
 				'<li id="'+users[i].acnt_id +'"><a href="#control-sidebar-chatting-tab" data-toggle="tab"><i class="menu-icon fa fa-birthday-cake bg-red"></i><div class="contacts-list-info">'+
 				'<span class="contacts-list-name">'+users[i].pst_name+' '+users[i].emp_name+'<small class="contacts-list-date pull-right">2/28/2015</small></span>'+
-				'<span class="contacts-list-msg">i will message for you</span></div></a></li>');
-		
+				'<span class="contacts-list-msg">i will message for you</span></div></a></li>');		
 	}		
 }
 
