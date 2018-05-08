@@ -1,5 +1,6 @@
 package com.jhta.groupware.work.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.work.vo.WorkListVo;
 import com.jhta.groupware.work.vo.WorkTimeVo;
+import com.jhta.groupware.work.vo.WorkandWorkfileVo;
 
 @Repository
 public class RequestWorkDao {
@@ -44,9 +46,28 @@ public class RequestWorkDao {
 	//출퇴근시간 가져오기
 	public WorkListVo selectRequestWork(int wlist_num) {
 		System.out.println("해당 근태정보 구하기 위한 wlist_num(PK)"+wlist_num);
-		WorkListVo vo =  sqlSession.selectOne(NAMESPACE+".selectWork",wlist_num);
+		WorkListVo vo = sqlSession.selectOne(NAMESPACE+".selectWork",wlist_num);
 		System.out.println("select worklist : "+vo.toString());
 		return vo;
 	}
-	
+	//연차신청
+	public int insertAnn(Map<String, Object>map) {
+		return sqlSession.insert(NAMESPACE+".insertAnn", map);
+	}
+	//연차신청(파일업로드)
+	public int insertAnnFile(Map<String, Object>map) {
+		return sqlSession.insert(NAMESPACE+".insertAnnFile", map);
+	}
+	//연차신청(결재순서insert)
+	public int insertAnnSign(Map<String, Object>map) {
+		return sqlSession.insert(NAMESPACE+".insertAnnSign", map);
+	}
+	//연차(근태) 신청 리스트
+	public List<WorkandWorkfileVo> selectMyRequest(int emp_num) {
+		return sqlSession.selectList(NAMESPACE+".selectMyRequest", emp_num);
+	}
+	//반차신청
+	public int insertHalf(Map<String, Object>map) {
+		return sqlSession.insert(NAMESPACE+".insertHalf", map);
+	}
 }

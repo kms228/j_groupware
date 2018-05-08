@@ -1,529 +1,751 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div>
-	<h3><span class="glyphicon glyphicon-time"></span> 출근 / 퇴근</h3>
-			<div class="box">
-			<div class="box-body">
+	<h3>
+		<span class="glyphicon glyphicon-time"></span> 출근 / 퇴근
+	</h3>
+	<div class="box">
+		<div class="box-body">
 			<label for="reservation3">출/퇴근 현황</label>
 			<div class="form-group">
-                  <div class="col-md-3">
-			                  	<div class="input-group">
-					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-default"  >날짜</button>
-					                </div>
-					                <!-- /btn-group -->
-					               
-					                  <div class="input-group">
-					                    <input type="text" class="form-control" id="nowDate" readonly="readonly" name="wlist_start" >
-					                  </div>
-					                  <!-- /.input group -->
-					                <!-- /.form group -->
-					             
-					              </div>
-					              </div>
-					                <div class="col-md-3">
-			                  	<div class="input-group">
-					                <div class="input-group-btn">
-					                  <button type="button" class="btn btn-default" >시간</button>
-					                </div>
-					                <!-- /btn-group -->
-					               
-					                  <div class="input-group">
-					                    <input type="text" class="form-control" id="nowTime" readonly="readonly" >
-					                  </div>
-					                  <!-- /.input group -->
-					                <!-- /.form group -->
-					             
-					              </div>
-					              </div>
-					              
-                <div class="col-md-3">
-                	<form onsubmit="return workStart();" method="post" action="<c:url value='/workStart'/>">
-	                	<input type="hidden" name="emp_num" value="${emp_num }">
-	                	<input type="hidden" name="wlist_start" id="real_workstart">
-	                	<input type="hidden" name="wlist_type" id="wlist_type" value="1">
-			            <div class="input-group">
-					    	<div class="input-group-btn">
-					        	<button type="submit" class="btn btn-primary">출근</button>
-					        </div>
-					        <!-- /btn-group -->
-					        <div class="input-group">
-					        	<input type="text" class="form-control" readonly="readonly" id="text_workstart"
-					        	value="<fmt:formatDate value="${work.wlist_start}" pattern="HH:mm"/>">
-					        </div>
-					        <!-- /.input group -->
+				<div class="col-md-3">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default">날짜</button>
+						</div>
+						<!-- /btn-group -->
+
+						<div class="input-group">
+							<input type="text" class="form-control" id="nowDate" readonly="readonly" name="wlist_start">
+						</div>
+						<!-- /.input group -->
+						<!-- /.form group -->
+
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default">시간</button>
+						</div>
+						<!-- /btn-group -->
+
+						<div class="input-group">
+							<input type="text" class="form-control" id="nowTime" readonly="readonly">
+						</div>
+						<!-- /.input group -->
+						<!-- /.form group -->
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<form onsubmit="return workStart();" method="post" action="<c:url value='/workStart'/>">
+						<input type="hidden" name="emp_num" value="${emp_num }"> 
+						<input type="hidden" name="wlist_start" id="real_workstart"> 
+						<input type="hidden" name="wlist_type" id="wlist_type" value="0">
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-primary">출근</button>
+							</div>
+							<!-- /btn-group -->
+							<div class="input-group">
+								<input type="text" class="form-control" readonly="readonly" id="text_workstart" value="<fmt:formatDate value="${work.wlist_start}" pattern="HH:mm"/>">
+							</div>
+							<!-- /.input group -->
 						</div>
 					</form>
 					<!-- /.form group -->
 				</div>
 				<div class="col-md-3">
-					              <form onsubmit="return workEnd();" action="<c:url value='/workEnd'/>" method="post">
-					              <input type="hidden" name="emp_num" value="${emp_num }">
-					              <input type="hidden" name="wlist_end" id="real_workend">
-					              <div class="input-group">
-					                <div class="input-group-btn">
-					                  <button type="submit" class="btn btn-danger">퇴근</button>
-					                </div>
-					                <!-- /btn-group -->
-					                  <div class="input-group">
-					                    <input type="text" class="form-control" id="text_workend" readonly="readonly"
-					                    value="<fmt:formatDate value="${work.wlist_end}" pattern="HH:mm"/>">
-					                  </div>
-					                  <!-- /.input group -->
-					              </div>
-					              </form>
-					           </div>
-					            <br>
-           
-            </div>
-         </div>
-         </div>
-              <h3><span class="glyphicon glyphicon-time"></span> 근태 신청</h3>
-              <!-- 아코디언 -->
-              <div class="col-md-12">
-          <div class="box box-solid">
-            <div class="box-body">
-              <div class="box-group" id="accordion">
-                <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class="">
-                        	연차
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseOne" class="panel-collapse collapse in" aria-expanded="false" style="">
-                    <div class="box-body">
-                     <!-- 연차신청 폼 -->
-                     	<div class="form-group">
-		                  <label>연차 현황</label>
-		                  	<div class="form-control">
-			                  	총 연차 일수 : <label style="color:green;">30 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 사용일 : <label style="color:blue;">2.5 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 가용일 : <label style="color:red;">27.5 </label>
+					<form onsubmit="return workEnd();" action="<c:url value='/workEnd'/>" method="post">
+						<input type="hidden" name="emp_num" value="${emp_num }"> <input type="hidden" name="wlist_end" id="real_workend">
+						<div class="input-group">
+							<div class="input-group-btn">
+								<button type="submit" class="btn btn-danger">퇴근</button>
 							</div>
-		                </div>
-                     	<label for="reservation">일자/시간</label>
-               			<!-- 연차-->
-               			<div class="form-group">
-			                <div class="input-group">
-			                  <div class="input-group-addon">
-			                  <label for="reservation">
-			                    <i class="fa fa-calendar"></i></label>
-			                  </div>
-			                  <input type="text" class="form-control pull-left" id="reservation">
-			                </div>
-			                <!-- /.input group -->
-			              </div>
-                     	<div class="form-group">
-			                <div>
-			                  <label for="reason1">사유</label>
-			                  </div>
-			                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason1"></textarea>
-			                </div>
-			                <div class="form-group">
-			                  <label for="exampleInputFile1">첨부</label>
-			                  <input type="file" id="exampleInputFile1">
-			                </div>
-			                <div class="form-group">
-			                  <label for="line1">결재선 선택</label>
-			                  <input type="text" class="form-control" id="line1" placeholder="결재선 선택" readonly="readonly">
-			                </div>
-			                <div class="box-footer">
-			                <button type="submit" class="btn btn-block btn-primary">연차 신청</button>
-			              </div>
-                     <!-- /연차신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">
-                        	반차
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                     <!-- 반차신청 폼 -->
-                     <div class="form-group">
-		                  <label>연차 현황</label>
-		                  	<div class="form-control">
-			                  	총 연차 일수 : <label style="color:green;">30 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 사용일 : <label style="color:blue;">2.5 </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								 가용일 : <label style="color:red;">27.5 </label>
+							<!-- /btn-group -->
+							<div class="input-group">
+								<input type="text" class="form-control" id="text_workend" readonly="readonly" value="<fmt:formatDate value="${work.wlist_end}" pattern="HH:mm"/>">
 							</div>
-		                </div>
-                     <label for="datepicker">일자/시간</label>
-                     <div class="form-group">
-			                <div class="input-group date">
-			                  <div class="input-group-addon">
-			                  <label for="datepicker">
-			                    <i class="fa fa-calendar"></i>
-			                    </label>
-			                  </div>
-			                  <input type="text" class="form-control pull-right" id="datepicker">
-			                </div>
-			                <div class="form-group">
-			                  <div class="radio" align="center">
-			                    <label>
-			                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="">
-			                    	 오전
-			                    </label>
-			                    <label>
-			                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
-			                     	오후
-			                    </label>
-			                  </div>
-			                </div>
-			                <!-- /.input group -->
-			              </div>
-                     <div class="form-group">
-		                <div>
-		                  <label for="reason2">사유</label>
-		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason2"></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label for="exampleInputFile2">첨부</label>
-		                  <input type="file" id="exampleInputFile2">
-		                </div>
-		                <div class="form-group">
-		                  <label for="line2">결재선 선택</label>
-		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line2" readonly="readonly">
-		                </div>
-		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">반차 신청</button>
-		              </div>
-                     <!-- /반차신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" class="collapsed" aria-expanded="false">
-                       		지각
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseThree" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                      <!-- 지각신청 폼 -->
-                      <label for="timepickerMS1" >일자/시간</label>
-                        <!-- time Picker -->
-			              <div class="bootstrap-timepicker">
-			                <div class="form-group">
-			                  <div class="input-group">
-			                    <input type="text" class="form-control timepicker" id="timepickerMS1">
-			
-			                    <div class="input-group-addon">
-			                      <i class="fa fa-clock-o"></i>
-			                    </div>
-			                  </div>
-			                  <!-- /.input group -->
-			                </div>
-			                <!-- /.form group -->
-			              </div>
-                      
-                      <div class="form-group">
-		                <div>
-		                  <label for="reason3">사유</label>
-		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason3" ></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label for="exampleInputFile3">첨부</label>
-		                  <input type="file" id="exampleInputFile3">
-		                </div>
-		                <div class="form-group">
-		                  <label for="line3">결재선 선택</label>
-		                  <input type="text" class="form-control"  placeholder="결재선 선택" id="line3" readonly="readonly">
-		                </div>
-		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">지각 신청</button>
-		              </div>
-                      <!-- /지각신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour" class="collapsed" aria-expanded="false">
-                       		야근
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseFour" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                      <!-- 야근신청 폼 -->
-                      <label>일자/시간</label>
-                      <div class="col-md-12">
-                      	<div class="col-md-5">
-                       <!-- time Picker -->
-			              <div class="bootstrap-timepicker">
-			                <div class="form-group">
-			                  <div class="input-group">
-			                    <input type="text" class="form-control timepicker">
-			                    <div class="input-group-addon">
-			                      <i class="fa fa-clock-o"></i>
-			                    </div>
-			                  </div>
-			                  <!-- /.input group -->
-			                </div>
-			                <!-- /.form group -->
-			              </div>
-			              </div>
-			              
-			              <div class="col-md-5">
-			              
-			               <!-- time Picker -->
-			              <div class="bootstrap-timepicker">
-			                <div class="form-group">
-			                  <div class="input-group">
-			                    <input type="text" class="form-control timepicker">
-			
-			                    <div class="input-group-addon">
-			                      <i class="fa fa-clock-o"></i>
-			                    </div>
-			                  </div>
-			                  <!-- /.input group -->
-			                </div>
-			                <!-- /.form group -->
-			              </div>
-			              </div>
-                      </div>
-                      
-                      <div class="form-group">
-		                <div>
-		                  <label for="reason4">사유</label>
-		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason4"></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label for="exampleInputFile4">첨부</label>
-		                  <input type="file" id="exampleInputFile4">
-		                </div>
-		                <div class="form-group">
-		                  <label for="line4">결재선 선택</label>
-		                  <input type="text" class="form-control"  placeholder="결재선 선택" id="line4" readonly="readonly">
-		                </div>
-		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">야근 신청</button>
-		              </div>
-                      <!-- /조퇴신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseFive" class="collapsed" aria-expanded="false">
-                       		외근/출장/교육
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseFive" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                      <!-- 외근(출장)신청 폼 -->
-                      <label for="reservation2">일자/시간</label>
-                      <div class="form-group">
-			                <div class="input-group">
-			                  <div class="input-group-addon">
-			                  <label for="reservation2">
-			                    <i class="fa fa-calendar"></i>
-			                    </label>
-			                  </div>
-			                  <input type="text" class="form-control pull-left" id="reservation2">
-			                </div>
-			                <!-- /.input group -->
-			              </div>
-                      <div class="form-group">
-		                <div>
-		                  <label for="reason5">사유</label>
-		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason5"></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label for="exampleInputFile5">첨부</label>
-		                  <input type="file" id="exampleInputFile5">
-		                </div>
-		                <div class="form-group">
-		                  <label for="line5">결재선 선택</label>
-		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line5" readonly="readonly">
-		                </div>
-		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">외근/출장/교육 신청</button>
-		              </div>
-                      <!-- /외근(출장)신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <!-- 경조사/기타 -->
-                <div class="panel box box-default">
-                  <div class="box-header with-border">
-                    <h4 class="box-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="collapsed" aria-expanded="false">
-                       		경조사/기타
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="collapseSix" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
-                    <div class="box-body">
-                      <!-- 외근(출장)신청 폼 -->
-                      <label for="reservation3">일자/시간</label>
-                      <div class="form-group">
-			                <div class="input-group">
-			                  <div class="input-group-addon">
-			                  <label for="reservation3">
-			                    <i class="fa fa-calendar"></i>
-			                    </label>
-			                  </div>
-			                  <input type="text" class="form-control pull-left" id="reservation3">
-			                </div>
-			                <!-- /.input group -->
-			              </div>
-                      <div class="form-group">
-		                <div>
-		                  <label for="reason5">사유</label>
-		                  </div>
-		                  <textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason5"></textarea>
-		                </div>
-		                <div class="form-group">
-		                  <label for="exampleInputFile6">첨부</label>
-		                  <input type="file" id="exampleInputFile6">
-		                </div>
-		                <div class="form-group">
-		                  <label for="line6">결재선 선택</label>
-		                  <input type="text" class="form-control" placeholder="결재선 선택" id="line6" readonly="readonly">
-		                </div>
-		                <div class="box-footer">
-		                <button type="submit" class="btn btn-block btn-primary">경조사/기타 신청</button>
-		              </div>
-                      <!-- /외근(출장)신청 폼 -->
-                    </div>
-                  </div>
-                </div>
-                <!--  -->
-              </div>
-            </div>
-          <!-- /.box-body -->
-          </div>
-        <!-- /.box -->
-        </div>
-       <!-- 아코디언 -->
-       
-      <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> 나의 신청 현황</h3>
-          <div class="box">
-            <div class="box-body">
-              <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-             <div class="row"><div class="col-sm-12"><table id="table3" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="example1_info">
-                <thead>
-                <tr role="row">
-                	<th>선택</th>
-                  <th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-sort="ascending">번호</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">사원 이름</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">구분</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">날짜</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">시간</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">설명</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">첨부</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">신청일</th>
-                  <th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1">상태</th>
-                </tr>
-                </thead>
-                <tbody>
-                
-                <tr role="row" class="odd">
-                <td></td>
-                  <td class="sorting_1">Gecko</td>
-                  <td>Firefox 1.0</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.7</td>
-                  <td>A</td><td></td><td></td><td></td><td></td>
-                </tr><tr role="row" class="even">
-                <td></td>
-                  <td class="sorting_1">Gecko</td>
-                  <td>Firefox 1.5</td>
-                  <td>Win 98+ / OSX.2+</td>
-                  <td>1.8</td>
-                  <td>A</td><td></td><td></td><td></td><td>값을 채워넣자</td>
-                </tr></tbody>
-                <tfoot>
-                <tr><th>선택</th><th rowspan="1" colspan="1">번호</th><th rowspan="1" colspan="1">사원 이름</th><th rowspan="1" colspan="1">사원 아이디</th><th rowspan="1" colspan="1">사용일</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th><th rowspan="1" colspan="1">총 연차 일수</th></tr>
-                </tfoot>
-              </table></div></div></div>
-            </div>
-            <!-- /.box-body -->
-          </div>
-       
-<script type="text/javascript">
-	$(function(){
-		//날짜
-		var nowDate = moment().format('YYYY/MM/DD');
-		$("#nowDate").val(nowDate);
-		//시간
-		setInterval(function() {
-			var nowTime = moment().format('HH:mm:ss');
-			$("#nowTime").val(nowTime);
-		}, 1000);
-		selectWorkTime();
-	});
+							<!-- /.input group -->
+						</div>
+					</form>
+				</div>
+				<br>
+
+			</div>
+		</div>
+	</div>
+	<h3>
+		<span class="glyphicon glyphicon-time"></span> 근태 신청
+	</h3>
+	<!-- 아코디언 -->
+	<div class="col-md-12">
+		<div class="box box-solid">
+			<div class="box-body">
+				<div class="box-group" id="accordion">
+					<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" class=""> 연차 </a>
+							</h4>
+						</div>
+						<div id="collapseOne" class="panel-collapse collapse in" aria-expanded="false" style="">
+							<div class="box-body">
+								<!-- 연차신청 폼 -->
+								<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/1"/>">
+									<input type="hidden" name="emp_num" value="${emp_num }" >
+									<input type="hidden" name="work_sdate" id="work_sdate" class="work_sdate">
+									<input type="hidden" name="work_edate" id="work_edate" class="work_edate">
+									<div class="form-group">
+										<label>연차 현황</label>
+										<div class="form-control">
+											총 연차 일수 : <label style="color: green;">${annual.ann_total }</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+											사용일 : <label style="color: blue;">${annual.ann_use } </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											가용일 : <label style="color: red;">${annual.ann_total-annual.ann_use }</label>
+										</div>
+									</div>
+									<label for="reservation">일자/시간</label>
+									<!-- 연차-->
+									<div class="form-group">
+										<div class="input-group">
+											<div class="input-group-addon">
+												<label for="reservation"> <i class="fa fa-calendar"></i></label>
+											</div>
+											<input type="text" class="form-control pull-left" id="reservation">
+										</div>
+										<!-- /.input group -->
+									</div>
+									<div class="form-group">
+										<div>
+											<label for="reason1">사유</label>
+										</div>
+										<textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason1" required="required" name="work_content"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputFile1">첨부</label> 
+										<input type="file" id="exampleInputFile1" name="file">
+									</div>
+									<div class="form-group">
+										<label for="line1">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> <input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line1" placeholder="결재선 선택" readonly="readonly" required="required">
+										<input type="hidden" id="text_emp_num2" name="emp_num2">
+									</div>
+									
+									<div class="box-footer">
+										<input type="submit" class="btn btn-block btn-primary" value="연차 신청"/>
+									</div>
+								</form>
+								<!-- /연차신청 폼 -->
+							</div>
+						</div>
+					</div>
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed" aria-expanded="false">반차 </a>
+							</h4>
+						</div>
+						<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+							<div class="box-body">
+								<!-- 반차신청 폼 -->
+								<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/2"/>">
+									<input type="hidden" name="emp_num" value="${emp_num }" >
+									<input type="hidden" name="work_sdate" id="work_sdate2">
+									<input type="hidden" name="work_edate" id="work_edate2">
+									<div class="form-group">
+									<label>연차 현황</label>
+										<div class="form-control">
+											총 연차 일수 : <label style="color: green;">${annual.ann_total }</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+											사용일 : <label style="color: blue;">${annual.ann_use } </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											가용일 : <label style="color: red;">${annual.ann_total-annual.ann_use }</label>
+										</div>
+									</div>
+									<label for="datepicker">일자/시간</label>
+									<div class="form-group">
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<label for="datepicker"> <i class="fa fa-calendar"></i>
+												</label>
+											</div>
+											<input type="text" class="form-control pull-right" id="datepicker">
+										</div>
+										<div class="form-group">
+											<div class="radio" align="center">
+												<label> <input type="radio" name="radio_ampm"id="am" value="am"> 오전</label> 
+												<label> <input type="radio" name="radio_ampm"id="pm" value="pm"> 오후</label>
+											</div>
+										</div>
+										<!-- /.input group -->
+									</div>
+									<div class="form-group">
+										<div>
+											<label for="reason2">사유</label>
+										</div>
+										<textarea class="form-control" rows="3" placeholder="사유를 적으세요." id="reason2" name="work_content"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputFile2">첨부</label>
+										<input type="file" id="exampleInputFile2" name="file">
+									</div>
+									<div class="form-group">
+										<label for="line2">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> <input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line2" placeholder="결재선 선택" readonly="readonly" required="required">
+										<input type="hidden" id="text2_emp_num2" name="emp_num2">
+									</div>
+									<div class="box-footer">
+										<input type="submit" class="btn btn-block btn-primary" value="반차 신청"/>
+									</div>
+									<!-- /반차신청 폼 -->
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion"href="#collapseThree" class="collapsed" aria-expanded="false">지각 </a>
+							</h4>
+						</div>
+						<div id="collapseThree" class="panel-collapse collapse"aria-expanded="false" style="height: 0px;">
+							<div class="box-body">
+								<!-- 지각신청 폼 -->
+								<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/3"/>">
+									<input type="hidden" name="emp_num" value="${emp_num }" >
+								<label for="timepickerMS1">일자/시간</label>
+								<div class="col-md-12">
+									<div class="col-md-5">
+										<div class="form-group">
+										<div class="input-group date">
+											<div class="input-group-addon">
+												<label for="datepicker2"> <i class="fa fa-calendar"></i>
+												</label>
+											</div>
+											<input type="text" class="form-control pull-right" id="datepicker2" name="work_sdate">
+										</div>
+									</div>
+									</div>
+
+									<div class="col-md-5">
+
+										<!-- time Picker -->
+										<div class="bootstrap-timepicker">
+											<div class="form-group">
+												<div class="input-group">
+													<input type="text" class="form-control timepicker" name="work_edate">
+
+													<div class="input-group-addon">
+														<i class="fa fa-clock-o"></i>출근
+													</div>
+												</div>
+												<!-- /.input group -->
+											</div>
+											<!-- /.form group -->
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div>
+										<label for="reason3">사유</label>
+									</div>
+									<textarea class="form-control" rows="3" placeholder="사유를 적으세요."id="reason3"name="work_content"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile3">첨부</label> <input type="file"id="exampleInputFile3" name="file">
+								</div>
+								<div class="form-group">
+									<label for="line3">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> <input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line3" placeholder="결재선 선택" readonly="readonly" required="required">
+										<input type="hidden" id="text3_emp_num2" name="emp_num2">
+								</div>
+								<div class="box-footer">
+									<button type="submit" class="btn btn-block btn-primary">지각 신청</button>
+								</div>
+								<!-- /지각신청 폼 -->
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion"href="#collapseFour" class="collapsed" aria-expanded="false">야근 </a>
+							</h4>
+						</div>
+						<div id="collapseFour" class="panel-collapse collapse"aria-expanded="false" style="height: 0px;">
+							<div class="box-body">
+								<!-- 야근신청 폼 -->
+								<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/4"/>">
+									<input type="hidden" name="emp_num" value="${emp_num }" >
+									<label>일자/시간</label>
+									<div class="col-md-12">
+										<div class="col-md-5">
+											<div class="form-group">
+											<div class="input-group date">
+												<div class="input-group-addon">
+													<label for="datepicker3"> <i class="fa fa-calendar"></i>
+													</label>
+												</div>
+												<input type="text" class="form-control pull-right" id="datepicker2" name="work_sdate">
+											</div>
+										</div>
+										</div>
 	
-	function selectWorkTime(){
+										<div class="col-md-5">
+	
+											<!-- time Picker -->
+											<div class="bootstrap-timepicker">
+												<div class="form-group">
+													<div class="input-group">
+														<input type="text" class="form-control timepicker" name="work_edate">
+	
+														<div class="input-group-addon">
+															<i class="fa fa-clock-o"></i>까지
+														</div>
+													</div>
+													<!-- /.input group -->
+												</div>
+												<!-- /.form group -->
+											</div>
+										</div>
+									</div>
+	
+									<div class="form-group">
+										<div>
+											<label for="reason4">사유</label>
+										</div>
+										<textarea class="form-control" rows="3" placeholder="사유를 적으세요."id="reason4" name="work_content"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputFile4">첨부</label> <input type="file"id="exampleInputFile4" name="file">
+									</div>
+									<div class="form-group">
+										<label for="line4">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> <input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line4" placeholder="결재선 선택" readonly="readonly" required="required">
+											<input type="hidden" id="text4_emp_num2" name="emp_num2">
+									</div>
+									<div class="box-footer">
+										<input type="submit" class="btn btn-block btn-primary"value="야근 신청">
+									</div>
+									<!-- /야근신청 폼 -->
+								</form>
+								
+							</div>
+						</div>
+					</div>
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion"href="#collapseFive" class="collapsed" aria-expanded="false">외근/출장/교육 </a>
+							</h4>
+						</div>
+						<div id="collapseFive" class="panel-collapse collapse"aria-expanded="false" style="height: 0px;">
+							<div class="box-body">
+								<!-- 외근(출장)신청 폼 -->
+							<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/5"/>">
+								<input type="hidden" name="emp_num" value="${emp_num }">
+								<input type="hidden" class="work_sdate" name="work_sdate">
+								<input type="hidden" class="work_edate" name="work_edate">
+								
+								<label for="reservation2">일자/시간</label>
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<label for="reservation2"> <i class="fa fa-calendar"></i>
+											</label>
+										</div>
+										<input type="text" class="form-control pull-left"id="reservation2">
+									</div>
+									<!-- /.input group -->
+								</div>
+								<div class="form-group">
+									<div>
+										<label for="reason5">사유</label>
+									</div>
+									<textarea class="form-control" rows="3" placeholder="사유를 적으세요."id="reason5"name="work_content"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile5">첨부</label> <input type="file"id="exampleInputFile5" name="file">
+								</div>
+								<div class="form-group">
+									<label for="line5">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> <input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line5" placeholder="결재선 선택" readonly="readonly" required="required">
+										<input type="hidden" id="text5_emp_num2" name="emp_num2">
+								</div>
+								<div class="box-footer">
+									<input type="submit" class="btn btn-block btn-primary" value="외근/출장/교육 신청">
+								</div>
+								<!-- /외근(출장)신청 폼 -->
+								</form>
+							</div>
+						</div>
+					</div>
+					<!-- 경조사/기타 -->
+					<div class="panel box box-default">
+						<div class="box-header with-border">
+							<h4 class="box-title">
+								<a data-toggle="collapse" data-parent="#accordion"href="#collapseSix" class="collapsed" aria-expanded="false">경조사/기타 </a>
+							</h4>
+						</div>
+						<div id="collapseSix" class="panel-collapse collapse"aria-expanded="false" style="height: 0px;">
+							<div class="box-body">
+								<!-- 외근(출장)신청 폼 -->
+								<form method="post" enctype="multipart/form-data" action="<c:url value="/requestAnn/6"/>">
+								<input type="hidden" name="emp_num" value="${emp_num }">
+								<input type="hidden" class="work_sdate" name="work_sdate">
+								<input type="hidden" class="work_edate" name="work_edate">
+								<label for="reservation3">일자/시간</label>
+								<div class="form-group">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<label for="reservation3"> <i class="fa fa-calendar"></i>
+											</label>
+										</div>
+										<input type="text" class="form-control pull-left"id="reservation3">
+									</div>
+									<!-- /.input group -->
+								</div>
+								<div class="form-group">
+									<div>
+										<label for="reason5">사유</label>
+									</div>
+									<textarea class="form-control" rows="3" placeholder="사유를 적으세요."id="reason5" name="work_content"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="exampleInputFile6">첨부</label> <input type="file"id="exampleInputFile6" name="file">
+								</div>
+								<div class="form-group">
+									<label for="line6">결재선 선택(결재 순서에 맞춰 선택해 주세요)</label> 
+									<input type="text" class="form-control" data-target="#myModal" data-toggle="modal" id="line6" placeholder="결재선 선택" readonly="readonly" required="required">
+										<input type="hidden" id="text6_emp_num2" name="emp_num2">
+								</div>
+								<div class="box-footer">
+									<input type="submit" class="btn btn-block btn-primary" value="경조사/기타 신청">
+								</div>
+								<!-- /외근(출장)신청 폼 -->
+								</form>
+							</div>
+						</div>
+					</div>
+					<!--  -->
+				</div>
+			</div>
+			<!-- /.box-body -->
+		</div>
+		<!-- /.box -->
+	</div>
+	<!-- 아코디언 -->
+
+	<h3 class="box-title">
+		<span class="glyphicon glyphicon-list-alt"></span> 나의 신청 현황
+	</h3>
+	<div class="box">
+		<div class="box-body">
+			<div id="example1_wrapper"
+				class="dataTables_wrapper form-inline dt-bootstrap">
+				<div class="row">
+					<div class="col-sm-12">
+						<table id="table3"
+							class="table table-bordered table-striped dataTable" role="grid"
+							aria-describedby="example1_info">
+							<thead>
+								<tr role="row">
+									<th class="sorting_asc" tabindex="0" aria-controls="example1"rowspan="1" colspan="1" aria-sort="ascending">신청번호</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">구분</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">날짜</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">시간</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">사유</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">첨부</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">신청일</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${wwlist }" var="wwl">
+									<c:choose>
+										<c:when test="${wwl.wtype_num==1 }">
+											<c:set var="requestWorkType" value="연차"/>
+											<!-- 연차시작날 ~ 연차끝나는날 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<fmt:formatDate value="${wwl.work_edate}" pattern="yyyy/MM/dd" var="wwEdate"/>
+											<c:set var="requestTerm" value="${wwSdate } - ${wwEdate }"/>
+											<!-- 연차간격 계산하기 -->
+											<fmt:parseDate var="parseSdate" value="${wwSdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseDate var="parseEdate" value="${wwEdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseNumber var="numSdate" value="${parseSdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<fmt:parseNumber var="numEdate" value="${parseEdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<c:set var="calDate" value="${numEdate-numSdate }일"/>
+										</c:when>
+										<c:when test="${wwl.wtype_num==2 }">
+											<c:set var="requestWorkType" value="반차"/>
+											<!-- 반차요청일 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<c:set var="requestTerm" value="${wwSdate }"/>
+											<!-- 반차구분(오전/오후) -->
+											<fmt:formatDate value="${wwl.work_edate}" pattern="HHmm" var="wwEdate"/>
+											<c:if test="${wwEdate==1201 }">
+												<c:set var="calDate" value="0.5일(오후)"/>
+											</c:if>
+											<c:if test="${wwEdate==1159 }">
+												<c:set var="calDate" value="0.5일(오전)"/>
+											</c:if>
+										</c:when>
+										<c:when test="${wwl.wtype_num==3 }">
+											<c:set var="requestWorkType" value="지각"/>
+											<!-- 지각요청일 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<c:set var="requestTerm" value="${wwSdate }"/>
+											<fmt:formatDate value="${wwl.work_edate}" pattern="HH:mm" var="calDate"/>
+										</c:when>
+										<c:when test="${wwl.wtype_num==4 }">
+											<c:set var="requestWorkType" value="야근"/>
+											<!-- 야근요청일 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<c:set var="requestTerm" value="${wwSdate }"/>
+											<fmt:formatDate value="${wwl.work_edate}" pattern="HH:mm" var="calDate"/>
+										</c:when>
+										<c:when test="${wwl.wtype_num==5 }">
+											<c:set var="requestWorkType" value="외근/출장/교육"/>
+											<!-- 출장시작날 ~ 끝나는날 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<fmt:formatDate value="${wwl.work_edate}" pattern="yyyy/MM/dd" var="wwEdate"/>
+											<c:set var="requestTerm" value="${wwSdate } - ${wwEdate }"/>
+											<!-- 출장간격 계산하기 -->
+											<fmt:parseDate var="parseSdate" value="${wwSdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseDate var="parseEdate" value="${wwEdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseNumber var="numSdate" value="${parseSdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<fmt:parseNumber var="numEdate" value="${parseEdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<c:set var="calDate" value="${numEdate-numSdate }일"/>
+										</c:when>
+										<c:when test="${wwl.wtype_num==6 }">
+											<c:set var="requestWorkType" value="경조사/기타"/>
+											<!-- 경조사시작날 ~ 끝나는날 -->
+											<fmt:formatDate value="${wwl.work_sdate}" pattern="yyyy/MM/dd" var="wwSdate"/>
+											<fmt:formatDate value="${wwl.work_edate}" pattern="yyyy/MM/dd" var="wwEdate"/>
+											<c:set var="requestTerm" value="${wwSdate } - ${wwEdate }"/>
+											<!-- 경조사간격 계산하기 -->
+											<fmt:parseDate var="parseSdate" value="${wwSdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseDate var="parseEdate" value="${wwEdate }" pattern="yyyy/MM/dd" />
+											<fmt:parseNumber var="numSdate" value="${parseSdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<fmt:parseNumber var="numEdate" value="${parseEdate.time/(1000*60*60*24) }" integerOnly="true"/>
+											<c:set var="calDate" value="${numEdate-numSdate }일"/>
+										</c:when>
+									</c:choose>
+									<c:choose>
+										<c:when test="${wwl.work_state==0 }">
+											<c:set var="requestState" value="진행중"/>
+										</c:when>
+										<c:when test="${wwl.work_state==1 }">
+											<c:set var="requestState" value="승인"/>
+										</c:when>
+										<c:when test="${wwl.work_state==2 }">
+											<c:set var="requestState" value="반려"/>
+										</c:when>
+									</c:choose>
+									<tr role="row">
+									<td class="sorting_1">${wwl.work_num}</td>
+									<td>${requestWorkType }</td>
+									<td>${requestTerm }</td>
+									<td>${calDate }</td>
+									<td>${wwl.work_content }</td>
+									<td>${wwl.wfile_orgfilename }</td>
+									<td>
+										<fmt:formatDate value="${work.wlist_start}" pattern="yyyy/MM/dd"/>
+									</td>
+									<td>${requestState }</td>
+								</tr>
+								</c:forEach>
+							</tbody>
+							<tfoot>
+								<tr>
+									<th rowspan="1" colspan="1">신청번호</th>
+									<th rowspan="1" colspan="1">구분</th>
+									<th rowspan="1" colspan="1">날짜</th>
+									<th rowspan="1" colspan="1">시간</th>
+									<th rowspan="1" colspan="1">사유</th>
+									<th rowspan="1" colspan="1">첨부</th>
+									<th rowspan="1" colspan="1">신청일</th>
+									<th rowspan="1" colspan="1">상태</th>
+								</tr>
+							</tfoot>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.box-body -->
+	</div>
+	
+	<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">조직도</h4>
+					</div>
+					<div class="modal-body" id="linecontent">
+						<div id="jstree"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		$(function() {
+			//날짜
+			var nowDate = moment().format('YYYY/MM/DD');
+			$("#nowDate").val(nowDate);
+			//시간
+			setInterval(function() {
+				var nowTime = moment().format('HH:mm:ss');
+				$("#nowTime").val(nowTime);
+			}, 1000);
+			selectWorkTime();
+			
+			//tree모달
+			$("#line1,#line2,#line3,#line4,#line5,#line6").click(function() {
+				$.ajax({
+					url : "<c:url value='/sublinelist'/>",
+					dataType : "json",
+					success : function(data) {
+						// 6 create an instance when the DOM is ready
+						$('#jstree').jstree({
+							"checkbox" : {
+								"keep_selected_style" : false
+							},
+							"plugins" : [ "wholerow", "checkbox", "changed" ],
+							'core' : {
+								'data' : data
+							//,'multiple':false
+							}
+						});
+					}
+				});
+			});
+			var arr1 = [];
+			var idarr = [];
+			$('#jstree').on('select_node.jstree Event', function(e, data) {
+				var id = data.node.id;
+				var name = data.node.text;
+				//var arr=data.selected;
+				arr1.push(name);
+				idarr.push(id);
+				console.log("arr1 : "+arr1);
+				console.log("idarr : "+idarr);
+			});
+
+			//선택해제시 동작메소드
+			$('#jstree').on('deselect_node.jstree Event', function(e, data) {
+				var name = data.node.text;
+				var arr = data.selected;
+				for (var i = 0; i < arr1.length; i++) {
+					if (arr1[i] === name) {
+						arr1.splice(i, 1);
+						idarr.splice(i, 1);
+					}
+				}
+				console.log("arr1 : "+arr1);
+				console.log("idarr : "+idarr);
+			});
+			$('#line_submit').click(function() {
+						var lists="결재순서 : ";
+						var emp_num2="";
+						for (var i = 0; i < arr1.length; i++) {
+							if(arr1.length==i+1){
+								lists+=(i+1)+"차 "+arr1[i];
+							}else{
+								lists+=(i+1)+"차 "+arr1[i]+" > ";								
+							}
+							if(arr1.length==i+1){
+								emp_num2+=idarr[i];
+							}else{
+								emp_num2+=idarr[i]+",";							
+							}
+						}
+							$("#text_emp_num2,#text2_emp_num2,#text3_emp_num2,#text4_emp_num2,#text5_emp_num2,#text6_emp_num2").val(emp_num2);
+							$('#line1,#line2,#line3,#line4,#line5,#line6').val(lists);
+					});
+		});
+		//am pm edate2에 넣기
+		$("#am").click(function(){
+			$("#work_edate2").val("11:59");
+		});
+		$("#pm").click(function(){
+			$("#work_edate2").val("12:01");
+		});
 		
-	}
-	
-	//출근버튼
-	function workStart(){
-		if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
-			var result = confirm('출근하시겠습니까?');
-			if(result){
-				var requestTime = moment().format('YYYY/MM/DD HH:mm');
-				$("#real_workstart").val(requestTime);
-				alert(requestTime+" 출근");
-				
-				var startTime = moment().format('HH:mm');
-				$("#text_workstart").val(startTime);
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			alert("이미 출근하셨습니다.");
-			return false;
+		//daterangpicker 날짜 나누기
+		$("#reservation,#reservation2,#reservation3").change(function(){
+			var odate = $(this).val();
+			$(".work_sdate").val(odate.substring(0,10));
+			$(".work_edate").val(odate.substring(13,23));
+		});
+		//datepicker 날짜받기
+		$("#datepicker").change(function(){
+			var odate = $(this).val();
+			$("#work_sdate2").val(odate);
+			console.log($("#work_sdate2").val());
+		});
+		
+		
+		function selectWorkTime() {
+			
 		}
-	};
-	//퇴근버튼
-	function workEnd(){
-		if($("#text_workstart").val()==null||$("#text_workstart").val()==''){
-			alert("출근시간이 입력되지 않았습니다.");
-			return false;
-		}else{
-			if($("#text_workend").val()==null||$("#text_workend").val()==''){
-				var result = confirm('퇴근하시겠습니까?');
-				if(result){
+
+		//출근버튼
+		function workStart() {
+			if ($("#text_workstart").val() == null
+					|| $("#text_workstart").val() == '') {
+				var result = confirm('출근하시겠습니까?');
+				if (result) {
 					var requestTime = moment().format('YYYY/MM/DD HH:mm');
-					$("#real_workend").val(requestTime);
-					var endTime = moment().format('HH:mm');
-					$("#text_workend").val(endTime);
-					alert(requestTime+" 퇴근");
+					$("#real_workstart").val(requestTime);
+					alert(requestTime + " 출근");
+
+					var startTime = moment().format('HH:mm');
+					$("#text_workstart").val(startTime);
 					return true;
-				}else{
+				} else {
 					return false;
 				}
-			}else{
-				alert("이미 퇴근하셨습니다.");
+			} else {
+				alert("이미 출근하셨습니다.");
 				return false;
 			}
-		}
-	};
-</script>
-      </div>
-      <!-- /.box-body -->
+		};
+		//퇴근버튼
+		function workEnd() {
+			if ($("#text_workstart").val() == null
+					|| $("#text_workstart").val() == '') {
+				alert("출근시간이 입력되지 않았습니다.");
+				return false;
+			} else {
+				if ($("#text_workend").val() == null
+						|| $("#text_workend").val() == '') {
+					var result = confirm('퇴근하시겠습니까?');
+					if (result) {
+						var requestTime = moment().format('YYYY/MM/DD HH:mm');
+						$("#real_workend").val(requestTime);
+						var endTime = moment().format('HH:mm');
+						$("#text_workend").val(endTime);
+						alert(requestTime + " 퇴근");
+						return true;
+					} else {
+						return false;
+					}
+				} else {
+					alert("이미 퇴근하셨습니다.");
+					return false;
+				}
+			}
+		};
+	</script>
+</div>
+<!-- /.box-body -->
