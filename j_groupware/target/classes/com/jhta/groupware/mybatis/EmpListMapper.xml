@@ -8,10 +8,14 @@
 	<select id="getlist"  resultType="EmpListVo">
 		select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME
 		from EMPLOYEE e, DEPT d, POSITION p 
-		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM ;
+		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM
 	</select>
-
-	
+	<update id="updateEmp">
+		UPDATE EMPLOYEE SET EMP_NAME=#{EMP_NAME}, EMP_PHONE=#{EMP_PHONE}, EMP_EMAIL=#{EMP_EMAIL}, EMP_GENDER=#{EMP_GENDER},
+			EMP_BIRTH=to_date(#{EMP_BIRTH},'YYYY/MM/DD'),EMP_HIREDATE=to_date(#{EMP_HIREDATE},'YYYY/MM/DD'),
+			EMP_ADDR=#{EMP_ADDR},DEPT_NUM=#{DEPT_NUM},PST_NUM=#{PST_NUM} 
+			WHERE EMP_NUM=#{EMP_NUM}
+	</update>
 </mapper>
 
 

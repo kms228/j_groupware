@@ -47,7 +47,7 @@
 	});
 </script>
 
-<h1>사원정보</h1>
+<h1>${vo1.EMP_NAME } 님의 사원정보</h1>
 
 <div class="input-group" style="width: 70%">
                 <span class="input-group-addon" style="width: 15%">이름</span>

@@ -1,5 +1,6 @@
 package com.jhta.groupware.login.vo;
 
+
 public class LoginVo {
 	private int EMP_NUM;
 	private String EMP_NAME;

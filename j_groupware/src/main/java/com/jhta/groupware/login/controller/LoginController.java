@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.groupware.login.service.LoginService;
+import com.jhta.groupware.login.vo.LoginVo;
 import com.jhta.groupware.member.vo.MemberAccountVo;
 
 @Controller
@@ -30,12 +31,17 @@ public class LoginController {
 		map.put("ACNT_ID", ACNT_ID);
 		map.put("ACNT_PWD", ACNT_PWD);
 		MemberAccountVo vo = service.login(map);
+		
 		if (vo!=null) {
 			System.out.println(ACNT_ID);
-			System.out.println("된다!!!");
+			
 			session.setAttribute("ACNT_ID", ACNT_ID);
-			session.setAttribute("emp_num", vo.getEMP_NUM() );
+			session.setAttribute("emp_num", vo.getEMP_NUM());
+			
 			System.out.println(vo.getEMP_NUM());
+			LoginVo vo2=service.getinfo(vo.getEMP_NUM());
+			session.setAttribute("PST_NUM", vo2.getPST_NUM());
+			System.out.println(vo2.getPST_NUM());
 			return "redirect:/";
 		} else {
 			System.out.println("안되!!!");
@@ -48,6 +54,7 @@ public class LoginController {
 		String page = "redirect:/";
 		session.removeAttribute("ACNT_ID");
 		session.removeAttribute("emp_num");
+		session.removeAttribute("PST_NUM");
 		mv.setViewName(page);
 		return mv;
 	}
