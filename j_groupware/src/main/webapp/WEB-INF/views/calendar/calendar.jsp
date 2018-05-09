@@ -30,7 +30,7 @@ $(function () {
 		  });  
 	  };
 	  var initPublic = function(){
-		  var create_public = document.getElementById("create_public");
+		  var create_public = document.querySelector("#create_public");/* document.getElementById("create_public"); */
 		  var mod_public = document.getElementById("mod_public");
 		  var option;
 		  $.ajax({
@@ -284,7 +284,7 @@ var modalModal = (function(schedule){
     	document.getElementById("modifySchedule").style.display='none';
 		document.getElementById("createSchedule").style.display='block';
     });
-  	document.getElementById("modifyFile").addEventListener('change',function(){  		  		  		  		
+  	document.getElementById("modifyFile").addEventListener('change',function(){	  		  		
         var x = document.getElementById("modifyFile").files[0].name;
   		document.getElementById("mod_orgfilename").innerHTML = x;
   	});
@@ -328,8 +328,8 @@ var modalModal = (function(schedule){
 <aside class="control-sidebar control-sidebar-dark">
 	<!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-      <li class="active"><a href="#control-sidebar-users-tab" data-toggle="tab"><i class="fa fa-users"></i></a></li>
-      <li><a href="#control-sidebar-chatting-tab" data-toggle="tab"><i class="fa fa-commenting"></i></a></li>
+      <li class="active" id="userTab"><a href="#" id="userAnchor"><i class="fa fa-users"></i></a></li>
+      <li id="chatTab"><a href="#" id="chatAnchor"><i class="fa fa-commenting"></i></a></li>
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
@@ -337,17 +337,16 @@ var modalModal = (function(schedule){
       <div class="tab-pane active" id="control-sidebar-users-tab">
 	  <!-- <div class="direct-chat-contacts"> -->
 	   <!--  <ul class="contacts-list"> -->
-	    <ul class="control-sidebar-menu">
+	    <ul class="control-sidebar-menu" id="userList">
 		  <li>
-		    <a href="#">				          
+		    <!-- <a href="#">				          
 			  <i class="menu-icon fa fa-birthday-cake bg-red"></i>		    
-			  <!-- <img class="contacts-list-img" src="https://vignette.wikia.nocookie.net/undertale/images/e/ef/Reunited.png/revision/latest?cb=20160211165705" alt="User Image"> -->
+			  <img class="contacts-list-img" src="https://vignette.wikia.nocookie.net/undertale/images/e/ef/Reunited.png/revision/latest?cb=20160211165705" alt="User Image">
 			    <div class="contacts-list-info">
 			      <span class="contacts-list-name">Count Dracula<small class="contacts-list-date pull-right">2/28/2015</small></span>
 			      <span class="contacts-list-msg">How have you been? I was...</span>
 			    </div>
-			    <!-- /.contacts-list-info -->
-			</a>
+			</a> -->
 		  </li>
 		  <!-- End Contact Item -->
 		</ul>
@@ -362,14 +361,14 @@ var modalModal = (function(schedule){
 		<!-- Message. Default to the left -->
                     <div class="direct-chat-msg">
                       <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Alexander Pierce</span>
+                        <span class="direct-chat-name pull-left">사원 홍길동</span>
                         <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
                       </div>
                       <!-- /.direct-chat-info -->
                       <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="">
                       <!-- /.direct-chat-img -->
                       <div class="direct-chat-text">
-                        Is this template really for free? That's unbelievable!
+                              미결재 서류 승인 부탁드립니다. 결재 날짜까지 일정이 촉박하여 부득이 하게 채팅을 보내드린점 죄송합니다.
                       </div>
                       <!-- /.direct-chat-text -->
                     </div>
@@ -378,24 +377,24 @@ var modalModal = (function(schedule){
 		<!-- Message to the right -->
                     <div class="direct-chat-msg right">
                       <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Sarah Bullock</span>
+                        <span class="direct-chat-name pull-right">나</span>
                         <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
                       </div>
                       <!-- /.direct-chat-info -->                      
                       <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="">
                       <!-- /.direct-chat-img -->
                       <div class="direct-chat-text">
-                        You better believe it!
+                              알겠습니다.
                       </div>
                       <!-- /.direct-chat-text -->
                     </div>
                     <!-- /.direct-chat-msg -->
 		<!-- <div class="box-footer"> -->
-	 <form action="#" method="post">
+	 <form action="#" method="post" id="realChat">
 	 <div class="input-group">
 	   <input type="text" name="message" placeholder="Type Message ..." class="form-control">
 	   <span class="input-group-btn">
-		 <button type="submit" class="btn btn-primary btn-flat">전송</button>
+		 <button type="submit" class="btn btn-primary btn-flat" id="send1">전송</button>
 	   </span>
 	 </div>
 	 </form>
@@ -410,8 +409,23 @@ var modalModal = (function(schedule){
 <!-- This div must placed right after the sidebar for it to work-->
 <div class="control-sidebar-bg"></div>
 
+<script>
+	$("#userAnchor").click(function(){
+		$("#chatTab").removeClass("active");
+		$("#userTab").addClass("active");		
+		$("#control-sidebar-chatting-tab").removeClass("active");
+		$("#control-sidebar-users-tab").addClass("active");
+	});
+	$("#chatAnchor").click(function(){
+		$("#userTab").removeClass("active");
+		$("#chatTab").addClass("active");
+		$("#control-sidebar-users-tab").removeClass("active");
+		$("#control-sidebar-chatting-tab").addClass("active");
+	});
+</script>
 
-<button class="btn btn-default" data-toggle="control-sidebar">Toggle Right Sidebar</button>
+
+<button class="btn btn-default" data-toggle="control-sidebar" id="toggle_Right_Sidebar">Toggle Right Sidebar</button>
 <!-- Content Wrapper. Contains page content -->  
   <div>  
   

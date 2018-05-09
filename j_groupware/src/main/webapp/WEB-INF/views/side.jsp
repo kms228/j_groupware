@@ -68,10 +68,10 @@
         </li>
         <li>
           <a href="<c:url value='/'/>calendar">
-            <i class="fa fa-calendar"></i> <span>Calendar</span>
+            <i class="fa fa-calendar"></i> <span>일정</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-red">3</small>
-              <small class="label pull-right bg-blue">17</small>
+              <small class="label pull-right bg-red"></small>
+              <small class="label pull-right bg-blue"></small>
             </span>
           </a>
         </li>

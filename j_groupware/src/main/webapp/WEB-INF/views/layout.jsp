@@ -76,6 +76,10 @@
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script> 
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
 
+<!--  messaging -->
+<script src='<c:url value='/'/>resources/dist/js/sockjs.js'></script>
+<script src="<c:url value='/'/>resources/dist/js/stomp.min.js"></script>
+<script src="<c:url value='/'/>resources/dist/js/websocket.js"></script>
 
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
