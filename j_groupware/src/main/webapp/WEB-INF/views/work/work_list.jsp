@@ -21,7 +21,7 @@
 								<c:forEach items="${wlist }" var="wVo">
 									<option value="${wVo.wtype_num }">${wVo.wtype_name }</option>
 								</c:forEach>
-							</select>
+							</select> 
 					</div>
 					<div class="form-group">
 						<label for="reservation3">조회기간</label>
