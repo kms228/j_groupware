@@ -13,6 +13,7 @@
 							aria-describedby="example1_info">
 							<thead> 
 								<tr role="row">
+								
 									<th class="sorting_asc" tabindex="0" aria-controls="example1"rowspan="1" colspan="1" aria-sort="ascending">사원번호</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">근무부서</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">성명</th>
@@ -23,11 +24,10 @@
 							</thead>
 							<tbody>
 								<c:choose >
-								
 								<c:when test="${PST_NUM =='1'}">				
 									<c:forEach items="${list }" var="list">
 									<tr role="row">
-										<th>${list.EMP_NUM}</th>															
+										<th  class="select-checkbox">${list.EMP_NUM}</th>															
 										<th>${list.DEPT_NAME}</th>								
 										<td><a href="<c:url value='/empselect?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
 										<th>${list.PST_NAME}</th>

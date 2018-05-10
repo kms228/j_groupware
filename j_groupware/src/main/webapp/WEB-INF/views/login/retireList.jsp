@@ -19,6 +19,7 @@
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">직위</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">이메일</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">입사일</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">퇴사일</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -29,10 +30,11 @@
 									<tr role="row">
 										<th>${list.EMP_NUM}</th>															
 										<th>${list.DEPT_NAME}</th>								
-										<td><a href="<c:url value='/retireselect?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
+										<td><a href="<c:url value='/retireSelectView?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
 										<th>${list.PST_NAME}</th>
 										<th>${list.EMP_EMAIL}</th>		
-										<th>${list.EMP_HIREDATE}</th>															
+										<th>${list.EMP_HIREDATE}</th>
+										<th>${list.RE_DATE}</th>															
 									</tr>						
 									</c:forEach>
 								</c:when>
@@ -46,6 +48,7 @@
 									<th>${list.EMP_HIREDATE }</th>															
 									<th>${list.DEPT_NAME }</th>								
 									<th>${list.PST_NAME }</th>
+									<th>${list.RE_DATE}</th>
 								</tr>						
 								</c:forEach>
 								</c:otherwise>						

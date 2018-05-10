@@ -2,7 +2,7 @@ package com.jhta.groupware.emplist.vo;
 
 import java.util.Date;
 
-public class EmpListVo {
+public class ReListVo {
 	private int EMP_NUM;
 	private String EMP_NAME;
 	private String EMP_PHONE;
@@ -10,19 +10,14 @@ public class EmpListVo {
 	private Date EMP_HIREDATE;
 	private String DEPT_NAME;
 	private String PST_NAME;
+	private String RE_DATE;
 	
-	public EmpListVo() {}
+	public ReListVo() {}
+	
+	
 
-	@Override
-	public String toString() {
-		return "EmpListVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_EMAIL="
-				+ EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE + ", DEPT_NAME=" + DEPT_NAME + ", PST_NAME=" + PST_NAME
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]\n";
-	}
-
-	public EmpListVo(int eMP_NUM, String eMP_NAME, String eMP_PHONE, String eMP_EMAIL, Date eMP_HIREDATE,
-			String dEPT_NAME, String pST_NAME) {
+	public ReListVo(int eMP_NUM, String eMP_NAME, String eMP_PHONE, String eMP_EMAIL, Date eMP_HIREDATE,
+			String dEPT_NAME, String pST_NAME, String rE_DATE) {
 		super();
 		EMP_NUM = eMP_NUM;
 		EMP_NAME = eMP_NAME;
@@ -31,7 +26,19 @@ public class EmpListVo {
 		EMP_HIREDATE = eMP_HIREDATE;
 		DEPT_NAME = dEPT_NAME;
 		PST_NAME = pST_NAME;
+		RE_DATE = rE_DATE;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "ReListVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_EMAIL="
+				+ EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE + ", DEPT_NAME=" + DEPT_NAME + ", PST_NAME=" + PST_NAME
+				+ ", RE_DATE=" + RE_DATE + "]";
+	}
+
+
 
 	public int getEMP_NUM() {
 		return EMP_NUM;
@@ -87,6 +94,14 @@ public class EmpListVo {
 
 	public void setPST_NAME(String pST_NAME) {
 		PST_NAME = pST_NAME;
+	}
+
+	public String getRE_DATE() {
+		return RE_DATE;
+	}
+
+	public void setRE_DATE(String rE_DATE) {
+		RE_DATE = rE_DATE;
 	}
 	
 	

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.emplist.dao.EmpListDao;
 import com.jhta.groupware.emplist.vo.EmpListVo;
+import com.jhta.groupware.emplist.vo.ReListVo;
 
 @Service
 public class EmpListService {
@@ -19,10 +20,10 @@ public class EmpListService {
 		List<EmpListVo> emplist=dao.getList();
 		return emplist;
 	}
-	public List<EmpListVo> retireList(){ 
+	public List<ReListVo> retireList(){ 
 		System.out.println("RetireList Service");
-		List<EmpListVo> emplist=dao.retireList();
-		return emplist;
+		List<ReListVo> retire=dao.retireList();
+		return retire;
 	}
 	public int updateEmp(HashMap<String,Object>map) {
 		System.out.println("Update Service");

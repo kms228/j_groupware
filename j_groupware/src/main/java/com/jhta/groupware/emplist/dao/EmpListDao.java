@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.emplist.vo.EmpListVo;
+import com.jhta.groupware.emplist.vo.ReListVo;
 
 @Repository  
 public class EmpListDao {
@@ -18,7 +19,7 @@ public class EmpListDao {
 		System.out.println("EmpList Dao");
 		return sqlSession.selectList(NAMESPACE+".getlist");
 	}
-	public List<EmpListVo> retireList(){
+	public List<ReListVo> retireList(){
 		System.out.println("RetireList Dao");
 		return sqlSession.selectList(NAMESPACE+".retirelist");
 	}

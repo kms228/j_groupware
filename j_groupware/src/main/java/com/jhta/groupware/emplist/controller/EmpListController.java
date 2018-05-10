@@ -31,12 +31,11 @@ public class EmpListController {
 	private EmpInfoService service2;
 	
 	@RequestMapping("/emplist") 
-	public ModelAndView emplist(HttpServletRequest req) {
+	public ModelAndView emplist() {
 		ModelAndView mv = new ModelAndView(".login.emplist");
-		//HttpSession session=req.getSession();	
 		List<EmpListVo> emplist=service.getList();
 		mv.addObject("list",emplist);
-		System.out.println("List controller");
+		System.out.println("List controller:" +emplist);
 		return mv;
 	}
 	@RequestMapping("/empselect")
@@ -242,14 +241,7 @@ public class EmpListController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
 
