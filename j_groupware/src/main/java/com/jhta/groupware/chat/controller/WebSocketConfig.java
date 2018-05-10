@@ -15,12 +15,15 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	public MyHandshakeHandler myHandshakeHandler() {
 		return new MyHandshakeHandler();
 	}
+	@Bean
+	public MyHandshakeInterceptor myHandshakeInterceptor() {
+		return new MyHandshakeInterceptor();
+	}
 		
 	@Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
     	System.out.println(" ~~~엔드포인트~~~ ");    	
-        registry.addEndpoint("/endpoint").setHandshakeHandler(myHandshakeHandler()).withSockJS();
-        
+        registry.addEndpoint("/endpoint").addInterceptors(myHandshakeInterceptor()).setHandshakeHandler(myHandshakeHandler()).withSockJS();        
     }
 	@Override
     public void configureMessageBroker(MessageBrokerRegistry config) {

@@ -38,15 +38,18 @@ function connect() {
         	console.log('message: '+message);
             showChatlist(JSON.parse(message.body));       
         });
+        stompClient.subscribe('/topic/quit', function(acnt_id) {        	
+        	$("#userList > li > a#"+acnt_id.body+":parent").remove();        	
+        });        
         addChatlist();
     });
 }
 
 function disconnect() {
+	alert("여기는 disconnect()()");
+	stompClient.send("/app/quit", {});
     if (stompClient !== null) {
-        stompClient.disconnect(function(){
-        	$("#control-sidebar-users-tab").empty();
-        });
+        stompClient.disconnect();
     }
 //    setConnected(false);
     console.log("Disconnected");
@@ -164,7 +167,7 @@ function chatMyself(message){
 	*/
 }
 
-$(function () {
+$(function () {	
 	connect();	
     $("#stompSend, #wsConnect, #realChat").on('submit', function (e) {
         e.preventDefault();
