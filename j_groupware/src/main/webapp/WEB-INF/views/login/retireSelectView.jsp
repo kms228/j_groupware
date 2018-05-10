@@ -353,18 +353,18 @@ var postcode = function(){
                   <th></th>
                 </tr>
               	
-                <div box-header ui-sortable-handle id="delre">
-                <form action="<c:url value='/insertre'/>">
+              
+                <form action="<c:url value='/delre'/>">
                 <tr>
-                  <td><input type="text" class="form-control" placeholder="퇴직일을 선택해 주세요." id="datepicker" name="RE_DATE" style="width: 40%"></td>       
+                  <!-- <td><input type="text" class="form-control" placeholder="퇴직일을 선택해 주세요." id="datepicker" name="RE_DATE" style="width: 40%"></td> -->       
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                 </tr>
                 <tr>
-                <td><input type="submit" class="form-control" id="inserthis" value="퇴직처리" style="width: 40%"></td>
+                <td><input type="submit" class="form-control" id="inserthis" value="재입사(퇴직보류처리)" style="width: 40%"></td>
                 </tr>
                   </form>
     			
-                </div>
+
               </tbody></table>
             </div>
             <!-- /.box-body -->

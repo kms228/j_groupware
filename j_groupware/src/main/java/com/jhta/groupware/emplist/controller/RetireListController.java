@@ -67,4 +67,22 @@ public class RetireListController {
 		mv.addObject("vo7", vo7);
 		return mv;
 	}
+	@RequestMapping("/delre")
+		public String delac(int EMP_NUM) {
+			//ModelAndView mv = new ModelAndView(".login.retireList");
+			System.out.println("»èÁ¦ ");
+			int n = service.delac(EMP_NUM);
+			if(n>0) {
+				return "redirect:/retirelist";
+			}else {
+				return "redirect:/retirelist";
+			}
+			
+		}
+
 }
+
+
+
+
+
