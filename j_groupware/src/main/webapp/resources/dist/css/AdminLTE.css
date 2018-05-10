@@ -2761,8 +2761,8 @@ table.text-center th {
   -ms-transform: translate(0, 0);
   -o-transform: translate(0, 0);
   transform: translate(0, 0);
-  padding: 10px;
-  height: 250px;
+  padding: 10px;  
+  /* height : 250px; */
   overflow: auto;
 }
 .direct-chat-msg,
@@ -2793,7 +2793,8 @@ table.text-center th {
   padding: 5px 10px;
   background: #d2d6de;
   border: 1px solid #d2d6de;
-  margin: 5px 0 0 50px;
+  /* margin: 5px 0 0 50px; */
+  margin: 5px 0 0 0;
   color: #444444;
 }
 .direct-chat-text:after,

@@ -4,15 +4,18 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.util.HtmlUtils;
 
 import com.jhta.groupware.chat.service.GreetingService;
 import com.jhta.groupware.chat.vo.ChatUserVo;
+import com.jhta.groupware.chat.vo.ChatVo;
 import com.jhta.groupware.chat.vo.Greeting;
 import com.jhta.groupware.chat.vo.HelloMessage;
 
@@ -20,7 +23,7 @@ import com.jhta.groupware.chat.vo.HelloMessage;
 public class GreetingController {
 		
 	@Autowired private GreetingService service;
-	private SimpMessagingTemplate messagingTemplate; 
+	@Autowired private SimpMessagingTemplate simpMessagingTemplate; 
 	
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
@@ -30,18 +33,24 @@ public class GreetingController {
         return new Greeting("Hello, " + HtmlUtils.htmlEscape(principal.getName()) + "!");
     }
     @MessageMapping("/add/chatlist")
-    @SendTo("/topic/add/result")
-    public List<ChatUserVo> addChatlist(Principal principal) throws Exception {    	
-//    	for(ChatUserVo vo:list) {
-//    		System.out.println("greetingController list:::"+vo.getAcnt_id());
-//    	}
-        return service.addUser(principal);
+    public void addChatlist(Principal principal) throws Exception {
+    	simpMessagingTemplate.convertAndSendToUser(principal.getName(),"/topic/list", service.addUser(principal));    	
     }
-    @MessageMapping("/chat/message")
-    @SendTo("/topic/add/result")
-    public void sendMessage(Principal principal) throws Exception {
+    @MessageMapping("/echo/user")
+    @SendToUser(broadcast=false)
+    public void addUser(Principal principal) throws Exception { 
+    	System.out.println("----------------------------------------------");
+    	simpMessagingTemplate.convertAndSend("/topic/add", service.getChatUser(principal));
+    }
+    @MessageMapping("/chat/message/{username}")
+    public void sendMessage(@Payload ChatVo vo, @DestinationVariable ("username") String username, Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
-        System.out.println("하이");
+        System.out.println("행복한 그리팅 컨트롤러 :"+vo.getMessage());
+        service.filloutChatVo(vo, principal);        
+        System.out.println(vo.getEmp_name());
+        System.out.println(vo.getPst_name());
+        
+        simpMessagingTemplate.convertAndSendToUser(username, "/topic/message", vo);
     }    
 //    @MessageMapping("/endpoint")
 //    @SendTo("/topic/greetings")    
