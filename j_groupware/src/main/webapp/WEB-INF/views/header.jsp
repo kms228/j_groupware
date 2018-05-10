@@ -139,7 +139,10 @@
 						</ul></li>
 					</c:when>
 					</c:choose>
-					
+					<!-- 채팅 버튼(예정) -->
+          			<li>
+            			<a href="#" data-toggle="control-sidebar"><i class="fa fa-comments-o"></i></a>
+          			</li>
 					
 					<!-- Notifications: style can be found in dropdown.less -->
 					

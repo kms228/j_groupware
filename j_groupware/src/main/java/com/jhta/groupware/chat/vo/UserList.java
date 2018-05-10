@@ -16,6 +16,18 @@ public class UserList {
 	public List<ChatUserVo> getList() {
 		return list;
 	}
+	public List<ChatUserVo> getList(String acnt_id) {
+		ArrayList<ChatUserVo> list1 = new ArrayList<ChatUserVo>();
+		boolean result = true;
+		for(int i=0;i<list.size();i+=1) {
+			result = acnt_id.equals(list.get(i).getAcnt_id());
+			if(!result){
+				list1.add(list.get(i));
+				System.out.println("getList:"+list.get(i).getAcnt_id());
+			}
+		}
+		return list1;
+	}
 	public void addList(ChatUserVo vo) {
 		list.add(vo);
 	}
@@ -30,6 +42,15 @@ public class UserList {
 			}
 		}	
 		return false;		
-	}			
+	}
+	public ChatUserVo getChatUserVo(String acnt_id) {
+		int size = list.size();
+		for(int i=0;i<size;i+=1) {			
+			if(acnt_id.equals(list.get(i).getAcnt_id())) {
+				return list.get(i);
+			}
+		}
+		return null;
+	}
 	
 }

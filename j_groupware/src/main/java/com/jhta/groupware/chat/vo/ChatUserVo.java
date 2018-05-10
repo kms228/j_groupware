@@ -4,6 +4,7 @@ public class ChatUserVo {
 	private String pst_name;
 	private String emp_name;
 	private String acnt_id;
+	private String dept_name;
 	
 	public String getPst_name() {
 		return pst_name;
@@ -23,4 +24,10 @@ public class ChatUserVo {
 	public void setAcnt_id(String acnt_id) {
 		this.acnt_id = acnt_id;
 	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}	
 }

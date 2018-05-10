@@ -13,8 +13,7 @@ public class MyHandshakeHandler extends DefaultHandshakeHandler{
 	@Override
 	protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) {
-		
-		ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;				
+		ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;		
 		System.out.println("-----------------------determineUser()");				
 		String sessionId = (String) ssreq.getServletRequest().getSession().getAttribute("ACNT_ID");
 		System.out.println("ACNT_ID : "+ssreq.getServletRequest().getSession().getAttribute("ACNT_ID"));		
@@ -29,6 +28,6 @@ public class MyHandshakeHandler extends DefaultHandshakeHandler{
 		};
 		
 		return principal;
-	}
+	}	
 	
 }
