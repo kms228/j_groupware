@@ -3,9 +3,11 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.groupware.mybatis.work.SetWorkMapper">
+	<!-- 관리자(근태설정:출퇴근시간) -->
 	<update id="updateWorkTime" parameterType="map">
 		update worktime set wtime_start=to_date(#{wtime_start},'hh24:mi'),wtime_end=to_date(#{wtime_end},'hh24:mi') where wtime_num=1
 	</update>
+	<!-- 관리자(근태설정:반차시간) -->
 	<update id="updateHalfTime" parameterType="map">
 		update halftime 
 		set 
@@ -13,7 +15,7 @@
 		htime_start2=to_date(#{htime_start2},'hh24:mi'),htime_end2=to_date(#{htime_end2},'hh24:mi')
 		where htime_num=1
 	</update>
-	
+	<!-- 관리자(근태설정가져오기:출퇴근시간) -->
 	<select id="selectWorkTime" resultType="worktime">
 		select *
 		<!--
@@ -21,6 +23,7 @@
 		  -->
  		from worktime where wtime_num=1
 	</select>
+	<!-- 관리자(근태설정가져오기:반차시간) -->
 	<select id="selectHalfTime" resultType="halftime">
 		select *
 		<!--
@@ -30,4 +33,14 @@
 		from halftime
 		where htime_num=1
 	</select>
+	<!-- 관리자(사원연차정보 가져오기) -->
+	<select id="selectAnnInfo" parameterType="map" resultType="com.jhta.groupware.work.vo.AnnInfoVo">
+		select employee.emp_num, emp_name, acnt_id, ann_use, ann_total, ann_ann
+		from employee, annual, account
+		where employee.emp_num=annual.emp_num and employee.emp_num=account.emp_num
+		and ann_ann=#{ann_ann}
+	</select>
+	<update id="upAnn" parameterType="map">
+		update annual set ann_total=#{ann_total} where ann_ann=#{ann_ann} and emp_num=#{emp_num}
+	</update>
 </mapper>

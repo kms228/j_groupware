@@ -6,44 +6,75 @@
 	<select id="selectWorkType" resultType="worktype">
 		select wtype_name from work_type
 	</select>
-	<select id="selectResponseList" parameterType="map" resultType="com.jhta.groupware.work.vo.RequestListVo">
-		select work.work_num, work_sdate, work_edate,work_content, work_regdate, work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
-		    decode( wtype_num,
-		            1,(work_edate-work_sdate)||'일',
-		            5,(work_edate-work_sdate)||'일',
-		            6,(work_edate-work_sdate)||'일',
-		            2,
-		                decode(to_char(work_edate,'hh24'),
-		                    11,'0.5일 오전',
-		                    12,'0.5일 오후'
-		                ),           
-		            3,to_char(work_edate,'hh24:mi'),
-		            4,to_char(work_edate,'hh24:mi')
-		    )"caldate",
-		    decode( wtype_num,
-		            1,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
-		            5,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
-		            6,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
-		            2,to_char(work_sdate,'yyyy/mm/dd'),   
-		            3,to_char(work_sdate,'yyyy/mm/dd'),
-		            4,to_char(work_sdate,'yyyy/mm/dd')
-    		)"term"
-		from work, work_file, employee
-		<where>
-			(work.work_num=work_file.work_num and employee.emp_num=work.emp_num) 
-			<if test="work_sdate!=null and work_sdate!=''">
-				and (to_char(work_sdate,'yyyy/mm/dd') between #{work_sdate} and #{work_edate} )			
-			</if>
-			<if test="emp_num2=!null and emp_num2!=''">
-				and work.emp_num in
-				<foreach collection="alist" item="emp_num" open="(" close=")" separator=",">
-					#{emp_num}
-				</foreach>
-			</if>
-			<if test="wtype_num!=0">
-				and wtype_num=#{wtype_num}
-			</if>
-			and work_sdate=0
-		</where>
+	<select id="selectResponseList" resultType="com.jhta.groupware.work.vo.SearchResponseListVo" parameterType="map">
+		select cc.wline_num,cc.wline_level,cc.wline_state,cc.work_num,cc.emp_num, 
+		work.work_content, employee.emp_name, to_char(work.work_regdate,'yyyy/mm/dd') regdate,
+		nvl(wfile_orgfilename,' ')"wfile_orgfilename",wtype_num,
+		decode( wtype_num,
+				            1,(work_edate-work_sdate)+1||'일',
+				            5,(work_edate-work_sdate)+1||'일',
+				            6,(work_edate-work_sdate)+1||'일',
+				            2,
+				                decode(to_char(work_edate,'hh24'),
+				                    11,'0.5일 오전',
+				                    12,'0.5일 오후'
+				                ),           
+				            3,to_char(work_edate,'hh24:mi'),
+				            4,to_char(work_edate,'hh24:mi')
+				    )"caldate",
+		decode( wtype_num,
+		           1,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		           5,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		           6,to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(work_edate,'yyyy/mm/dd'),
+		           2,to_char(work_sdate,'yyyy/mm/dd'),   
+		           3,to_char(work_sdate,'yyyy/mm/dd'),
+		           4,to_char(work_sdate,'yyyy/mm/dd')
+		        	)"term",
+		 decode(wtype_num,
+		 1,'연차',
+		 2,'반차',
+		 3,'지각',
+		 4,'야근',
+		 5,'외근/출장/교육',
+		 6,'경조사/기타'
+		 )"wtype"
+		from
+		    (
+		    select * from work_line 
+		    where (work_num in(
+		        select work_num from 
+		        (
+		         select *
+		            from (
+		                select wline_num,wline_level,wline_state,work_num,emp_num 
+		                from work_line
+		                where work_num in(select work_num from work_line where emp_num=#{emp_num}) 
+		            ) aa
+		            where (wline_level=(select wline_level from work_line where emp_num=#{emp_num} and work_num=aa.work_num)-1)
+		        )bb
+		        where bb.wline_state=1
+		    ) and emp_num=#{emp_num} and wline_state=0) or (emp_num=#{emp_num} and wline_level=1 and wline_state=0)
+		)cc, work, employee,work_file
+		where cc.work_num=work.work_num and work.emp_num=employee.emp_num and work.work_num=work_file.work_num
 	</select>
+	<!-- 승인 -->
+	<update id="accept" parameterType="int">
+		update work_line set wline_state=1 where wline_num=#{wline_num}
+	</update>
+	<!-- 최증승인 사전작업 -->
+	<select id="prepFinalAccept" parameterType="int" resultType="workline">
+		select wline_state from work_line where work_num=(select work_num from work_line where wline_num=#{wline_num})
+	</select>
+	<!-- 최종승인 -->
+	<update id="finalAccept" parameterType="int">
+		update work set work_state=1 where work_num=(select work_num from work_line where wline_num=#{wline_num} )
+	</update>
+	<!-- 반려 -->
+	<update id="unaccept" parameterType="int" >
+		update work_line set wline_state=2 where wline_num=#{wline_num}
+	</update>
+	<!-- 최종반려 -->
+	<update id="finalUnaccept" parameterType="int">
+		update work set work_state=2 where work_num=(select work_num from work_line where wline_num=#{wline_num} )
+	</update>
 </mapper>

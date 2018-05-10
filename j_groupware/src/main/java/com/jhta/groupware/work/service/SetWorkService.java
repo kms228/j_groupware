@@ -1,11 +1,13 @@
 package com.jhta.groupware.work.service;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.work.dao.SetWorkDao;
+import com.jhta.groupware.work.vo.AnnInfoVo;
 import com.jhta.groupware.work.vo.HalfTimeVo;
 import com.jhta.groupware.work.vo.WorkTimeVo;
 
@@ -25,5 +27,9 @@ public class SetWorkService {
 	}
 	public HalfTimeVo selectHalfTime(){
 		return setWorkDao.selectHalfTime();
+	}
+	
+	public List<AnnInfoVo> selectAnnInfo(Map<String, Object> map){
+		return setWorkDao.selectAnnIfo(map);
 	}
 }

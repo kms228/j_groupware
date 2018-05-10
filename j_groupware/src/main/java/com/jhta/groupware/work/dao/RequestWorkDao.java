@@ -70,4 +70,11 @@ public class RequestWorkDao {
 	public int insertHalf(Map<String, Object>map) {
 		return sqlSession.insert(NAMESPACE+".insertHalf", map);
 	}
+	//취소신청
+	public int cancleWork(int work_num) {
+		return sqlSession.update(NAMESPACE+".cancleWork", work_num);
+	}
+	public int cancleWorkLine(int work_num) {
+		return sqlSession.update(NAMESPACE+".cancleWorkLine", work_num);
+	}
 }

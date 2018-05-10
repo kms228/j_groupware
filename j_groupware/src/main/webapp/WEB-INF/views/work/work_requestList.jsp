@@ -17,6 +17,7 @@
 					<div class="form-group">
 						<label for="select3">구분</label>
 						<div class="form-group">
+						
 							<select class="form-control" id="select3" name="wtype_num">
 								<option value="0">전체</option>
 								<c:forEach items="${wlist }" var="wVo">
@@ -79,7 +80,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table1"class="table table-bordered table-striped dataTable"role="grid" aria-describedby="example1_info">
+											<table id="table1"class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -129,9 +130,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table2"
-												class="table table-bordered table-striped dataTable"
-												role="grid" aria-describedby="example1_info">
+											<table id="table2"class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -181,9 +180,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table3"
-												class="table table-bordered table-striped dataTable"
-												role="grid" aria-describedby="example1_info">
+											<table id="table3"class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -233,8 +230,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table4"class="table table-bordered table-striped dataTable"
-												role="grid" aria-describedby="example1_info">
+											<table id="table4"class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -291,14 +287,15 @@
 						<div id="jstree"></div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">Save changes</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">저장</button>
 					</div>
 				</div>
 			</div>
 		</div>
 	<script type="text/javascript">
 	$(function(){
+		
 		//tree모달
 		$("#line1").click(function() {
 			$.ajax({
@@ -366,21 +363,21 @@
 	});
 	
 	function searchList(event){
+		var t1 = $("#table1").DataTable();
+		var t2 = $("#table2").DataTable();
+		var t3 = $("#table3").DataTable();
+		var t4 = $("#table4").DataTable();
+		t1.clear().draw();
+		t2.clear().draw();
+		t3.clear().draw();
+		t4.clear().draw();
 		event.preventDefault();
-		  var str = $( "form" ).serialize();
+		var str = $( "form" ).serialize();
 		$.ajax({
 			url:"<c:url value='/requestWorkList/search'/>",
 			dataType:"json",
 			data:str,
 			success:function(data){
-				var t1 = $("#table1").DataTable();
-				var t2 = $("#table2").DataTable();
-				var t3 = $("#table3").DataTable();
-				var t4 = $("#table4").DataTable();
-				t1.clear();
-				t2.clear();
-				t3.clear();
-				t4.clear();
 				var wn;
 				for(var i=0;i<data.length;i++){
 					if(data[i].wtype_num=='1'){
@@ -405,8 +402,8 @@
 							data[i].caldate,
 							data[i].work_content,
 							data[i].wfile_orgfilename,
-							data[i].work_regdate,
-							'진행중'
+							data[i].regdate,
+							'<label style="color: green">진행중</label>'
 						]).draw(false);
 					}else if(data[i].work_state==1){
 						t1.row.add([
@@ -417,8 +414,8 @@
 							data[i].caldate,
 							data[i].work_content,
 							data[i].wfile_orgfilename,
-							data[i].work_regdate,
-							'승인'
+							data[i].regdate,
+							'<label style="color: blue">승인</label>'
 						]).draw(false);
 					}else if(data[i].work_state==2){
 						t3.row.add([
@@ -429,8 +426,8 @@
 							data[i].caldate,
 							data[i].work_content,
 							data[i].wfile_orgfilename,
-							data[i].work_regdate,
-							'반려'
+							data[i].regdate,
+							'<label style="color: red">반려</label>'
 						]).draw(false);
 					}else if(data[i].work_state==3){
 						t4.row.add([
@@ -441,8 +438,8 @@
 							data[i].caldate,
 							data[i].work_content,
 							data[i].wfile_orgfilename,
-							data[i].work_regdate,
-							'취소'
+							data[i].regdate,
+							'<label style="color: orange">취소</label>'
 						]).draw(false);
 					}
 				}
@@ -463,6 +460,7 @@
 	$("input[type=reset]").click(function(){
 		$(".work_sdate").val("");
 		$(".work_edate").val("");
+		$("#text_emp_num2").val("");
 	});
 	</script>
 </div>

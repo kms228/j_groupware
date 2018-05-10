@@ -16,12 +16,13 @@ public class RequestListVo {
 	private String caldate;
 	private String term;
 	private String wtype_name;
+	private String regdate;
 	
 	public RequestListVo() {}
 
 	public RequestListVo(int work_num, Date work_sdate, Date work_edate, String work_content, Date work_regdate,
 			int work_state, int wtype_num, String wfile_orgfilename, String emp_name, int emp_num, String caldate,
-			String term, String wtype_name) {
+			String term, String wtype_name, String regdate) {
 		super();
 		this.work_num = work_num;
 		this.work_sdate = work_sdate;
@@ -36,6 +37,7 @@ public class RequestListVo {
 		this.caldate = caldate;
 		this.term = term;
 		this.wtype_name = wtype_name;
+		this.regdate = regdate;
 	}
 
 	public int getWork_num() {
@@ -142,12 +144,21 @@ public class RequestListVo {
 		this.wtype_name = wtype_name;
 	}
 
+	public String getRegdate() {
+		return regdate;
+	}
+
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+
 	@Override
 	public String toString() {
 		return "RequestListVo [work_num=" + work_num + ", work_sdate=" + work_sdate + ", work_edate=" + work_edate
 				+ ", work_content=" + work_content + ", work_regdate=" + work_regdate + ", work_state=" + work_state
 				+ ", wtype_num=" + wtype_num + ", wfile_orgfilename=" + wfile_orgfilename + ", emp_name=" + emp_name
 				+ ", emp_num=" + emp_num + ", caldate=" + caldate + ", term=" + term + ", wtype_name=" + wtype_name
-				+ "]";
+				+ ", regdate=" + regdate + "]";
 	}
+
 }
