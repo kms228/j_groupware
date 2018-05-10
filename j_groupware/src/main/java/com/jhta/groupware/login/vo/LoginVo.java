@@ -1,5 +1,6 @@
 package com.jhta.groupware.login.vo;
 
+
 public class LoginVo {
 	private int EMP_NUM;
 	private String EMP_NAME;
@@ -23,7 +24,7 @@ public class LoginVo {
 		return "LoginVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_ADDR="
 				+ EMP_ADDR + ", EMP_BIRTH=" + EMP_BIRTH + ", EMP_EMAIL=" + EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE
 				+ ", EMP_GENDER=" + EMP_GENDER + ", PST_NUM=" + PST_NUM + ", DEPT_NUM=" + DEPT_NUM + ", TEAM_NUM="
-				+ TEAM_NUM + ", WORKING=" + WORKING + "]";
+				+ TEAM_NUM + ", WORKING=" + WORKING + "]\n";
 	}
 
 

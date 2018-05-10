@@ -29,8 +29,8 @@
 	</select>
 	<!-- /////////////////////////////////////////////연차관련//////////////////////////////////////////////////// -->
 	<!-- 현재 연차 확인 -->
-	<select id="selectAnn" parameterType="int" resultType="annual">
-		select * from annual where emp_num=#{emp_num}
+	<select id="selectAnn" parameterType="map" resultType="annual">
+		select * from annual where emp_num=#{emp_num} and ann_ann=#{ann_ann}
 	</select>
 	<!-- ///////////////////////////////////////////근태신청관련//////////////////////////////////////////////////// -->	
 	<!-- 연차신청(연차추가)/외근/경조사 -->
@@ -58,7 +58,15 @@
 		where work.work_num=work_file.work_num and emp_num=#{emp_num}
 	</select>
 	
-	
+	<!-- ///////////////////////////////////////////근태취소//////////////////////////////////////////////////// -->
+	<!-- work_num받아 work테이블에서 취소하기(work_state=3) -->
+	<update id="cancleWork" parameterType="int">
+		update work set work_state=3 where work_num=#{work_num}
+	</update>
+	<!-- work_num받아 work_line테이블에서 취소하기 (wline_state=3)-->
+	<update id="cancleWorkLine" parameterType="int">
+		update work_line set wline_state=3 where work_num=#{work_num}
+	</update>
 	
 	
 	

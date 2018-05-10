@@ -1,6 +1,7 @@
 package com.jhta.groupware.join.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,5 +27,9 @@ public class JoinService {
 	public LoginVo searchemail(String EMP_EMAIL) {
 		System.out.println(EMP_EMAIL+"서비스에담김");
 		return dao.searchemail(EMP_EMAIL);
+	}
+	
+	public int addAnnual(Map<String, Object>map) {
+		return dao.addAnnual(map);
 	}
 }

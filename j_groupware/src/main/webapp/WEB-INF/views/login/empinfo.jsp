@@ -47,7 +47,7 @@
 	});
 </script>
 
-<h1>사원정보</h1>
+<h1>${vo1.EMP_NAME } 님의 사원정보</h1>
 
 <div class="input-group" style="width: 70%">
                 <span class="input-group-addon" style="width: 15%">이름</span>
@@ -232,7 +232,7 @@
                 <div box-header ui-sortable-handle id="inserthis">
                 <form action="<c:url value='/inserthis'/>">
                 <tr>
-                  <td></td> 
+                  <td></td>  
               
                   <td><input type="text" class="form-control" placeholder="근무시작일" id="datepicker4" name="HIS_DATE"></td>
                   <td><input type="text" class="form-control" placeholder="근무부서" id="HIS_DEPT" name="HIS_DEPT"></td>

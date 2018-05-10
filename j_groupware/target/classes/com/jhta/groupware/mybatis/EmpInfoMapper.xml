@@ -14,8 +14,15 @@
 		FROM DUAL
 	</insert>
 
-	<select id="getemp" parameterType="int" resultType="loginVo">
+	<!-- <select id="getemp" parameterType="int" resultType="loginVo">
 		select *
+		from EMPLOYEE where EMP_NUM=#{EMP_NUM}
+	</select> -->
+	
+	<select id="getemp" parameterType="int" resultType="loginVo">
+		select EMP_NUM,EMP_NAME,EMP_PHONE,EMP_ADDR,to_date(EMP_BIRTH,'YYYY/MM/DD')EMP_BIRTH,EMP_EMAIL,
+				to_date(EMP_HIREDATE,'YYYY/MM/DD')EMP_HIREDATE,EMP_GENDER,PST_NUM,
+				DEPT_NUM,TEAM_NUM,WORKING
 		from EMPLOYEE where EMP_NUM=#{EMP_NUM}
 	</select>
 	

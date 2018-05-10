@@ -11,12 +11,14 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,6 +34,22 @@ public class RequestWorkController {
 	@Autowired private RequestWorkService requestWorkService;
 	@Autowired private SetWorkService setWorkService;
 	@Autowired private AnnualService annualService;
+	
+	@RequestMapping(value="/requestWork/cancle",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public String cancle(@RequestParam Map<String,Object> map) {
+		//취소
+		int work_num = Integer.parseInt((String)map.get("work_num"));
+		int n = requestWorkService.cancleWork(work_num);
+		int m = requestWorkService.cancleWorkLine(work_num);
+		JSONObject json = new JSONObject();
+		if(n!=0 || m!=0) {//성공
+			json.put("result", true);
+		}else {//실패
+			json.put("result", false);
+		}
+		return json.toString();
+	}
 	
 	@RequestMapping("/requestAnn/{wtype}")
 	public String insertAnn(@RequestParam Map<String, Object>map, HttpSession session,MultipartFile file,@PathVariable("wtype") String wtype) {
@@ -164,8 +182,15 @@ public class RequestWorkController {
 		System.out.println("해당사원번호의 오늘날짜에 대한 PK받기");
 		
 		//해당 사원의 연차정보 가져오기
-		AnnualVo annVo = annualService.selectAnn(Integer.parseInt(emp_num));
-		System.out.println("해당 사원의 연차정보 가져오기");
+		
+		Map<String, Object> amap = new HashMap<>();
+		amap.put("emp_num", Integer.parseInt(emp_num));
+		SimpleDateFormat ann = new SimpleDateFormat("yyyy");
+		String ann_ann = ann.format(today);
+		System.out.println("김민수"+ann_ann);
+		amap.put("ann_ann", Integer.parseInt(ann_ann));
+		AnnualVo annVo = annualService.selectAnn(amap);
+		
 		//해당 사원의 연차(근태) 신청리스트 가져오기
 		List<WorkandWorkfileVo> wwlist = requestWorkService.selectMyRequest(Integer.parseInt(emp_num));
 		System.out.println("해당 사원의 연차 신청리스트 가져오기");

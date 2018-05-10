@@ -34,7 +34,6 @@ public class RequestWorkListController {
 			String alist[] = ((String)map.get("emp_num2")).split(",");
 			map.put("alist", alist);
 		
-		
 		List<RequestListVo> requestList = service.selectRequestList(map);
 		return requestList;
 	}

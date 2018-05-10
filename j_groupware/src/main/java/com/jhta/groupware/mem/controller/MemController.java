@@ -16,7 +16,7 @@ import com.jhta.groupware.mem.service.MemService;
 import com.jhta.groupware.member.vo.MemberAccountVo;
 
 @Controller
-public class MemController {
+public class MemController { 
 	@Autowired private MemService service;
 	@RequestMapping("/memInfo")
 	public ModelAndView meminfo(HttpServletRequest req) {

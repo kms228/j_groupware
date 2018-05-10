@@ -33,6 +33,9 @@
 		where EMP_NUM=#{EMP_NUM}
 	</update>
 	
+	<insert id="addAnnual" parameterType="map">
+		insert into annual values(seq_annual.nextval,0,0, seq_employee.currval, #{ann_ann})
+	</insert>
 </mapper>
 
 

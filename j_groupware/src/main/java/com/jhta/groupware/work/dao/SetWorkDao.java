@@ -1,11 +1,13 @@
 package com.jhta.groupware.work.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.groupware.work.vo.AnnInfoVo;
 import com.jhta.groupware.work.vo.HalfTimeVo;
 import com.jhta.groupware.work.vo.WorkTimeVo;
 
@@ -28,6 +30,10 @@ public class SetWorkDao {
 	//반차지정시간 가져오기
 	public HalfTimeVo selectHalfTime(){
 		return sqlSession.selectOne(NAMESPACE+".selectHalfTime");
+	}
+	//연차정보가져오기
+	public List<AnnInfoVo> selectAnnIfo(Map<String, Object> map){
+		return sqlSession.selectList(NAMESPACE+".selectAnnInfo", map);
 	}
 	
 }

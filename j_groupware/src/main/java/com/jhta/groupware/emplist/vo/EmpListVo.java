@@ -18,7 +18,7 @@ public class EmpListVo {
 		return "EmpListVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_EMAIL="
 				+ EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE + ", DEPT_NAME=" + DEPT_NAME + ", PST_NAME=" + PST_NAME
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]";
+				+ "]\n";
 	}
 
 	public EmpListVo(int eMP_NUM, String eMP_NAME, String eMP_PHONE, String eMP_EMAIL, Date eMP_HIREDATE,
