@@ -56,7 +56,7 @@ public class JoinController {
 			map.put("ann_ann",ann_ann);
 			int aa =service.addAnnual(map);
 			System.out.println("aa : "+aa);
-			
+			 
 			System.out.println("¼º°ø");
 			return "redirect:.login.join";
 		}catch (Exception e) {
