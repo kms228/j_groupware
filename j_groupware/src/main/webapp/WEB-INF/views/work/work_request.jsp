@@ -459,6 +459,7 @@
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">첨부</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">신청일</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">상태</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">취소</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -534,13 +535,20 @@
 									</c:choose>
 									<c:choose>
 										<c:when test="${wwl.work_state==0 }">
-											<c:set var="requestState" value="진행중"/>
+											<c:set var="requestState" value="진행중" />
+											<c:set var="fontColor" value="green"/>
 										</c:when>
 										<c:when test="${wwl.work_state==1 }">
 											<c:set var="requestState" value="승인"/>
+											<c:set var="fontColor" value="blue"/>
 										</c:when>
 										<c:when test="${wwl.work_state==2 }">
 											<c:set var="requestState" value="반려"/>
+											<c:set var="fontColor" value="red"/>
+										</c:when>
+										<c:when test="${wwl.work_state==3 }">
+											<c:set var="requestState" value="취소"/>
+											<c:set var="fontColor" value="orange"/>
 										</c:when>
 									</c:choose>
 									<tr role="row">
@@ -551,9 +559,14 @@
 									<td>${wwl.work_content }</td>
 									<td>${wwl.wfile_orgfilename }</td>
 									<td>
-										<fmt:formatDate value="${work.wlist_start}" pattern="yyyy/MM/dd"/>
+										<fmt:formatDate value="${wwl.work_regdate}" pattern="yyyy/MM/dd"/>
 									</td>
-									<td>${requestState }</td>
+									<td><span style="color: ${fontColor}">${requestState }</span></td>
+									<td>
+										<c:if test="${wwl.work_state==0 }">
+											<input type="button" value="취소" class="btn btn-danger" onclick="c(${wwl.work_num})">
+										</c:if>
+									</td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -567,6 +580,7 @@
 									<th rowspan="1" colspan="1">첨부</th>
 									<th rowspan="1" colspan="1">신청일</th>
 									<th rowspan="1" colspan="1">상태</th>
+									<th rowspan="1" colspan="1">취소</th>
 								</tr>
 							</tfoot>
 						</table>
@@ -591,8 +605,8 @@
 						<div id="jstree"></div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">Save changes</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">저장</button>
 					</div>
 				</div>
 			</div>
@@ -746,6 +760,20 @@
 				}
 			}
 		};
+		
+		//근태 취소버튼
+		function c(i){
+			var result = confirm("[취소하시겠습니까?]\n신청번호 : "+i+"번");
+			if(result){
+				$.getJSON("<c:url value='/requestWork/cancle'/>",{"work_num":i},function(data){
+					if(data.result){
+						location.reload();
+					}else{
+						alert("error");
+					}
+				});
+			}
+		}
 	</script>
 </div>
 <!-- /.box-body -->

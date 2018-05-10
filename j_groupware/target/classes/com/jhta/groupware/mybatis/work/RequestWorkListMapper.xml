@@ -13,11 +13,11 @@
 	</select>
 	<!-- 직원들의 근태신청 내역 확인 -->
 	<select id="selectRequestList" parameterType="map" resultType="com.jhta.groupware.work.vo.RequestListVo">
-		select work.work_num, work_sdate, work_edate,work_content, work_regdate, work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
+		select work.work_num, work_sdate, work_edate,work_content, to_char(work_regdate,'yyyy/mm/dd') "regdate", work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
 		    decode( wtype_num,
-		            1,(work_edate-work_sdate)||'일',
-		            5,(work_edate-work_sdate)||'일',
-		            6,(work_edate-work_sdate)||'일',
+		            1,(work_edate-work_sdate)+1||'일',
+		            5,(work_edate-work_sdate)+1||'일',
+		            6,(work_edate-work_sdate)+1||'일',
 		            2,
 		                decode(to_char(work_edate,'hh24'),
 		                    11,'0.5일 오전',
@@ -42,8 +42,8 @@
 			</if>
 			<if test="emp_num2=!null and emp_num2!=''">
 				and work.emp_num in
-				<foreach collection="alist" item="emp_num" open="(" close=")" separator=",">
-					#{emp_num}
+				<foreach collection="alist" item="emp_num2" open="(" close=")" separator=",">
+					#{emp_num2}
 				</foreach>
 			</if>
 			<if test="wtype_num!=0">

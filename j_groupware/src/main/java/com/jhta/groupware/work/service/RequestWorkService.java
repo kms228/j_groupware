@@ -50,4 +50,12 @@ public class RequestWorkService {
 		return requestWorkDao.insertHalf(map);
 	}
 	
+	public int cancleWork(int work_num) {
+		return requestWorkDao.cancleWork(work_num);
+	}
+	
+	public int cancleWorkLine(int work_num) {
+		return requestWorkDao.cancleWorkLine(work_num);
+	}
+	
 }

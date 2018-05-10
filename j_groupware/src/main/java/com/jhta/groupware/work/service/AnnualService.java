@@ -1,5 +1,7 @@
 package com.jhta.groupware.work.service;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.jhta.groupware.work.vo.AnnualVo;
 public class AnnualService {
 	@Autowired private AnnualDao annualDao;
 	
-	public AnnualVo selectAnn(int emp_num) {
-		return annualDao.selectAnn(emp_num);
+	public AnnualVo selectAnn(Map<String, Object> map) {
+		return annualDao.selectAnn(map);
 	}
 }

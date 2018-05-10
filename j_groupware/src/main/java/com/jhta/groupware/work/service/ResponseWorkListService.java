@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.work.dao.ResponseWorkListDao;
 import com.jhta.groupware.work.vo.RequestListVo;
+import com.jhta.groupware.work.vo.SearchResponseListVo;
+import com.jhta.groupware.work.vo.Work_LineVo;
 import com.jhta.groupware.work.vo.Work_TypeVo;
 
 @Service
@@ -17,7 +19,27 @@ public class ResponseWorkListService {
 	public List<Work_TypeVo> selectWorkType(){
 		return dao.selectWorkType();
 	}
-	public List<RequestListVo> selectResponseList(Map<String, Object>map){
+	public List<SearchResponseListVo> selectResponseList(Map<String, Object>map){
 		return dao.selectResponseList(map);
+	}
+	
+	public int accept(int wline_num) {
+		return dao.accept(wline_num);
+	}
+	
+	public int unaccept(int wline_num) {
+		return dao.unaccept(wline_num);
+	}
+	
+	public int finalUnaccept(int wline_num) {
+		return dao.finalUnaccept(wline_num);
+	}
+	
+	public List<Work_LineVo> prepFinalAccept(int wline_num){
+		return dao.prepFinalAccept(wline_num);
+	}
+	
+	public int finalAccept(int wline_num) {
+		return dao.finalAccept(wline_num);
 	}
 }
