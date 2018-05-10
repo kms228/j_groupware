@@ -7,8 +7,13 @@
 	
 	<select id="getlist"  resultType="EmpListVo">
 		select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME
-		from EMPLOYEE e, DEPT d, POSITION p 
-		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM
+		from EMPLOYEE e, DEPT d, POSITION p ,RETIRE r
+		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM and r.EMP_NUM!=e.EMP_NUM 
+	</select>
+	<select id="retirelist"  resultType="EmpListVo">
+		select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME
+		from EMPLOYEE e, DEPT d, POSITION p ,RETIRE r
+		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM and r.EMP_NUM=e.EMP_NUM 
 	</select>
 	<update id="updateEmp">
 		UPDATE EMPLOYEE SET EMP_NAME=#{EMP_NAME}, EMP_PHONE=#{EMP_PHONE}, EMP_EMAIL=#{EMP_EMAIL}, EMP_GENDER=#{EMP_GENDER},
@@ -16,6 +21,13 @@
 			EMP_ADDR=#{EMP_ADDR},DEPT_NUM=#{DEPT_NUM},PST_NUM=#{PST_NUM} 
 			WHERE EMP_NUM=#{EMP_NUM}
 	</update>
+	<update id="updateAcc">
+		update ACCOUNT set ACNT_pwd=#{ACNT_pwd}, ACNT_level=#{ACNT_level}
+		where ACNT_NUM=#{ACNT_NUM}
+	</update>
+	<insert id="insertRe">
+		insert into RETIRE values(SEQ_RETIRE.nextval,to_date(#{RE_DATE},'YYYY/MM/DD'),#{EMP_NUM})
+	</insert>
 </mapper>
 
 

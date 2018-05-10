@@ -62,8 +62,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<c:url value='/emplist'/>"><i class="fa fa-circle-o"></i> 사원리스트</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-circle-o"></i> Data tables</a></li>
+            <li><a href="<c:url value='/emplist'/>"><i class="fa fa-circle-o"></i>재직자 리스트</a></li>
+            <li><a href="<c:url value='/retirelist'/>"><i class="fa fa-circle-o"></i>퇴직자 리스트</a></li>
           </ul>
         </li>
         <li>

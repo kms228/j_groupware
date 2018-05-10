@@ -19,8 +19,21 @@ public class EmpListService {
 		List<EmpListVo> emplist=dao.getList();
 		return emplist;
 	}
+	public List<EmpListVo> retireList(){
+		System.out.println("RetireList Service");
+		List<EmpListVo> emplist=dao.retireList();
+		return emplist;
+	}
 	public int updateEmp(HashMap<String,Object>map) {
 		System.out.println("Update Service");
 		return dao.updateEmp(map);
+	}
+	public int updateAcc(HashMap<String,Object>map) {
+		System.out.println("Update Service");
+		return dao.updateAcc(map);
+	}
+	public int insertRe(HashMap<String,Object>map) {
+		System.out.println("insert Service");
+		return dao.insertRe(map);
 	}
 }

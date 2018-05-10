@@ -18,7 +18,17 @@ public class EmpListDao {
 		System.out.println("EmpList Dao");
 		return sqlSession.selectList(NAMESPACE+".getlist");
 	}
+	public List<EmpListVo> retireList(){
+		System.out.println("RetireList Dao");
+		return sqlSession.selectList(NAMESPACE+".retirelist");
+	}
 	public int updateEmp(HashMap<String,Object>map) {
 		return sqlSession.update(NAMESPACE+".updateEmp", map);
+	}
+	public int updateAcc(HashMap<String,Object>map) {
+		return sqlSession.update(NAMESPACE+".updateAcc", map);
+	}
+	public int insertRe(HashMap<String,Object>map) {
+		return sqlSession.update(NAMESPACE+".insertRe", map);
 	}
 }
