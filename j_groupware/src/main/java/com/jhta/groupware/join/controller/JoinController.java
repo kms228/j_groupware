@@ -1,6 +1,7 @@
 package com.jhta.groupware.join.controller;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -41,12 +42,23 @@ public class JoinController {
 		map.put("EMP_BIRTH",EMP_BIRTH);
 		map.put("EMP_EMAIL",EMP_EMAIL);
 		map.put("EMP_GENDER",EMP_GENDER);
+		
+		
 		System.out.println("controller");
 		System.out.println(ACNT_ID+ACNT_PWD+EMP_NAME+EMP_PHONE+EMP_ADDR+EMP_BIRTH+EMP_EMAIL+EMP_GENDER);
 		try {		
-		service.isMember(map);
+			service.isMember(map);
+			//회원가입 후 연차 주입
+			SimpleDateFormat format = new SimpleDateFormat("yyyy");
+			java.util.Date today = new java.util.Date();
+			String ann_ann = format.format(today);
+			System.out.println("현재년도 : "+ann_ann);
+			map.put("ann_ann",ann_ann);
+			int aa =service.addAnnual(map);
+			System.out.println("aa : "+aa);
+			
 			System.out.println("성공");
-			return ".login.login";
+			return "redirect:.login.join";
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("실패..?");

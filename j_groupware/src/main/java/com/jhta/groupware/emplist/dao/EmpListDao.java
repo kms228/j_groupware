@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.emplist.vo.EmpListVo;
 
-@Repository
+@Repository  
 public class EmpListDao {
 	@Autowired private SqlSession sqlSession;
 	private final String NAMESPACE="com.jhta.groupware.mybatis.EmpListMapper";

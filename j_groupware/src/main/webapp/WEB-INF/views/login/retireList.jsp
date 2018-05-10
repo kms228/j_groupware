@@ -29,7 +29,7 @@
 									<tr role="row">
 										<th>${list.EMP_NUM}</th>															
 										<th>${list.DEPT_NAME}</th>								
-										<td><a href="<c:url value='/empselect?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
+										<td><a href="<c:url value='/retireselect?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
 										<th>${list.PST_NAME}</th>
 										<th>${list.EMP_EMAIL}</th>		
 										<th>${list.EMP_HIREDATE}</th>															

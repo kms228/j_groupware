@@ -23,7 +23,7 @@ public class RetireListController {
 	@RequestMapping("/retirelist")
 	public ModelAndView retirelist(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView(".login.retireList");
-		List<EmpListVo> retire=service.retireList();
+		List<EmpListVo> retire=service.retireList(); 
 		mv.addObject("list",retire);
 		System.out.println("List controller");
 		return mv;

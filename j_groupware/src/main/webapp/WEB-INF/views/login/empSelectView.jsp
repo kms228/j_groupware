@@ -343,7 +343,7 @@ var postcode = function(){
               <table class="table table-hover">
                 <tbody>
                 <tr>
-                  <th>퇴직일</th>
+                  <th>퇴직일</th> 
                   <th></th>
                 </tr>
               	

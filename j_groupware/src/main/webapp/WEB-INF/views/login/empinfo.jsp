@@ -232,7 +232,7 @@
                 <div box-header ui-sortable-handle id="inserthis">
                 <form action="<c:url value='/inserthis'/>">
                 <tr>
-                  <td></td> 
+                  <td></td>  
               
                   <td><input type="text" class="form-control" placeholder="근무시작일" id="datepicker4" name="HIS_DATE"></td>
                   <td><input type="text" class="form-control" placeholder="근무부서" id="HIS_DEPT" name="HIS_DEPT"></td>

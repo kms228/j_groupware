@@ -30,7 +30,7 @@ public class EmpListController {
 	@Autowired
 	private EmpInfoService service2;
 	
-	@RequestMapping("/emplist")
+	@RequestMapping("/emplist") 
 	public ModelAndView emplist(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView(".login.emplist");
 		//HttpSession session=req.getSession();	

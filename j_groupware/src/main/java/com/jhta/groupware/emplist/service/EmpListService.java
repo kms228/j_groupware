@@ -19,7 +19,7 @@ public class EmpListService {
 		List<EmpListVo> emplist=dao.getList();
 		return emplist;
 	}
-	public List<EmpListVo> retireList(){
+	public List<EmpListVo> retireList(){ 
 		System.out.println("RetireList Service");
 		List<EmpListVo> emplist=dao.retireList();
 		return emplist;
