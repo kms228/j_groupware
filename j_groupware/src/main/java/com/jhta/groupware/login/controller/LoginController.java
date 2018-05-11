@@ -36,6 +36,7 @@ public class LoginController {
 			System.out.println(ACNT_ID);
 			
 			session.setAttribute("ACNT_ID", ACNT_ID);
+			session.setAttribute("ACNT_LEVEL",vo.getACNT_level());
 			session.setAttribute("emp_num", vo.getEMP_NUM());
 			
 			System.out.println(vo.getEMP_NUM());

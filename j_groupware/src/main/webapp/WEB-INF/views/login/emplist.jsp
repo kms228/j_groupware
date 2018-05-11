@@ -40,12 +40,12 @@
 								<c:otherwise>
 								<c:forEach items="${list }" var="list">
 								<tr role="row">
-									<th>${list.EMP_NUM }</th>															
+									<th>${list.EMP_NUM }</th>	
+									<th>${list.DEPT_NAME}</th>																
 									<th>${list.EMP_NAME }</th>								
+									<th>${list.PST_NAME }</th>															
 									<th>${list.EMP_EMAIL }</th>															
-									<th>${list.EMP_HIREDATE }</th>															
-									<th>${list.DEPT_NAME }</th>								
-									<th>${list.PST_NAME }</th>
+									<th>${list.EMP_HIREDATE }</th>								
 								</tr>						
 								</c:forEach>
 								</c:otherwise>						
