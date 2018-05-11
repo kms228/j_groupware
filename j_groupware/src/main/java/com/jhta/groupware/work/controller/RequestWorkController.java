@@ -156,6 +156,8 @@ public class RequestWorkController {
 			//지각(if.공지출근시간<실제출근시간)
 			if(wtime_start2<wlist_start) {
 				map.put("wlist_type","3");
+				//무단지각
+				
 			}
 			requestWorkService.insertRequestWorkStart(map);
 			return "redirect:/requestWork/"+map.get("emp_num");
