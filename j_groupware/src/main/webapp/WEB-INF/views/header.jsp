@@ -113,7 +113,7 @@
 					<li class="dropdown login-menu"><a href="<c:url value='/login'/>">로그인</a>
 					</c:when>					
 					<c:when test="${ACNT_ID!=null}">
-					<li class="dropdown logout-menu"><a href="<c:url value='/logout'/>">${ACNT_ID }님 로그아웃</a>
+					<li class="dropdown logout-menu"><a href="<c:url value='/logout'/>" onclick='disconnect()'>${ACNT_ID }님 로그아웃</a>
 					
 					<!-- 메뉴 -->
 	               	<li class="dropdown notifications-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <span >MENU</span>
@@ -131,7 +131,7 @@
 											입사정보
 									</a></li>
 									
-									<li><a href="<c:url value='/logout'/>"> <i class="fa fa-user text-red"></i>
+									<li><a href="<c:url value='/logout'/>" onclick='disconnect()'> <i class="fa fa-user text-red"></i>
 											로그아웃
 									</a></li>
 								</ul></div>

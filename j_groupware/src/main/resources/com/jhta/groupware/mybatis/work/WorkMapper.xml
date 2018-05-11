@@ -3,7 +3,35 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.work.WorkMapper">
-	
+	<select id="schedule" parameterType="map" resultType="com.jhta.groupware.work.vo.ScheduleVo">
+	select wtype_num,e.emp_num,emp_name,work_num,work_sdate,work_edate,work_content,work_state,
+    decode(wtype_num,
+    1,to_char(work_sdate,'yyyy-mm-dd'),
+    2,to_char(work_sdate,'yyyy-mm-dd'),
+    3,to_char(work_sdate,'yyyy-mm-dd')||'T'||to_char(work_edate,'hh24:mi'),
+    4,to_char(work_sdate,'yyyy-mm-dd')||'T'||to_char(work_edate,'hh24:mi'),
+    5,to_char(work_sdate,'yyyy-mm-dd'),
+    6,to_char(work_sdate,'yyyy-mm-dd')
+    )"sdate",
+    decode(wtype_num,
+    1,to_char(work_edate+1,'yyyy-mm-dd'),
+    5,to_char(work_edate+1,'yyyy-mm-dd'),
+    6,to_char(work_edate+1,'yyyy-mm-dd')
+    )"edate",
+    decode(wtype_num,
+    1,to_char(work_sdate,'yyyy/mm/dd')||' ~ '||to_char(work_edate,'yyyy/mm/dd')||'<![CDATA[<br>]]>연차<![CDATA[<br>]]>'||work_content,
+    2,decode(to_char(work_edate,'hh24'),
+		                    11,to_char(work_sdate,'yyyy/mm/dd')||'<![CDATA[<br>]]>반차(오전)<![CDATA[<br>]]>'||work_content,
+		                    12,to_char(work_sdate,'yyyy/mm/dd')||'<![CDATA[<br>]]>반차(오후)<![CDATA[<br>]]>'||work_content),
+    3,to_char(work_sdate,'yyyy/mm/dd')||' '||to_char(work_edate,'hh24:mi')||'<![CDATA[<br>]]>지각<![CDATA[<br>]]>'||work_content,
+    4,to_char(work_sdate,'yyyy/mm/dd')||' '||to_char(work_edate,'hh24:mi')||'<![CDATA[<br>]]>야근<![CDATA[<br>]]>'||work_content,
+    5,to_char(work_sdate,'yyyy/mm/dd')||' ~ '||to_char(work_edate,'yyyy/mm/dd')||'<![CDATA[<br>]]>외근<![CDATA[<br>]]>'||work_content,
+    6,to_char(work_sdate,'yyyy/mm/dd')||' ~ '||to_char(work_edate,'yyyy/mm/dd')||'<![CDATA[<br>]]>경조사,기타<![CDATA[<br>]]>'||work_content
+    )"content"
+        from work w,employee e 
+        where w.emp_num=e.emp_num and  work_state in (1,86)
+    and e.emp_num in(select emp_num from employee where dept_num=(select dept_num from employee where emp_num=#{emp_num}))
+	</select>
 </mapper>
 
 

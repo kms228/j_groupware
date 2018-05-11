@@ -34,13 +34,56 @@
 		where htime_num=1
 	</select>
 	<!-- 관리자(사원연차정보 가져오기) -->
-	<select id="selectAnnInfo" parameterType="map" resultType="com.jhta.groupware.work.vo.AnnInfoVo">
-		select employee.emp_num, emp_name, acnt_id, ann_use, ann_total, ann_ann
-		from employee, annual, account
-		where employee.emp_num=annual.emp_num and employee.emp_num=account.emp_num
+	<select id="selectAnnInfo" parameterType="map" resultType="com.jhta.groupware.work.vo.SearchAnnVo">
+		select employee.emp_num, emp_name, acnt_id, ann_use, ann_total, ann_ann, dept_name, ann_num
+		from employee, annual, account, dept
+		where employee.emp_num=annual.emp_num and employee.emp_num=account.emp_num and dept.dept_num=employee.dept_num
 		and ann_ann=#{ann_ann}
 	</select>
 	<update id="upAnn" parameterType="map">
 		update annual set ann_total=#{ann_total} where ann_ann=#{ann_ann} and emp_num=#{emp_num}
 	</update>
+	
+	<select id="getDept" resultType="DeptVo">
+		select dept_num,dept_name from dept
+	</select>
+	
+	<!-- 기간,부서로 연차 검색 -->
+	<select id="searchAnn" parameterType="map" resultType="com.jhta.groupware.work.vo.SearchAnnVo">
+		select ann_num,ann_total,ann_use,annual.emp_num, ann_ann, employee.dept_num, dept_name, emp_name, acnt_id
+		from annual, employee, account, dept
+		<where>
+			(annual.emp_num=employee.emp_num and employee.emp_num=account.emp_num and dept.dept_num=employee.dept_num)
+			and ann_ann=#{ann_ann}
+			<if test="dept_num!=100">
+				and dept.dept_num=#{dept_num}
+			</if>
+		</where> 
+	</select>
+	
+	<!-- 총연차일수 수정및등록 -->
+	<update id="updateAnn" parameterType="map">
+		update annual set ann_total=#{ann_total} where ann_num=#{ann_num}
+	</update>
+	
+	<!-- 관리자 검색 -->
+	<select id="searchAdmin" resultType="com.jhta.groupware.work.vo.SearchAdminVo">
+		select acnt_num, emp_name, dept_name, pst_name, employee.emp_num
+		from account, employee, dept, position
+		where (account.emp_num=employee.emp_num and employee.dept_num=dept.dept_num and position.pst_num=employee.pst_num) and acnt_level=0
+	</select>
+	<!-- 관리자 수여 -->
+	<update id="updateAdmin" parameterType="map">
+		update account set acnt_level=0 where emp_num=#{emp_num}
+	</update>
+	<!-- 관리자 박탈 -->
+	<update id="delAdmin" parameterType="map">
+		update account set acnt_level=1 where acnt_num=#{acnt_num}
+	</update>
+	<!-- 저장전 : 관리자 검색 -->
+	<select id="beforeAdmin" resultType="com.jhta.groupware.work.vo.SearchAdminVo">
+		select acnt_num, emp_name, dept_name, pst_name, employee.emp_num
+		from account, employee, dept, position
+		where (account.emp_num=employee.emp_num and employee.dept_num=dept.dept_num and position.pst_num=employee.pst_num) and employee.emp_num=#{emp_num}
+	</select>
 </mapper>

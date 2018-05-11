@@ -3,6 +3,8 @@ package com.jhta.groupware.chat.controller;
 import java.security.Principal;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -34,13 +36,20 @@ public class GreetingController {
     }
     @MessageMapping("/add/chatlist")
     public void addChatlist(Principal principal) throws Exception {
-    	simpMessagingTemplate.convertAndSendToUser(principal.getName(),"/topic/list", service.addUser(principal));    	
+    	
+    		simpMessagingTemplate.convertAndSendToUser(principal.getName(),"/topic/list", service.addUser(principal));    	
     }
     @MessageMapping("/echo/user")
     @SendToUser(broadcast=false)
     public void addUser(Principal principal) throws Exception { 
     	System.out.println("----------------------------------------------");
     	simpMessagingTemplate.convertAndSend("/topic/add", service.getChatUser(principal));
+    }
+    @MessageMapping("/quit")
+    @SendTo("/topic/quit")
+    public String quit(Principal principal) throws Exception {
+    	service.disconnectUser(principal);
+    	return principal.getName();
     }
     @MessageMapping("/chat/message/{username}")
     public void sendMessage(@Payload ChatVo vo, @DestinationVariable ("username") String username, Principal principal) throws Exception {

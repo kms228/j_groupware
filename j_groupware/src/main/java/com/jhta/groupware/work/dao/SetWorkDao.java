@@ -7,8 +7,11 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.groupware.dept.vo.DeptVo;
 import com.jhta.groupware.work.vo.AnnInfoVo;
 import com.jhta.groupware.work.vo.HalfTimeVo;
+import com.jhta.groupware.work.vo.SearchAdminVo;
+import com.jhta.groupware.work.vo.SearchAnnVo;
 import com.jhta.groupware.work.vo.WorkTimeVo;
 
 @Repository
@@ -32,8 +35,36 @@ public class SetWorkDao {
 		return sqlSession.selectOne(NAMESPACE+".selectHalfTime");
 	}
 	//연차정보가져오기
-	public List<AnnInfoVo> selectAnnIfo(Map<String, Object> map){
+	public List<SearchAnnVo> selectAnnIfo(Map<String, Object> map){
 		return sqlSession.selectList(NAMESPACE+".selectAnnInfo", map);
 	}
+	//부서종류 가져오기
+	public List<DeptVo> getDept(){
+		return sqlSession.selectList(NAMESPACE+".getDept");
+	}
+	//검색 : 연자정보가져오기
+	public List<SearchAnnVo> searchAnn(Map<String, Object>map){
+		return sqlSession.selectList(NAMESPACE+".searchAnn",map);
+	}
+	//연차 수정 및 등록
+	public int updateAnn(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".updateAnn", map);
+	}
 	
+	//관리자 검색
+	public List<SearchAdminVo> searchAdmin(){
+		return sqlSession.selectList(NAMESPACE+".searchAdmin");
+	}
+	//관리자 수여
+	public int updateAdmin(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".updateAdmin", map);
+	}
+	//관리자 박탈
+	public int delAdmin(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".delAdmin", map);
+	}
+	//저장전 관리자 검색
+	public SearchAdminVo beforeAdmin(Map<String, Object>map){
+		return sqlSession.selectOne(NAMESPACE+".beforeAdmin", map);
+	}
 }

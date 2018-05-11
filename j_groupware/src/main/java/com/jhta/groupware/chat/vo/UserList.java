@@ -52,5 +52,14 @@ public class UserList {
 		}
 		return null;
 	}
-	
+	public boolean removeChatUserVo(String acnt_id) {
+		int size = list.size();
+		for(int i=0;i<size;i+=1) {			
+			if(acnt_id.equals(list.get(i).getAcnt_id())) {
+				list.remove(i);
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -530,7 +530,7 @@
 											<fmt:parseDate var="parseEdate" value="${wwEdate }" pattern="yyyy/MM/dd" />
 											<fmt:parseNumber var="numSdate" value="${parseSdate.time/(1000*60*60*24) }" integerOnly="true"/>
 											<fmt:parseNumber var="numEdate" value="${parseEdate.time/(1000*60*60*24) }" integerOnly="true"/>
-											<c:set var="calDate" value="${numEdate-numSdate }일"/>
+											<c:set var="calDate" value="${numEdate-numSdate+1 }일"/>
 										</c:when>
 									</c:choose>
 									<c:choose>

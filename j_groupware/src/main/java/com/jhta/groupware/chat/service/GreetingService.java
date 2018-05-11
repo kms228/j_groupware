@@ -32,10 +32,11 @@ public class GreetingService {
 	public ChatUserVo getChatUser(Principal principal) {
 		return list.getChatUserVo(principal.getName());
 	}
-	public void disconnectUser() {
+	public void disconnectUser(Principal principal) {
 		System.out.println("--------------------------------------------------");
 		System.out.println("disconnectUser!!!!");
-		System.out.println("--------------------------------------------------");
+		boolean result = list.removeChatUserVo(principal.getName());		
+		System.out.println("--------------------------------------------------"+result);
 	}
 	public void connectUser() {
 //		ChatUsersVo vo = dao.getUser();
