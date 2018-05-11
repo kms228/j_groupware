@@ -27,13 +27,13 @@ public class GreetingController {
 	@Autowired private GreetingService service;
 	@Autowired private SimpMessagingTemplate simpMessagingTemplate; 
 	
-    @MessageMapping("/hello")
-    @SendTo("/topic/greetings")
-    public Greeting greeting(HelloMessage message, Principal principal) throws Exception {
-        Thread.sleep(1000); // simulated delay
-        System.out.println(message.getName());
-        return new Greeting("Hello, " + HtmlUtils.htmlEscape(principal.getName()) + "!");
-    }
+//    @MessageMapping("/hello")
+//    @SendTo("/topic/greetings")
+//    public Greeting greeting(HelloMessage message, Principal principal) throws Exception {
+//        Thread.sleep(1000); // simulated delay
+//        System.out.println(message.getName());
+//        return new Greeting("Hello, " + HtmlUtils.htmlEscape(principal.getName()) + "!");
+//    }
     @MessageMapping("/add/chatlist")
     public void addChatlist(Principal principal) throws Exception {
     	
