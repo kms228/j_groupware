@@ -70,6 +70,8 @@
 	var t3='';
 	 
 	function searchList2(event){
+		t3 = $("#table3").DataTable();
+		t3.clear().draw();
 		event.preventDefault();
 		  var str = $( "form" ).serialize();
 		$.ajax({
@@ -78,36 +80,30 @@
 			data:str,
 			
 			success:function(data){
-				t3 = $("#table3").DataTable();
-				t3.clear().draw();
+				
 				var wn;
 				var wn2;
 				console.log("data.length : "+data.length);
-				if(data.length != 0){
-					for(var i=0;i<data.length;i++){
-						if(data[i].wline_state=='0'){
-							wn2='진행중';	
-						}else if(data[i].wline_state=='1'){
-							wn2='승인';
-						}
-	
-						t3.row.add([
-							data[i].wline_num,
-							data[i].emp_name,
-							data[i].wtype,
-							data[i].term,
-							data[i].caldate,
-							data[i].work_content,
-							data[i].wfile_orgfilename,
-							data[i].regdate,
-							'<input type="button" class="btn btn-primary" value="승인" onclick="s('+i+')">',
-							'<input type="button" class="btn btn-danger" value="반려" onclick="b('+i+')">'
-						]).draw(false);
+				for(var i=0;i<data.length;i++){
+					if(data[i].wline_state=='0'){
+						wn2='진행중';	
+					}else if(data[i].wline_state=='1'){
+						wn2='승인';
 					}
-				}else{
-					//$("#table3 tbody tr").empty();
+
+					t3.row.add([
+						data[i].wline_num,
+						data[i].emp_name,
+						data[i].wtype,
+						data[i].term,
+						data[i].caldate,
+						data[i].work_content,
+						data[i].wfile_orgfilename,
+						data[i].regdate,
+						'<input type="button" class="btn btn-primary" value="승인" onclick="s('+i+')">',
+						'<input type="button" class="btn btn-danger" value="반려" onclick="b('+i+')">'
+					]).draw(false);
 				}
-				
 			},error:function(){	alert("error");	}
 		});
 			return false;
