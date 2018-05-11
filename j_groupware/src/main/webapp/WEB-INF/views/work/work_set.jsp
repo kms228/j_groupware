@@ -2,11 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!-- DataTables -->
-<script
-	src="<c:url value='/'/>resources/plugins/datatables/jquery.dataTables.min.js"></script>
-<script
-	src="<c:url value='/'/>resources/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
 
 <div>
@@ -245,9 +240,10 @@
 								<div class="box-tools">
 									<div class="input-group input-group-sm" style="width: 150px;">
 										<input type="text" name="table_search"
-											class="form-control pull-right" placeholder="관리자선택" id="line1" data-target="#myModal" data-toggle="modal"
-											readonly="readonly">
-											<input type="hidden" id="text_emp_num2" name="emp_num2">
+											class="form-control pull-right" placeholder="관리자선택"
+											id="line1" data-target="#myModal" data-toggle="modal"
+											readonly="readonly"> <input type="hidden"
+											id="text_emp_num2" name="emp_num2">
 
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-default">
@@ -267,37 +263,41 @@
 												<th>이름</th>
 												<th>부서</th>
 												<th>직위</th>
+												<th>삭제</th>
 											</tr>
 											<c:forEach items="${adminVo }" var="adminVo">
 												<c:choose>
 													<c:when test="${adminVo.pst_name=='사장' }">
-														<c:set var="spanC"  value="label label-danger"/>
+														<c:set var="spanC" value="label label-danger" />
 													</c:when>
 													<c:when test="${adminVo.pst_name=='부장' }">
-														<c:set var="spanC"  value="label label-primary"/>
+														<c:set var="spanC" value="label label-primary" />
 													</c:when>
 													<c:when test="${adminVo.pst_name=='차장' }">
-														<c:set var="spanC"  value="label label-success"/>
+														<c:set var="spanC" value="label label-success" />
 													</c:when>
 													<c:when test="${adminVo.pst_name=='과장' }">
-														<c:set var="spanC"  value="label label-warning"/>
+														<c:set var="spanC" value="label label-warning" />
 													</c:when>
 													<c:otherwise>
-														<c:set var="spanC"  value="label label-default"/>
-													</c:otherwise>												
+														<c:set var="spanC" value="label label-default" />
+													</c:otherwise>
 												</c:choose>
 												<tr>
 													<td>${adminVo.acnt_num }</td>
 													<td>${adminVo.emp_name }</td>
 													<td>${adminVo.dept_name }</td>
 													<td><span class="${spanC }">${adminVo.pst_name }</span></td>
+													<td><input type="button" class="btn btn-danger"
+														value="삭제" onclick="delAdmin(${adminVo.acnt_num})"></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 								</form>
 								<div class="box-footer">
-									<input type="button" value="관리자 추가"class="btn btn-block btn-primary" onclick="saveAdmin()">
+									<input type="button" value="관리자 추가"
+										class="btn btn-block btn-primary" onclick="saveAdmin()">
 								</div>
 							</div>
 							<!-- /.box-body -->
@@ -324,10 +324,12 @@
 								</div>
 								<label>기간</label>
 								<div id="div_search_month">
-	                                <span class="glyphicon glyphicon-chevron-left" id="clickL" onclick="clickL()"></span>
-	                                <input type="text"  id="nowDate"name="ann_ann">
-	                                <span class="glyphicon glyphicon-chevron-right"id="clickR" onclick="clickR()"></span>                                    
-                                </div>
+									<span class="glyphicon glyphicon-chevron-left" id="clickL"
+										onclick="clickL()"></span> <input type="text" id="nowDate"
+										name="ann_ann"> <span
+										class="glyphicon glyphicon-chevron-right" id="clickR"
+										onclick="clickR()"></span>
+								</div>
 							</div>
 						</div>
 						<form method="post">
@@ -348,9 +350,13 @@
 													role="grid" aria-describedby="example1_info">
 													<thead>
 														<tr role="row">
-															<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1">연차 번호</th>
-															<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">부서명</th>
-															<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">사원 이름</th>
+															<th class="sorting_asc" tabindex="0"
+																aria-controls="example1" rowspan="1" colspan="1">연차
+																번호</th>
+															<th class="sorting" tabindex="0" aria-controls="example1"
+																rowspan="1" colspan="1">부서명</th>
+															<th class="sorting" tabindex="0" aria-controls="example1"
+																rowspan="1" colspan="1">사원 이름</th>
 															<th class="sorting" tabindex="0" aria-controls="example1"
 																rowspan="1" colspan="1">사원 아이디</th>
 															<th class="sorting" tabindex="0" aria-controls="example1"
@@ -360,29 +366,29 @@
 														</tr>
 													</thead>
 													<tbody>
-														<c:forEach items="${annVo }" var="annVo" varStatus="status">
+														<c:forEach items="${annVo }" var="annVo"
+															varStatus="status">
 															<tr role="row">
 																<td class="sorting_1">${annVo.ann_num }</td>
 																<td>${annVo.dept_name }</td>
 																<td>${annVo.emp_name }</td>
 																<td>${annVo.acnt_id }</td>
 																<td>${annVo.ann_use }</td>
-																<td>
-																	<input type="text" value="${annVo.ann_total }" id='totalinfo${status.index }'> 
-																	<c:choose>
+																<td><input type="text" value="${annVo.ann_total }"
+																	id='totalinfo${status.index }'> <c:choose>
 																		<c:when test="${annVo.ann_total==0 }">
 																			<input type="button" class="btn btn-warning"
-																			value="등록" onclick="upd(${status.index},'totalinfo${status.index }')">
+																				value="등록"
+																				onclick="upd(${status.index},'totalinfo${status.index }')">
 																		</c:when>
 																		<c:otherwise>
 																			<input type="button" class="btn btn-primary"
-																			value="수정" onclick="upd(${status.index},'totalinfo${status.index }')">
+																				value="수정"
+																				onclick="upd(${status.index},'totalinfo${status.index }')">
 																		</c:otherwise>
-																	</c:choose>
-																</td>
+																	</c:choose></td>
 															</tr>
 														</c:forEach>
-
 													</tbody>
 													<tfoot>
 														<tr>
@@ -411,11 +417,13 @@
 			<!-- nav-tabs-custom -->
 		</div>
 		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
 						<h4 class="modal-title" id="myModalLabel">조직도</h4>
@@ -425,7 +433,8 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" data-dismiss="modal" id="line_submit">추가</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							id="line_submit">추가</button>
 					</div>
 				</div>
 			</div>
@@ -504,7 +513,7 @@
 					}
 					
 					$("#adminTable").last().append('<tr><td>'+data.acnt_num+'</td><td>'+data.emp_name+'</td><td>'
-							+data.dept_name+'</td><td><span class="'+spanC+'">'+data.pst_name+'</span></td></tr>');
+							+data.dept_name+'</td><td><span class="'+spanC+'">'+data.pst_name+'</span></td><td><input type="button" class="btn btn-danger" value="삭제" onclick="delAdmin('+data.acnt_num+')"></td></tr>');
 				},error:function(){
 					alert("관리자 선택 후 추가하시오.");
 				}
@@ -583,7 +592,40 @@
 		$("#select3").change(function(){
 			goAjax();
 		});
+		
+		function delAdmin(acnt_num){
+			$.ajax({
+				url:"<c:url value='/delAdmin'/>",
+				dataType:"json",
+				data:{"acnt_num":acnt_num},
+				success:function(data){
+					var tr='';
+					for(var i=0;i<data.length;i++){
+						var spanC='';
+						$("#adminTable").empty();
+						if(data[i].pst_name=='사장'){
+							spanC='label label-danger';
+						}else if(data[i].pst_name=='부장'){
+							spanC='label label-primary';
+						}else if(data[i].pst_name=='차장'){
+							spanC='label label-success';
+						}else if(data[i].pst_name=='과장'){
+							spanC='label label-warning';
+						}else{
+							spanC='label label-default';
+						}
+						tr+='<tr><td>'+data[i].acnt_num+'</td><td>'+data[i].emp_name+'</td><td>'
+						+data[i].dept_name+'</td><td><span class="'+spanC+'">'+data[i].pst_name+'</span></td><td><input type="button" class="btn btn-danger" value="삭제" onclick="delAdmin('+data[i].acnt_num+')"></td></tr>'
+						
+					}
+						$("#adminTable").last().append(tr);
+					
+				}
+			
+		
+			});
+		}
 	</script>
-	
+
 </div>
 

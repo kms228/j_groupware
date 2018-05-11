@@ -47,6 +47,7 @@
 	<select id="getDept" resultType="DeptVo">
 		select dept_num,dept_name from dept
 	</select>
+	
 	<!-- 기간,부서로 연차 검색 -->
 	<select id="searchAnn" parameterType="map" resultType="com.jhta.groupware.work.vo.SearchAnnVo">
 		select ann_num,ann_total,ann_use,annual.emp_num, ann_ann, employee.dept_num, dept_name, emp_name, acnt_id
@@ -76,8 +77,8 @@
 		update account set acnt_level=0 where emp_num=#{emp_num}
 	</update>
 	<!-- 관리자 박탈 -->
-	<update id="cancleAdmin" parameterType="map">
-		update account set acnt_level=1 where emp_num=#{emp_num}
+	<update id="delAdmin" parameterType="map">
+		update account set acnt_level=1 where acnt_num=#{acnt_num}
 	</update>
 	<!-- 저장전 : 관리자 검색 -->
 	<select id="beforeAdmin" resultType="com.jhta.groupware.work.vo.SearchAdminVo">

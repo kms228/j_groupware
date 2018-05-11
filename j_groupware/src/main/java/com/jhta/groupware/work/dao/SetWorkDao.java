@@ -60,8 +60,8 @@ public class SetWorkDao {
 		return sqlSession.update(NAMESPACE+".updateAdmin", map);
 	}
 	//관리자 박탈
-	public int cancleAdmin(Map<String, Object>map) {
-		return sqlSession.update(NAMESPACE+".cancleAdmin", map);
+	public int delAdmin(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".delAdmin", map);
 	}
 	//저장전 관리자 검색
 	public SearchAdminVo beforeAdmin(Map<String, Object>map){

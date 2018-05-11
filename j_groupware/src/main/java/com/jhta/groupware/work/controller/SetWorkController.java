@@ -1,6 +1,7 @@
 package com.jhta.groupware.work.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,19 @@ public class SetWorkController {
 //		binder.registerCustomEditor(Date.class, dateEditor);
 //		System.out.println("InitBinder ¿¡¼­ dateEditor.toString() : "+dateEditor.toString());
 //	}
+	@RequestMapping(value="/delAdmin",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<SearchAdminVo> delAdmin(@RequestParam Map<String,Object> map) {
+		System.out.println("--------------------map.toString : "+map.toString());
+		int n = setWorkService.delAdmin(map);
+		List<SearchAdminVo> salist = new ArrayList<>();
+		if(n>0) {
+			salist = setWorkService.searchAdmin();
+		}
+		return salist;
+	}
+	
+	
 	@RequestMapping(value="/updateAdmin2",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public SearchAdminVo selectRequestList(@RequestParam Map<String,Object> map) {
