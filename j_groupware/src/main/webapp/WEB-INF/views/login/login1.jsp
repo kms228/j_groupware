@@ -4,7 +4,7 @@
 
   <link rel='stylesheet prefetch' href='http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css'>
   <link rel="stylesheet" href="<c:url value='resources/css/login.css'/>">
-
+<div class="col-sm-12" align="center" id="logcss">
     <div class="wrapper1">
     <form action="<c:url value='/'/>login" method="post" class="form-signin">       
       <h2 class="form-signin-heading">Please login</h2>
@@ -16,6 +16,7 @@
       </label>      
       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
     </form>
+  </div>
   </div>
   
   
