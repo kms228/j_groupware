@@ -36,8 +36,9 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginOk(String ACNT_ID, String ACNT_PWD, HttpSession session) {
-		
+	public String loginOk(String ACNT_ID, String ACNT_PWD, HttpSession session,HttpServletRequest req) {
+			HttpSession s = req.getSession();
+
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("ACNT_ID", ACNT_ID);
 			map.put("ACNT_PWD", ACNT_PWD);
@@ -58,10 +59,8 @@ public class LoginController {
 			} else {
 				System.out.println("¾ÈµÇ!!!");
 				return ".login.login1";
-				
-			
-		
 		}
+
 		
 	}
 
