@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import com.jhta.groupware.work.vo.WorkListVo;
 import com.jhta.groupware.work.vo.WorkTimeVo;
+import com.jhta.groupware.work.vo.Work_FileVo;
+import com.jhta.groupware.work.vo.Work_LineVo2;
 import com.jhta.groupware.work.vo.WorkandWorkfileVo;
 
 @Repository
@@ -76,5 +78,13 @@ public class RequestWorkDao {
 	}
 	public int cancleWorkLine(int work_num) {
 		return sqlSession.update(NAMESPACE+".cancleWorkLine", work_num);
+	}
+	//결재라인가져오기
+	public List<Work_LineVo2> searchWorkLine(int work_num){
+		return sqlSession.selectList(NAMESPACE+".searchWorkLine", work_num);
+	}
+	//파일다운을 위한 파일정보 가져오기
+	public Work_FileVo wfile(int wfile_num) {
+		return sqlSession.selectOne(NAMESPACE+".wfile", wfile_num);
 	}
 }

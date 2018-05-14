@@ -80,7 +80,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table1"class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table1"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -97,7 +97,7 @@
 												
 												<tfoot>
 													<tr>
-														<th rowspan="1" colspan="1"></th>
+														<th rowspan="1" colspan="1">신청 번호</th>
 														<th rowspan="1" colspan="1">사원 이름</th>
 														<th rowspan="1" colspan="1">구분</th>
 														<th rowspan="1" colspan="1">날짜</th>
@@ -130,7 +130,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table2"class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table2"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -147,7 +147,7 @@
 												
 												<tfoot>
 													<tr>
-														<th rowspan="1" colspan="1"></th>
+														<th rowspan="1" colspan="1">신청 번호</th>
 														<th rowspan="1" colspan="1">사원 이름</th>
 														<th rowspan="1" colspan="1">구분</th>
 														<th rowspan="1" colspan="1">날짜</th>
@@ -180,7 +180,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table3"class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table3"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -197,7 +197,7 @@
 												
 												<tfoot>
 													<tr>
-														<th rowspan="1" colspan="1"></th>
+														<th rowspan="1" colspan="1">신청 번호</th>
 														<th rowspan="1" colspan="1">사원 이름</th>
 														<th rowspan="1" colspan="1">구분</th>
 														<th rowspan="1" colspan="1">날짜</th>
@@ -230,7 +230,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table4"class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table4"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -247,7 +247,7 @@
 												
 												<tfoot>
 													<tr>
-														<th rowspan="1" colspan="1"></th>
+														<th rowspan="1" colspan="1">신청 번호</th>
 														<th rowspan="1" colspan="1">사원 이름</th>
 														<th rowspan="1" colspan="1">구분</th>
 														<th rowspan="1" colspan="1">날짜</th>
@@ -293,7 +293,61 @@
 				</div>
 			</div>
 		</div>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">결재 진행상태</h4>
+					</div>
+					<div class="modal-body" id="linecontent">
+						<table id="modal_table" data-order='[[ 0, "asc" ]]'>
+							<thead>
+								<tr>
+									<th>결재 순서</th><th>부서</th><th>승인자</th><th>상태</th>
+								</tr>
+							</thead>
+							
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeM">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	<script type="text/javascript">
+	var tm = $("#modal_table").DataTable({
+		searching:false,
+		paging:false,
+		//언어패치
+    	language: {
+    		
+    		 "decimal":        "",
+    		 "emptyTable":     "데이터가 없습니다.",
+    		 "info":           "_START_ - _END_ (총  _TOTAL_ 개)",
+    		 "infoEmpty":      "0개",
+    		 "infoFiltered":   "(전체 _MAX_ 개 중 검색결과)",
+    		 "infoPostFix":    "",
+    		 "thousands":      ",",
+    		 "lengthMenu":     " _MENU_ 개씩 보기",
+    		 "loadingRecords": "로딩중...",
+    		 "processing":     "처리중...",
+    		 "search":         "검색:",
+    		 "zeroRecords":    "검색된 데이터가 없습니다.",
+    		 "paginate": {
+    		     "first":      "첫 페이지",
+    		     "last":       "마지막 페이지",
+    		     "next":       "다음",
+    		     "previous":   "이전"
+    		 }
+        }
+       
+	});
 	$(function(){
 		
 		//tree모달
@@ -379,6 +433,9 @@
 			data:str,
 			success:function(data){
 				var wn;
+				var state='';
+				var fc='';
+				var ttt;
 				for(var i=0;i<data.length;i++){
 					if(data[i].wtype_num=='1'){
 						wn='연차';
@@ -394,54 +451,33 @@
 						wn='경조사/기타';
 					}
 					if(data[i].work_state==0){
-						t2.row.add([
-							data[i].work_num,
-							data[i].emp_name,
-							wn,
-							data[i].term,
-							data[i].caldate,
-							data[i].work_content,
-							data[i].wfile_orgfilename,
-							data[i].regdate,
-							'<label style="color: green">진행중</label>'
-						]).draw(false);
+						ttt=t2;
+						state='진행중';
+						fc='green';
 					}else if(data[i].work_state==1){
-						t1.row.add([
-							data[i].work_num,
-							data[i].emp_name,
-							wn,
-							data[i].term,
-							data[i].caldate,
-							data[i].work_content,
-							data[i].wfile_orgfilename,
-							data[i].regdate,
-							'<label style="color: blue">승인</label>'
-						]).draw(false);
+						ttt=t1;
+						state='승인';
+						fc='blue';
 					}else if(data[i].work_state==2){
-						t3.row.add([
-							data[i].work_num,
-							data[i].emp_name,
-							wn,
-							data[i].term,
-							data[i].caldate,
-							data[i].work_content,
-							data[i].wfile_orgfilename,
-							data[i].regdate,
-							'<label style="color: red">반려</label>'
-						]).draw(false);
+						ttt=t3;
+						state='반려';
+						fc='red';
 					}else if(data[i].work_state==3){
-						t4.row.add([
-							data[i].work_num,
-							data[i].emp_name,
-							wn,
-							data[i].term,
-							data[i].caldate,
-							data[i].work_content,
-							data[i].wfile_orgfilename,
-							data[i].regdate,
-							'<label style="color: orange">취소</label>'
-						]).draw(false);
+						ttt=t4;
+						state='취소';
+						fc='orange';
 					}
+					ttt.row.add([
+						data[i].work_num,
+						data[i].emp_name,
+						wn,
+						data[i].term,
+						data[i].caldate,
+						data[i].work_content,
+						'<a href="<c:url value="/file/download?wfile_num='+data[i].wfile_num+'"/>">'+data[i].wfile_orgfilename+'</a>',
+						data[i].regdate,
+						'<label style="color: '+fc+'"data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')">'+state+'</label>'
+					]).draw(false);
 				}
 			},error:function(){
 				alert("error");
@@ -462,5 +498,53 @@
 		$(".work_edate").val("");
 		$("#text_emp_num2").val("");
 	});
+	//결재승인상태 확인하기
+	function mmm(i){
+		$.ajax({
+			url:"<c:url value='/requestWork/searchWorkLine'/>",
+			dataType:"json",
+			data:{"work_num":i},
+			success:function(data){
+				tm.clear().draw();
+				var ban=0;
+				var state='';
+				var fc='';
+				var ss=0;
+				for(var i=0;i<data.length;i++){
+					if(data[i].wline_state==0){
+						if(ban==0){
+							if(ss==0){
+								state='진행 중';
+								fc='green';
+								ss=1;								
+							}else{
+								state='진행 전';
+								fc='black';
+							}
+						}else{
+							state='';
+						}
+					}else if(data[i].wline_state==1){
+						if(ban==0){
+							state='승인';
+							fc='blue';
+						}else{
+							state='';
+						}
+					}else if(data[i].wline_state==2){
+						state='반려';
+						fc='red';
+						ban=1;
+					}
+					tm.row.add([
+						data[i].wline_level+'차',
+						data[i].dept_name,
+						data[i].emp_name+' '+data[i].pst_name,
+						'<label style="color:'+fc+'">'+state+'</label>'
+					]).draw(false);
+				}
+			},error:function(){alert("error");}
+		});
+	}
 	</script>
 </div>

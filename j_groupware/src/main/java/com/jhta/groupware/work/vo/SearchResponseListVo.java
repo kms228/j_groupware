@@ -17,12 +17,13 @@ public class SearchResponseListVo {
 	private String caldate;
 	private String term;
 	private String wtype;
+	private int wfile_num;
 	
 	public SearchResponseListVo() {}
 
 	public SearchResponseListVo(int wline_num, int wline_level, int wline_state, int work_num, int emp_num,
 			String work_content, String emp_name, String regdate, Date work_regdate, String wfile_orgfilename,
-			int wtype_num, String caldate, String term, String wtype) {
+			int wtype_num, String caldate, String term, String wtype, int wfile_num) {
 		super();
 		this.wline_num = wline_num;
 		this.wline_level = wline_level;
@@ -38,6 +39,7 @@ public class SearchResponseListVo {
 		this.caldate = caldate;
 		this.term = term;
 		this.wtype = wtype;
+		this.wfile_num = wfile_num;
 	}
 
 	public int getWline_num() {
@@ -152,14 +154,21 @@ public class SearchResponseListVo {
 		this.wtype = wtype;
 	}
 
+	public int getWfile_num() {
+		return wfile_num;
+	}
+
+	public void setWfile_num(int wfile_num) {
+		this.wfile_num = wfile_num;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchResponseListVo [wline_num=" + wline_num + ", wline_level=" + wline_level + ", wline_state="
 				+ wline_state + ", work_num=" + work_num + ", emp_num=" + emp_num + ", work_content=" + work_content
 				+ ", emp_name=" + emp_name + ", regdate=" + regdate + ", work_regdate=" + work_regdate
 				+ ", wfile_orgfilename=" + wfile_orgfilename + ", wtype_num=" + wtype_num + ", caldate=" + caldate
-				+ ", term=" + term + ", wtype=" + wtype + "]";
+				+ ", term=" + term + ", wtype=" + wtype + ", wfile_num=" + wfile_num + "]";
 	}
-	
-	
+
 }

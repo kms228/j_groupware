@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.work.dao.RequestWorkDao;
 import com.jhta.groupware.work.vo.WorkListVo;
+import com.jhta.groupware.work.vo.Work_FileVo;
+import com.jhta.groupware.work.vo.Work_LineVo2;
 import com.jhta.groupware.work.vo.WorkandWorkfileVo;
 
 @Service
@@ -56,6 +58,14 @@ public class RequestWorkService {
 	
 	public int cancleWorkLine(int work_num) {
 		return requestWorkDao.cancleWorkLine(work_num);
+	}
+	
+	public List<Work_LineVo2> searchWorkLine(int work_num){
+		return requestWorkDao.searchWorkLine(work_num);
+	}
+	
+	public Work_FileVo wfile(int wfile_num) {
+		return requestWorkDao.wfile(wfile_num);
 	}
 	
 }

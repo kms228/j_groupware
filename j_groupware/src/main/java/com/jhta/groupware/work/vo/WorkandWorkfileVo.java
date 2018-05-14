@@ -13,11 +13,12 @@ public class WorkandWorkfileVo {
 	private int wtype_num;
 	//0:근무/1:연차/2:반차/3:지각/4:야근/5:외근출장교육/6:경조사기타
 	private String wfile_orgfilename;
+	private int wfile_num;
 	
 	public WorkandWorkfileVo() {}
 
 	public WorkandWorkfileVo(int work_num, Date work_sdate, Date work_edate, String work_content, Date work_regdate,
-			int work_state, int wtype_num, String wfile_orgfilename) {
+			int work_state, int wtype_num, String wfile_orgfilename, int wfile_num) {
 		super();
 		this.work_num = work_num;
 		this.work_sdate = work_sdate;
@@ -27,6 +28,7 @@ public class WorkandWorkfileVo {
 		this.work_state = work_state;
 		this.wtype_num = wtype_num;
 		this.wfile_orgfilename = wfile_orgfilename;
+		this.wfile_num = wfile_num;
 	}
 
 	public int getWork_num() {
@@ -93,11 +95,20 @@ public class WorkandWorkfileVo {
 		this.wfile_orgfilename = wfile_orgfilename;
 	}
 
+	public int getWfile_num() {
+		return wfile_num;
+	}
+
+	public void setWfile_num(int wfile_num) {
+		this.wfile_num = wfile_num;
+	}
+
 	@Override
 	public String toString() {
 		return "WorkandWorkfileVo [work_num=" + work_num + ", work_sdate=" + work_sdate + ", work_edate=" + work_edate
 				+ ", work_content=" + work_content + ", work_regdate=" + work_regdate + ", work_state=" + work_state
-				+ ", wtype_num=" + wtype_num + ", wfile_orgfilename=" + wfile_orgfilename + "]";
+				+ ", wtype_num=" + wtype_num + ", wfile_orgfilename=" + wfile_orgfilename + ", wfile_num=" + wfile_num
+				+ "]";
 	}
-	
+
 }

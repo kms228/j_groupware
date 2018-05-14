@@ -242,8 +242,8 @@
 										<input type="text" name="table_search"
 											class="form-control pull-right" placeholder="관리자선택"
 											id="line1" data-target="#myModal" data-toggle="modal"
-											readonly="readonly"> <input type="hidden"
-											id="text_emp_num2" name="emp_num2">
+											readonly="readonly"> 
+											<input type="hidden"id="text_emp_num2" name="emp_num2">
 
 										<div class="input-group-btn">
 											<button type="submit" class="btn btn-default">
@@ -324,11 +324,9 @@
 								</div>
 								<label>기간</label>
 								<div id="div_search_month">
-									<span class="glyphicon glyphicon-chevron-left" id="clickL"
-										onclick="clickL()"></span> <input type="text" id="nowDate"
-										name="ann_ann"> <span
-										class="glyphicon glyphicon-chevron-right" id="clickR"
-										onclick="clickR()"></span>
+									<span class="glyphicon glyphicon-chevron-left" id="clickL" onclick="clickL()"></span> 
+									<input type="text" id="nowDate"name="ann_ann"> 
+									<span class="glyphicon glyphicon-chevron-right" id="clickR"onclick="clickR()"></span>
 								</div>
 							</div>
 						</div>
@@ -514,6 +512,8 @@
 					
 					$("#adminTable").last().append('<tr><td>'+data.acnt_num+'</td><td>'+data.emp_name+'</td><td>'
 							+data.dept_name+'</td><td><span class="'+spanC+'">'+data.pst_name+'</span></td><td><input type="button" class="btn btn-danger" value="삭제" onclick="delAdmin('+data.acnt_num+')"></td></tr>');
+					$("#line1").val('');
+					("$text_emp_num2").val('');
 				},error:function(){
 					alert("관리자 선택 후 추가하시오.");
 				}

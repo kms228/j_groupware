@@ -9,7 +9,7 @@
 	<select id="selectResponseList" resultType="com.jhta.groupware.work.vo.SearchResponseListVo" parameterType="map">
 		select cc.wline_num,cc.wline_level,cc.wline_state,cc.work_num,cc.emp_num, 
 		work.work_content, employee.emp_name, to_char(work.work_regdate,'yyyy/mm/dd') regdate,
-		nvl(wfile_orgfilename,' ')"wfile_orgfilename",wtype_num,
+		wfile_num,nvl(wfile_orgfilename,' ')"wfile_orgfilename",wtype_num,
 		decode( wtype_num,
 				            1,(work_edate-work_sdate)+1||'일',
 				            5,(work_edate-work_sdate)+1||'일',
