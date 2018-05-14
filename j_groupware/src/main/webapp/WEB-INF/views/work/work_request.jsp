@@ -7,7 +7,7 @@
 <div>
 
 	<h3>
-		<span class="glyphicon glyphicon-time"></span><span>출근 / 퇴근</span>
+		<span class="glyphicon glyphicon-time"></span> 출근 / 퇴근
 	</h3>
 	<div class="box">
 		<div class="box-body">
