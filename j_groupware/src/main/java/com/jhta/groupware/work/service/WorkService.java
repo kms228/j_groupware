@@ -14,6 +14,12 @@ public class WorkService {
 	@Autowired WorkDao dao;
 	
 	public List<ScheduleVo> searchSch(Map<String, Object>map){
-		return dao.searchSch(map);
+		List<ScheduleVo> a = dao.searchSch(map);
+		for (ScheduleVo vo : a) {
+			System.out.println(vo.toString());
+		}
+		
+		return a;
+		//return dao.searchSch(map);
 	}
 }

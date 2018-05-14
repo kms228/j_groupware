@@ -1,5 +1,6 @@
 package com.jhta.groupware.work.controller;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,8 @@ import com.jhta.groupware.work.service.RequestWorkService;
 import com.jhta.groupware.work.service.SetWorkService;
 import com.jhta.groupware.work.vo.AnnualVo;
 import com.jhta.groupware.work.vo.WorkListVo;
+import com.jhta.groupware.work.vo.Work_FileVo;
+import com.jhta.groupware.work.vo.Work_LineVo2;
 import com.jhta.groupware.work.vo.WorkandWorkfileVo;
 
 @Controller
@@ -34,6 +37,30 @@ public class RequestWorkController {
 	@Autowired private RequestWorkService requestWorkService;
 	@Autowired private SetWorkService setWorkService;
 	@Autowired private AnnualService annualService;
+	
+	@RequestMapping("/file/download")
+	public ModelAndView download(int wfile_num,HttpSession session) {
+		Work_FileVo vo=requestWorkService.wfile(wfile_num);
+		String path=session.getServletContext().getRealPath("/resources/file/workfile");
+		File f=new File(path + File.separator + vo.getWfile_savefilename());
+		String filename=vo.getWfile_orgfilename();
+		ModelAndView mv=new ModelAndView("filedownloadView");
+		mv.addObject("file",f);
+		mv.addObject("filename",filename);
+		mv.addObject("filesize",vo.getWfile_size());
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="/requestWork/searchWorkLine",produces="application/json;charset=utf-8")
+	@ResponseBody
+	public List<Work_LineVo2> searchWorkLine(@RequestParam Map<String,Object> map) {
+		int work_num = Integer.parseInt((String)map.get("work_num"));
+		List<Work_LineVo2> wllist = requestWorkService.searchWorkLine(work_num);
+		System.out.println(wllist.toString());
+		return wllist;
+	}
+	
 	
 	@RequestMapping(value="/requestWork/cancle",produces="application/json;charset=utf-8")
 	@ResponseBody

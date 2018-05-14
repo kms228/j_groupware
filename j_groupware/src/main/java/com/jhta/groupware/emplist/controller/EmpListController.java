@@ -35,7 +35,7 @@ public class EmpListController {
 		ModelAndView mv = new ModelAndView(".login.emplist");
 		List<EmpListVo> emplist=service.getList();
 		mv.addObject("list",emplist);
-		System.out.println("List controller:" +emplist);
+		//System.out.println("List controller:" +emplist);
 		return mv;
 	}
 	@RequestMapping("/empselect")

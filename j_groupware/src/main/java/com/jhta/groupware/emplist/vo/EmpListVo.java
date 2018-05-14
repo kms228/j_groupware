@@ -10,6 +10,7 @@ public class EmpListVo {
 	private Date EMP_HIREDATE;
 	private String DEPT_NAME;
 	private String PST_NAME;
+	private int ACNT_LEVEL;
 	
 	public EmpListVo() {}
 
@@ -17,12 +18,11 @@ public class EmpListVo {
 	public String toString() {
 		return "EmpListVo [EMP_NUM=" + EMP_NUM + ", EMP_NAME=" + EMP_NAME + ", EMP_PHONE=" + EMP_PHONE + ", EMP_EMAIL="
 				+ EMP_EMAIL + ", EMP_HIREDATE=" + EMP_HIREDATE + ", DEPT_NAME=" + DEPT_NAME + ", PST_NAME=" + PST_NAME
-				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString()
-				+ "]\n";
+				+ ", ACNT_LEVEL=" + ACNT_LEVEL + "]";
 	}
 
 	public EmpListVo(int eMP_NUM, String eMP_NAME, String eMP_PHONE, String eMP_EMAIL, Date eMP_HIREDATE,
-			String dEPT_NAME, String pST_NAME) {
+			String dEPT_NAME, String pST_NAME, int aCNT_LEVEL) {
 		super();
 		EMP_NUM = eMP_NUM;
 		EMP_NAME = eMP_NAME;
@@ -31,6 +31,7 @@ public class EmpListVo {
 		EMP_HIREDATE = eMP_HIREDATE;
 		DEPT_NAME = dEPT_NAME;
 		PST_NAME = pST_NAME;
+		ACNT_LEVEL = aCNT_LEVEL;
 	}
 
 	public int getEMP_NUM() {
@@ -88,6 +89,14 @@ public class EmpListVo {
 	public void setPST_NAME(String pST_NAME) {
 		PST_NAME = pST_NAME;
 	}
-	
+
+	public int getACNT_LEVEL() {
+		return ACNT_LEVEL;
+	}
+
+	public void setACNT_LEVEL(int aCNT_LEVEL) {
+		ACNT_LEVEL = aCNT_LEVEL;
+	}
+
 	
 }

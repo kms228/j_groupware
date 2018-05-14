@@ -6,15 +6,19 @@
 
 	
 	<select id="getlist"  resultType="EmpListVo">
-			select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME
-			from EMPLOYEE e, DEPT d, POSITION p
+			select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME,a.ACNT_LEVEL
+			from EMPLOYEE e, DEPT d, POSITION p ,ACCOUNT a
  			where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM and e.EMP_NUM not in(select EMP_NUM from RETIRE)
+ 			and e.EMP_NUM=a.EMP_NUM
 	</select>
 	<select id="retirelist"  resultType="ReListVo">
-		select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME,r.RE_DATE
-		from EMPLOYEE e, DEPT d, POSITION p ,RETIRE r
-		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM and r.EMP_NUM=e.EMP_NUM 
+		select e.EMP_NUM,e.EMP_NAME,e.EMP_PHONE,e.EMP_EMAIL,e.EMP_HIREDATE,d.DEPT_NAME,p.PST_NAME,r.RE_DATE,a.ACNT_LEVEL
+		from EMPLOYEE e, DEPT d, POSITION p ,RETIRE r,ACCOUNT a
+		where e.DEPT_NUM=d.DEPT_NUM and e.PST_NUM=p.PST_NUM and r.EMP_NUM=e.EMP_NUM and e.EMP_NUM=a.EMP_NUM
 	</select>
+	<delete id="delac" >
+		delete from RETIRE where EMP_NUM=#{EMP_NUM}
+	</delete>
 	<update id="updateEmp">
 		UPDATE EMPLOYEE SET EMP_NAME=#{EMP_NAME}, EMP_PHONE=#{EMP_PHONE}, EMP_EMAIL=#{EMP_EMAIL}, EMP_GENDER=#{EMP_GENDER},
 			EMP_BIRTH=to_date(#{EMP_BIRTH},'YYYY/MM/DD'),EMP_HIREDATE=to_date(#{EMP_HIREDATE},'YYYY/MM/DD'),

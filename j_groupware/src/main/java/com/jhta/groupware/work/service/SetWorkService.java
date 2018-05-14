@@ -52,8 +52,8 @@ public class SetWorkService {
 	public int updateAdmin(Map<String, Object>map) {
 		return setWorkDao.updateAdmin(map);
 	}
-	public int cancleAdmin(Map<String, Object>map) {
-		return setWorkDao.cancleAdmin(map);
+	public int delAdmin(Map<String, Object>map) {
+		return setWorkDao.delAdmin(map);
 	}
 	public SearchAdminVo beforeAdmin(Map<String, Object>map) {
 		return setWorkDao.beforeAdmin(map);

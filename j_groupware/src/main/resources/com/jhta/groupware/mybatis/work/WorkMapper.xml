@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.work.WorkMapper">
 	<select id="schedule" parameterType="map" resultType="com.jhta.groupware.work.vo.ScheduleVo">
-			select wtype_num,e.emp_num,emp_name,work_num,work_sdate,work_edate,work_content,work_state,
+	select wtype_num,e.emp_num,emp_name,work_num,work_sdate,work_edate,work_content,work_state,
     decode(wtype_num,
     1,to_char(work_sdate,'yyyy-mm-dd'),
     2,to_char(work_sdate,'yyyy-mm-dd'),

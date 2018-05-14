@@ -22,7 +22,7 @@ public class EmpListService {
 	}
 	public List<ReListVo> retireList(){ 
 		System.out.println("RetireList Service");
-		List<ReListVo> retire=dao.retireList();
+		List<ReListVo> retire=dao.retirelist();
 		return retire;
 	}
 	public int updateEmp(HashMap<String,Object>map) {
@@ -36,5 +36,9 @@ public class EmpListService {
 	public int insertRe(HashMap<String,Object>map) {
 		System.out.println("insert Service");
 		return dao.insertRe(map);
+	}
+	public int delac(int EMP_NUM) {
+		System.out.println("delete Service");
+		return dao.delac(EMP_NUM);
 	}
 }

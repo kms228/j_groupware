@@ -27,6 +27,7 @@ public class WorkController {
 	public List<ScheduleVo> searchSch(HttpSession session){
 		Map<String, Object> map = new HashMap<>();
 		map.put("emp_num", session.getAttribute("emp_num"));
+		System.out.println(session.getAttribute("emp_num"));
 		List<ScheduleVo> slist = service.searchSch(map);
 		System.out.println("22222222222222222222222222222222222222222222222222222");
 		for(ScheduleVo vo:slist) {

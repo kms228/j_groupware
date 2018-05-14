@@ -24,7 +24,7 @@
 							</thead>
 							<tbody>
 								<c:choose >
-								<c:when test="${PST_NUM =='1'}">				
+								<c:when test="${ACNT_LEVEL =='0'}">				
 									<c:forEach items="${list }" var="list">
 									<tr role="row">
 										<th  class="select-checkbox">${list.EMP_NUM}</th>															
@@ -40,12 +40,12 @@
 								<c:otherwise>
 								<c:forEach items="${list }" var="list">
 								<tr role="row">
-									<th>${list.EMP_NUM }</th>															
+									<th>${list.EMP_NUM }</th>	
+									<th>${list.DEPT_NAME}</th>																
 									<th>${list.EMP_NAME }</th>								
+									<th>${list.PST_NAME }</th>															
 									<th>${list.EMP_EMAIL }</th>															
-									<th>${list.EMP_HIREDATE }</th>															
-									<th>${list.DEPT_NAME }</th>								
-									<th>${list.PST_NAME }</th>
+									<th>${list.EMP_HIREDATE }</th>								
 								</tr>						
 								</c:forEach>
 								</c:otherwise>						
