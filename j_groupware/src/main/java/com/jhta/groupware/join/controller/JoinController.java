@@ -58,7 +58,7 @@ public class JoinController {
 			System.out.println("aa : "+aa);
 			 
 			System.out.println("성공");
-			return "redirect:.login.join";
+			return "redirect:.main";
 		}catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("실패..?");

@@ -10,10 +10,7 @@
       <h2 class="form-signin-heading">Please login</h2>
       <input type="text" class="form-control" name="ACNT_ID" placeholder="ID" required="" autofocus="" />
       <input type="password" class="form-control" name="ACNT_PWD" placeholder="PWD" required=""/> 
-      <label >
-      	<a href="<c:url value='/join'/>">JOIN</a><br>
-        <a href="#">FORGET YOUR ID/PWD</a>
-      </label>      
+   
       <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
     </form>
   </div>
