@@ -2,8 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<link rel="stylesheet" type="text/css" href="">
 
 <div>
+
 	<h3>
 		<span class="glyphicon glyphicon-time"></span> 출근 / 퇴근
 	</h3>
@@ -446,7 +448,7 @@
 				class="dataTables_wrapper form-inline dt-bootstrap">
 				<div class="row">
 					<div class="col-sm-12">
-						<table id="table3"
+						<table id="table3" data-order='[[ 6, "desc" ]]'
 							class="table table-bordered table-striped dataTable" role="grid"
 							aria-describedby="example1_info">
 							<thead>
@@ -535,7 +537,7 @@
 									</c:choose>
 									<c:choose>
 										<c:when test="${wwl.work_state==0 }">
-											<c:set var="requestState" value="진행중" />
+											<c:set var="requestState" value="진행 중" />
 											<c:set var="fontColor" value="green"/>
 										</c:when>
 										<c:when test="${wwl.work_state==1 }">
@@ -557,11 +559,13 @@
 									<td>${requestTerm }</td>
 									<td>${calDate }</td>
 									<td>${wwl.work_content }</td>
-									<td>${wwl.wfile_orgfilename }</td>
+									<td><a href="<c:url value='/file/download?wfile_num=${wwl.wfile_num}'/>">${wwl.wfile_orgfilename }</a></td>
 									<td>
 										<fmt:formatDate value="${wwl.work_regdate}" pattern="yyyy/MM/dd"/>
 									</td>
-									<td><span style="color: ${fontColor}">${requestState }</span></td>
+									<td>
+										<label style="color:${fontColor}" class="stateHv"  data-target="#myModal2" data-toggle="modal" onclick="mmm(${wwl.work_num})">${requestState }</label>
+									</td>
 									<td>
 										<c:if test="${wwl.work_state==0 }">
 											<input type="button" value="취소" class="btn btn-danger" onclick="c(${wwl.work_num})">
@@ -611,8 +615,116 @@
 				</div>
 			</div>
 		</div>
+		
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">결재 진행상태</h4>
+					</div>
+					<div class="modal-body" id="linecontent">
+						<table id="modal_table" data-order='[[ 0, "asc" ]]'>
+							<thead>
+								<tr>
+									<th>결재 순서</th><th>부서</th><th>승인자</th><th>상태</th>
+								</tr>
+							</thead>
+							
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeM">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 	<script type="text/javascript">
+	var tm = $("#modal_table").DataTable({
+		searching:false,
+		paging:false,
+		//언어패치
+    	language: {
+    		
+    		 "decimal":        "",
+    		 "emptyTable":     "데이터가 없습니다.",
+    		 "info":           "_START_ - _END_ (총  _TOTAL_ 개)",
+    		 "infoEmpty":      "0개",
+    		 "infoFiltered":   "(전체 _MAX_ 개 중 검색결과)",
+    		 "infoPostFix":    "",
+    		 "thousands":      ",",
+    		 "lengthMenu":     " _MENU_ 개씩 보기",
+    		 "loadingRecords": "로딩중...",
+    		 "processing":     "처리중...",
+    		 "search":         "검색:",
+    		 "zeroRecords":    "검색된 데이터가 없습니다.",
+    		 "paginate": {
+    		     "first":      "첫 페이지",
+    		     "last":       "마지막 페이지",
+    		     "next":       "다음",
+    		     "previous":   "이전"
+    		 }
+        }
+       
+	});
+	
+	$(".stateHv").hover(function(){
+		$(this).css("cursor","pointer");
+	});
+	function mmm(i){
+		$.ajax({
+			url:"<c:url value='/requestWork/searchWorkLine'/>",
+			dataType:"json",
+			data:{"work_num":i},
+			success:function(data){
+				tm.clear().draw();
+				var state='';
+				var fc='';
+				var ban=0;
+				var ss=0;
+				for(var i=0;i<data.length;i++){
+					if(data[i].wline_state==0){
+						if(ban==0){
+							if(ss==0){
+								state='진행 중';
+								fc='green';
+								ss=1;
+							}else{
+								state='진행 전'
+								fc='black';
+							}
+						}else{
+							state='';
+						}
+					}else if(data[i].wline_state==1){
+						if(ban==0){
+							state='승인';
+							fc='blue';
+						}else{
+							state='';
+						}
+					}else if(data[i].wline_state==2){
+						state='반려';
+						fc='red';
+						ban=1;
+					}
+					tm.row.add([
+						data[i].wline_level+'차',
+						data[i].dept_name,
+						data[i].emp_name+' '+data[i].pst_name,
+						'<label style="color:'+fc+'">'+state+'</label>'
+					]).draw(false);
+				}
+			},error:function(){alert("error");}
+		});
+	}
+	
 		$(function() {
+			
 			//날짜
 			var nowDate = moment().format('YYYY/MM/DD');
 			$("#nowDate").val(nowDate);
@@ -621,7 +733,6 @@
 				var nowTime = moment().format('HH:mm:ss');
 				$("#nowTime").val(nowTime);
 			}, 1000);
-			selectWorkTime();
 			
 			//tree모달
 			$("#line1,#line2,#line3,#line4,#line5,#line6").click(function() {
@@ -709,10 +820,6 @@
 		});
 		
 		
-		function selectWorkTime() {
-			
-		}
-
 		//출근버튼
 		function workStart() {
 			if ($("#text_workstart").val() == null
@@ -774,6 +881,9 @@
 				});
 			}
 		}
+	
+		
 	</script>
 </div>
+
 <!-- /.box-body -->

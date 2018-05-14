@@ -53,7 +53,7 @@
 	<!-- ///////////////////////////////////////////신청현황보기//////////////////////////////////////////////////// -->
 	<!-- 나의 신청현황 -->
 	<select id="selectMyRequest" parameterType="int" resultType="com.jhta.groupware.work.vo.WorkandWorkfileVo">
-		select work.work_num, work_sdate, work_edate, work_content, work_regdate, work_state, wtype_num, work_file.WFILE_ORGFILENAME 
+		select work.work_num, work_sdate, work_edate, work_content, work_regdate, work_state, wtype_num, work_file.WFILE_ORGFILENAME, work_file.wfile_num
 		from work, work_file
 		where work.work_num=work_file.work_num and emp_num=#{emp_num}
 	</select>
@@ -67,6 +67,17 @@
 	<update id="cancleWorkLine" parameterType="int">
 		update work_line set wline_state=3 where work_num=#{work_num}
 	</update>
+	
+	<!-- /////////////////////////////////////결재라인받아오기 /////////////////////////-->
+	<select id="searchWorkLine" parameterType="int" resultType="com.jhta.groupware.work.vo.Work_LineVo2">
+		select wline_num,emp_name,e.emp_num,work_num,wline_state,wline_level,pst_name,dept_name 
+		from work_line w,employee e,position p,dept d 
+		where e.emp_num=w.emp_num and e.pst_num=p.pst_num and e.dept_num=d.dept_num and work_num=#{work_num}
+	</select>
+	<!-- 파일다운로드하기 위한 파일정보얻기 -->
+	<select id="wfile" resultType="workfile" parameterType="int">
+		select * from work_file where wfile_num=#{value}
+	</select>
 	
 	
 	

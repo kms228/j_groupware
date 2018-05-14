@@ -13,7 +13,7 @@
 	</select>
 	<!-- 직원들의 근태신청 내역 확인 -->
 	<select id="selectRequestList" parameterType="map" resultType="com.jhta.groupware.work.vo.RequestListVo">
-		select work.work_num, work_sdate, work_edate,work_content, to_char(work_regdate,'yyyy/mm/dd') "regdate", work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
+		select wfile_num,work.work_num, work_sdate, work_edate,work_content, to_char(work_regdate,'yyyy/mm/dd') "regdate", work_state, wtype_num, nvl(wfile_orgfilename,' ')"wfile_orgfilename",emp_name,
 		    decode( wtype_num,
 		            1,(work_edate-work_sdate)+1||'일',
 		            5,(work_edate-work_sdate)+1||'일',
