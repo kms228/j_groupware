@@ -118,7 +118,7 @@ function remove() {
 //	}	
 	var request = db.transaction(DB_STORE_NAME, "readwrite")
 	   .objectStore(DB_STORE_NAME)
-	   .delete(i);
+	   .delete();
 	
 	   request.onsuccess = function(event) {
 	      alert("prasad entry has been removed from your database.");
