@@ -212,6 +212,7 @@
 		$("#userTab").addClass("active");		
 		$("#control-sidebar-chatting-tab").removeClass("active");
 		$("#control-sidebar-users-tab").addClass("active");
+		globalAcnt_id = '';
 	});
 	/* $("#chatAnchor").click(function(){
 		$("#userTab").removeClass("active");
