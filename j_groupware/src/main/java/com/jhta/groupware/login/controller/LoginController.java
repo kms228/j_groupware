@@ -23,45 +23,39 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest req) {
-		//ModelAndView mv = new ModelAndView(".main");
-		HttpSession session = req.getSession();
-		//int EMP_NUM=(Integer)session.getAttribute("emp_num");
-		//System.out.println(EMP_NUM);
-		if(session!= null) {
-			return ".login.login1";			
-		}else {
-			return ".main";
-		}
-		
+		System.out.println("GET방식 login");
+
+		System.out.println("02");
+		return ".login.login1";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginOk(String ACNT_ID, String ACNT_PWD, HttpSession session,HttpServletRequest req) {
-			HttpSession s = req.getSession();
+	public String loginOk(String ACNT_ID, String ACNT_PWD, HttpSession session, HttpServletRequest req) {
+		System.out.println("GET방식 login");
+		HttpSession s = req.getSession();
 
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("ACNT_ID", ACNT_ID);
-			map.put("ACNT_PWD", ACNT_PWD);
-			MemberAccountVo vo = service.login(map);
-			
-			if (vo!=null) {
-				System.out.println(ACNT_ID);
-				
-				session.setAttribute("ACNT_ID", ACNT_ID);
-				session.setAttribute("ACNT_LEVEL",vo.getACNT_level());
-				session.setAttribute("emp_num", vo.getEMP_NUM());
-				
-				System.out.println(vo.getEMP_NUM());
-				LoginVo vo2=service.getinfo(vo.getEMP_NUM());
-				session.setAttribute("PST_NUM", vo2.getPST_NUM());
-				System.out.println(vo2.getPST_NUM());
-				return ".main";
-			} else {
-				System.out.println("안되!!!");
-				return ".login.login1";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("ACNT_ID", ACNT_ID);
+		map.put("ACNT_PWD", ACNT_PWD);
+		MemberAccountVo vo = service.login(map);
+
+		if (vo != null) {
+			System.out.println(ACNT_ID);
+
+			session.setAttribute("ACNT_ID", ACNT_ID);
+			session.setAttribute("ACNT_LEVEL", vo.getACNT_level());
+			session.setAttribute("emp_num", vo.getEMP_NUM());
+
+			System.out.println(vo.getEMP_NUM());
+			LoginVo vo2 = service.getinfo(vo.getEMP_NUM());
+			session.setAttribute("PST_NUM", vo2.getPST_NUM());
+			System.out.println(vo2.getPST_NUM());
+			return ".main";
+		} else {
+			System.out.println("안되!!!");
+			return ".login.login1";
 		}
 
-		
 	}
 
 	@RequestMapping(value = "/logout")
