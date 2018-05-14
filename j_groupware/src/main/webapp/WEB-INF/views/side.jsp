@@ -66,6 +66,7 @@
           <ul class="treeview-menu">
             <li><a href="<c:url value='/emplist'/>"><i class="fa fa-circle-o"></i>재직자 리스트</a></li>
             <li><a href="<c:url value='/retirelist'/>"><i class="fa fa-circle-o"></i>퇴직자 리스트</a></li>
+            <li><a href="<c:url value='/noticlist'/>"><i class="fa fa-circle-o"></i>공지사항</a></li>
 	        <c:choose>
 	            	<c:when test="${ACNT_LEVEL=='0'}">
 	            		<li><a href="<c:url value='/join'/>"><i class="fa fa-circle-o"></i>(관리자)사원추가</a></li>
