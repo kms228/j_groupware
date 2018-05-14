@@ -47,23 +47,7 @@ function getObjectStore(store_name, mode) {
 }
 
 function read(acnt_id) {
-//	var objectStore = getObjectStore(DB_STORE_NAME,'readonly');		
-////    var transaction = db.transaction(["chatting"]);
-////    var objectStore = transaction.objectStore("chatting");
-//    var request = objectStore.get(acnt_id);
-//    alert(request);
-//    request.onerror = function(event) {
-//       alert("Unable to retrieve daa from database!");
-//    };
-//    
-//    request.onsuccess = function(event) {
-//       // Do something with the request.result!
-//       if(request.result) {
-//          alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
-//       } else {
-//          alert("Kenny couldn't be found in your database!");
-//       }
-//    };	
+	
 	var objectStore = getObjectStore(DB_STORE_NAME,'readonly');
 //  var objectStore = db.transaction("chatting").objectStore("chatting");
 	var index = objectStore.index('acnt_id');
@@ -71,7 +55,7 @@ function read(acnt_id) {
 	index.openCursor(singleKeyRange).onsuccess = function(event) {
       var cursor = event.target.result;
       if (cursor) {
-    	alert('cursor.value.username : '+cursor.value.username);
+//    	alert('cursor.value.username : '+cursor.value.username);
     	if(user_name === cursor.value.username){
     		showChatlistInDB({acnt_id:cursor.key, name:cursor.value.name, message:cursor.value.message, chatDate:cursor.value.chatDate});            	
     	}   
