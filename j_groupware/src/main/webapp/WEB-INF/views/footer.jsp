@@ -6,6 +6,6 @@
     <div class="pull-right hidden-xs">
       <b>Version</b> 2.3.8
     </div>
-    <strong>Shared by <i class="fa fa-love"></i><a href="https://bootstrapthemes.co">BootstrapThemes</a>
+    <strong>Copyright(c) J Groupware All rights reserved.</strong>
  </footer>
 </div>
