@@ -25,11 +25,13 @@
 <!-- Morris.js charts -->
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script> -->
 <%-- <script src="<c:url value='/'/>resources/plugins/morris/morris.min.js"></script> --%>
-<!-- Sparkline -->
+<!-- Sparkline 
 <script src="<c:url value='/'/>resources/plugins/sparkline/jquery.sparkline.min.js"></script>
-<!-- jvectormap -->
+-->
+<!-- jvectormap
 <script src="<c:url value='/'/>resources/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="<c:url value='/'/>resources/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+ -->
 <!-- jQuery Knob Chart -->
 <script src="<c:url value='/'/>resources/plugins/knob/jquery.knob.js"></script>
 <!-- daterangepicker -->
@@ -47,7 +49,7 @@
 <!-- AdminLTE App -->
 <script src="<c:url value='/'/>resources/dist/js/app.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<%-- <script src="<c:url value='/'/>resources/dist/js/pages/dashboard.js"></script> --%>
+<!--  <script src="<c:url value='/'/>resources/dist/js/pages/dashboard.js"></script>-->
 <!-- AdminLTE for demo purposes -->
 <script src="<c:url value='/'/>resources/dist/js/demo.js"></script>
 <script src="<c:url value='/'/>resources/js/ckeditor.js"></script>
@@ -90,7 +92,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <%-- <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.min.css"> --%>
+  <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -130,16 +132,17 @@
 
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
-<div id="wrapper">
-	<div id="header">
+<body class="skin-blue sidebar-mini" style="height: auto;">
+<div id="wrapper" style="height: auto;">
+	<div id="header" class="main-header">
 		<tiles:insertAttribute name="header"/>
 	</div>
+	
 	<div id="body">
 		<div id="side">
 			<tiles:insertAttribute name="side"/>
 		</div>
-		<div id="main">
+		<div id="main" class="content-wrapper" style="min-height: 921px;">
 			<tiles:insertAttribute name="main"/>
 		</div>
 	</div>
@@ -262,10 +265,8 @@ $(function () {
     	            }
     	        }
         }
-       
     });
     $("#signlisttable, #signnowtable").DataTable();
   });
-
 </script>
 </html>
