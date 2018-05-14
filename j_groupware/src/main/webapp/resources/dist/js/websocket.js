@@ -1,17 +1,9 @@
 var stompClient = null;
 var globalAcnt_id = null;
-var username = null;
+var user_name = null;
 
 function setConnected(connected) {
-//    $("#connect").prop("disabled", connected);
-//    $("#disconnect").prop("disabled", !connected);
-//    if (connected) {
-//        $("#conversation").show();
-//    }
-//    else {
-//        $("#conversation").hide();
-//    }
-//    $("#greetings").html("");
+
 }
 
 function connect() {
@@ -21,7 +13,7 @@ function connect() {
     stompClient.connect({}, function (frame) {
 //        setConnected(true);
         console.log('Connected: ' + frame);
-        username = frame.headers["user-name"];        
+        user_name = frame.headers["user-name"];
         stompClient.subscribe('/user/topic/list', function(users) {
         	echoUser();
         	console.log('야호 users:'+users);        	
@@ -76,14 +68,14 @@ function showGreeting(message) {
 function addUserlist(users){	
 	var acnt_id;	
 	for(i in users){
-	  if(!(username===users[i].acnt_id)){
+	  if(!(user_name===users[i].acnt_id)){
 		acnt_id = users[i].acnt_id;
 		$("#userList").append(
 				'<li><a href="#control-sidebar-chatting-tab" data-toggle="tab" id="'+users[i].acnt_id +'"><i class="menu-icon fa fa-lightbulb-o bg-white"></i><div class="contacts-list-info">'+
 				'<span class="contacts-list-name">'+users[i].pst_name+' '+users[i].emp_name+'<small class="contacts-list-date pull-right">'+users[i].dept_name+'</small></span>'+
 				'<span class="contacts-list-msg">i will message for you</span></div></a></li>');
 		$("#"+acnt_id).on('click',function(event){
-			cleanTheChattingRoom();			
+			cleanTheChattingRoom();
 			globalAcnt_id = $(this).prop("id");
 			read(globalAcnt_id);
 			bulbOff($(this).prop("id"));
@@ -97,7 +89,7 @@ function addUserlist(users){
 }
 function addDB(chat){
 //	alert("addDB:"+chat.acnt_id);
-	add({acnt_id : chat.acnt_id, name : chat.pst_name+' '+chat.emp_name, message:chat.message, chatDate:chat.chatDate});
+	add({acnt_id : chat.acnt_id, name : chat.pst_name+' '+chat.emp_name, message:chat.message, chatDate:chat.chatDate, username:user_name});
 }
 function showChatlist(chat){	
 //	alert(globalAcnt_id);
@@ -112,26 +104,13 @@ function showChatlist(chat){
 	}
 	if(!(globalAcnt_id===chat.acnt_id && tab_class ==='tab-pane direct-chat-primary active')){
 		bulbOn(chat.acnt_id);
-	}			
-/*	
-  <div class="direct-chat-messages">
-    <div class="direct-chat-msg">
-      <div class="direct-chat-info clearfix">
-        <span class="direct-chat-name pull-left">Alexander Pierce</span>
-        <span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>
-      </div>      
-      <img class="direct-chat-img" src="../dist/img/user1-128x128.jpg" alt=""><!-- /.direct-chat-img -->
-      <div class="direct-chat-text">
-        Is this template really for free? That's unbelievable!        
-      </div>
-    </div>
-  </div>
-*/
+	}
+
 }
 function showChatlistInDB(chat){
-	alert(chat.name);
+//	alert(chat.name);
 //	alert('showChatlistInDB');
-	console.log('나 아이디인 사람들의 날짜'+typeof chat.chatDate);
+//	console.log('나 아이디인 사람들의 날짜'+typeof chat.chatDate);
 	if(chat.name!=='나'){
 		
 		$("#chatContents").append('<div class="direct-chat-messages"><div class="direct-chat-msg"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-left">'+
@@ -161,7 +140,7 @@ function addUser(user){
 	var li = $("#userList > li > a#"+user.acnt_id);
 	var result = $(li).prop("id");
 //	console.log("li :"+$(li).prop("id"));
-	if(!(username===user.acnt_id) && result !== user.acnt_id){
+	if(!(user_name===user.acnt_id) && result !== user.acnt_id){
 	  $("#userList").append(
 			'<li><a href="#control-sidebar-chatting-tab" data-toggle="tab" id="'+user.acnt_id +'"><i class="menu-icon fa fa-lightbulb-o bg-white"></i><div class="contacts-list-info">'+
 			'<span class="contacts-list-name">'+user.pst_name+' '+user.emp_name+'<small class="contacts-list-date pull-right">'+user.dept_name+'</small></span>'+
@@ -182,23 +161,12 @@ function cleanTheChattingRoom(){
 function chatMyself(msg){
 	var now = moment();	
 	//console.log('moment().milliseconds()::'+moment().year());
-	add({acnt_id:globalAcnt_id, name: '나', message:msg, chatDate:Number(now.format('x'))});
+	add({acnt_id:globalAcnt_id, name: '나', message:msg, chatDate:Number(now.format('x')), username:user_name});
 	$("#chatContents").append('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-right">'+
 			'나'+'</span><span class="direct-chat-timestamp pull-left">'+now.format('MM월 DD일 HH시 mm분')+'</span></div><div class="direct-chat-text">'+
 			msg+'</div></div>');
 	$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
-	/*
-    <div class="direct-chat-msg right">
-      <div class="direct-chat-info clearfix">
-        <span class="direct-chat-name pull-right">Sarah Bullock</span>
-        <span class="direct-chat-timestamp pull-left">23 Jan 2:05 pm</span>
-      </div>
-      <img class="direct-chat-img" src="../dist/img/user3-128x128.jpg" alt="Message User Image"><!-- /.direct-chat-img -->
-      <div class="direct-chat-text">
-        You better believe it!
-      </div>
-    </div>
-	*/
+	
 }
 
 $(function () {	

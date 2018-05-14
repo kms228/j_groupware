@@ -80,7 +80,7 @@
 <script src='<c:url value='/'/>resources/dist/js/sockjs.js'></script>
 <script src="<c:url value='/'/>resources/dist/js/stomp.min.js"></script>
 <script src="<c:url value='/'/>resources/dist/js/websocket.js"></script>
-<%-- <script src="<c:url value='/'/>resources/dist/js/indexedDB.js"></script> --%>
+<script src="<c:url value='/'/>resources/dist/js/indexedDB.js"></script>
 
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
