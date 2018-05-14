@@ -82,7 +82,7 @@
 <script src='<c:url value='/'/>resources/dist/js/sockjs.js'></script>
 <script src="<c:url value='/'/>resources/dist/js/stomp.min.js"></script>
 <script src="<c:url value='/'/>resources/dist/js/websocket.js"></script>
-<%-- <script src="<c:url value='/'/>resources/dist/js/indexedDB.js"></script> --%>
+<script src="<c:url value='/'/>resources/dist/js/indexedDB.js"></script>
 
   <link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>"/>
   <!-- Bootstrap 3.3.6 -->
@@ -92,7 +92,7 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.min.css">
+  <%-- <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.min.css"> --%>
   <link rel="stylesheet" href="<c:url value='/'/>resources/dist/css/AdminLTE.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->

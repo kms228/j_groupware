@@ -6,19 +6,20 @@ window.msIDBTransaction;
 window.IDBKeyRange = window.IDBKeyRange || 
 window.webkitIDBKeyRange || window.msIDBKeyRange
 
-//if (window.indexedDB) {
-//	   window.alert("Your browser support a stable version of IndexedDB.")
-//}
 if (!window.indexedDB) {
    window.alert("Your browser doesn't support a stable version of IndexedDB.")
 }
+
+const DB_NAME = 'jgroupware-indexeddb-chatting';
+const DB_VERSION = 1; // Use a long long for this value (don't use a float)
+const DB_STORE_NAME = 'chatting';
 
 const chattingData = [
     { id: "00-01", name: "gopal", age: 35, email: "gopal@tutorialspoint.com" },
     { id: "00-02", name: "prasad", age: 32, email: "prasad@tutorialspoint.com" }
  ];
 var db;
-var request = window.indexedDB.open("superDatabase", 2);
+var request = window.indexedDB.open(DB_NAME, DB_VERSION);
 
 request.onerror = function(event) {
     console.log("error: ");
@@ -31,30 +32,54 @@ request.onsuccess = function(event) {
 
 request.onupgradeneeded = function(event) {
      var db = event.target.result;
-     var objectStore = db.createObjectStore("chatting", {keyPath: "id"});
+     var store = event.currentTarget.result.createObjectStore(
+    	        DB_STORE_NAME, { keyPath: 'chat_num', autoIncrement: true });
+//     var objectStore = db.createObjectStore("chatting", { autoIncrement : true });
+      store.createIndex('acnt_id', 'acnt_id', { unique: false });
+//    store.createIndex('name', 'name', { unique: false });
+    
      
-//     for (var i in chattingData) {
-//        objectStore.add(chattingData[i]);
-//     }
 }
 
-function read() {
-    var transaction = db.transaction(["chatting"]);
-    var objectStore = transaction.objectStore("chatting");
-    var request = objectStore.get("00-03");
-    
-    request.onerror = function(event) {
-       alert("Unable to retrieve daa from database!");
-    };
-    
-    request.onsuccess = function(event) {
-       // Do something with the request.result!
-       if(request.result) {
-          alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
-       } else {
-          alert("Kenny couldn't be found in your database!");
-       }
-    };
+function getObjectStore(store_name, mode) {
+    var tx = db.transaction(store_name, mode);
+    return tx.objectStore(store_name);
+}
+
+function read(acnt_id) {
+//	var objectStore = getObjectStore(DB_STORE_NAME,'readonly');		
+////    var transaction = db.transaction(["chatting"]);
+////    var objectStore = transaction.objectStore("chatting");
+//    var request = objectStore.get(acnt_id);
+//    alert(request);
+//    request.onerror = function(event) {
+//       alert("Unable to retrieve daa from database!");
+//    };
+//    
+//    request.onsuccess = function(event) {
+//       // Do something with the request.result!
+//       if(request.result) {
+//          alert("Name: " + request.result.name + ", Age: " + request.result.age + ", Email: " + request.result.email);
+//       } else {
+//          alert("Kenny couldn't be found in your database!");
+//       }
+//    };	
+	var objectStore = getObjectStore(DB_STORE_NAME,'readonly');
+//  var objectStore = db.transaction("chatting").objectStore("chatting");
+	var index = objectStore.index('acnt_id');
+	var singleKeyRange = IDBKeyRange.only(acnt_id);
+	index.openCursor(singleKeyRange).onsuccess = function(event) {
+      var cursor = event.target.result;
+      if (cursor) {
+    	alert('cursor.value.username : '+cursor.value.username);
+    	if(user_name === cursor.value.username){
+    		showChatlistInDB({acnt_id:cursor.key, name:cursor.value.name, message:cursor.value.message, chatDate:cursor.value.chatDate});            	
+    	}   
+    	cursor.continue();
+     } else {
+        console.log("No more entries!");
+     }
+  };
  } 
  
 function readAll() {
@@ -64,7 +89,7 @@ function readAll() {
        var cursor = event.target.result;
        
        if (cursor) {
-          alert("Name for id " + cursor.key + " is " + cursor.value.name + ", Age: " + cursor.value.age + ", Email: " + cursor.value.email);
+    	   alert("Name for key " + cursor.key + " acnt_id : " + cursor.value.acnt_id + ', name : ' + cursor.value.name + ", message : " + cursor.value.message + ", chatDate: " + cursor.value.chatDate +", username: "+cursor.value.username);
           cursor.continue();
        } else {
           alert("No more entries!");
@@ -72,13 +97,15 @@ function readAll() {
     };
 }
 
-function add() {
-	   var request = db.transaction(["chatting"], "readwrite")
-	   .objectStore("chatting")
-	   .add({ id: "03", name: "prasad", age: 24, email: "prasad@tutorialspoint.com" });
+function add(chat) {
+	var objectStore = getObjectStore(DB_STORE_NAME,'readwrite');
+//	var request = db.transaction(["chatting"], "readwrite")
+//	  .objectStore("chatting")
+	  objectStore.add(chat);
+	   //{ id: "03", name: "prasad", age: 24, email: "prasad@tutorialspoint.com" }
 	   
 	   request.onsuccess = function(event) {
-	      alert("Prasad has been added to your database.");
+	      alert("The Data has been added to your database.");
 	   };
 	   
 	   request.onerror = function(event) {
@@ -86,10 +113,13 @@ function add() {
 	   }
 }
 function remove() {
-	   var request = db.transaction(["chatting"], "readwrite")
-	   .objectStore("chatting")
-	   .delete("00-01");
-	   
+//	for(var i=2;i<=38;i+=1){
+//		
+//	}	
+	var request = db.transaction(DB_STORE_NAME, "readwrite")
+	   .objectStore(DB_STORE_NAME)
+	   .delete();
+	
 	   request.onsuccess = function(event) {
 	      alert("prasad entry has been removed from your database.");
 	   };

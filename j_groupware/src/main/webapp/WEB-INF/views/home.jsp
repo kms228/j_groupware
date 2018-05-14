@@ -8,10 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-      <!-- <button onclick = "read()">Read </button>
+      <button onclick = "read('sin')">Read </button>
       <button onclick = "readAll()">Read all </button>
       <button onclick = "add()">Add data </button>
-      <button onclick = "remove()">Delete data </button> -->
+      <button onclick = "remove()">Delete data </button>
 <div>
 	<h1>main</h1>
 </div>
