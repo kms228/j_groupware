@@ -41,9 +41,9 @@ function connect() {
 }
 
 function disconnect() {
-	alert("여기는 disconnect()()");
+	alert("여기는 disconnect()");
 	stompClient.send("/app/quit", {});
-    if (stompClient !== null) {
+    if (stompClient !== null) {    	
         stompClient.disconnect();
     }
 //    setConnected(false);
@@ -179,7 +179,7 @@ $(function () {
     });
 //    $( "#disconnect" ).click(function() { disconnect(); });    
     $( "#realChat").on('submit',function(e) {
-    	console.log("globalAcnt_id :"+globalAcnt_id);
+    	//console.log("globalAcnt_id :"+globalAcnt_id);
     	sendMessage($("#chatContent").val());
     	e.preventDefault();    	
     });

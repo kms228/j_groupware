@@ -42,7 +42,7 @@ public class GreetingController {
     @MessageMapping("/echo/user")
     @SendToUser(broadcast=false)
     public void addUser(Principal principal) throws Exception { 
-    	System.out.println("----------------------------------------------");
+//    	System.out.println("----------------------------------------------");
     	simpMessagingTemplate.convertAndSend("/topic/add", service.getChatUser(principal));
     }
     @MessageMapping("/quit")
@@ -54,10 +54,10 @@ public class GreetingController {
     @MessageMapping("/chat/message/{username}")
     public void sendMessage(@Payload ChatVo vo, @DestinationVariable ("username") String username, Principal principal) throws Exception {
         Thread.sleep(1000); // simulated delay
-        System.out.println("행복한 그리팅 컨트롤러 :"+vo.getMessage());
+//        System.out.println("행복한 그리팅 컨트롤러 :"+vo.getMessage());
         service.filloutChatVo(vo, principal);        
-        System.out.println(vo.getEmp_name());
-        System.out.println(vo.getPst_name());
+//        System.out.println(vo.getEmp_name());
+//        System.out.println(vo.getPst_name());
         
         simpMessagingTemplate.convertAndSendToUser(username, "/topic/message", vo);
     }    
