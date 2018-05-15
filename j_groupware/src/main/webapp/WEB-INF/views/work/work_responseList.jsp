@@ -67,12 +67,14 @@
 									<th>결재 순서</th><th>부서</th><th>승인자</th><th>상태</th>
 								</tr>
 							</thead>
-							
 						</table>
+						<div>
+							<span style="color: red" class="col-xs-2">반려사유</span><input type="text" id="wline_content" name="wline_content" class="col-xs-10">
+						</div>
 					</div>
 					<div class="modal-footer">
 						<input type="button" id="sbtn" class="btn btn-primary" value="승인"data-dismiss="modal" onclick="">
-						<input type="button" id="bbtn" class="btn btn-danger" value="반려"data-dismiss="modal" onclick="">
+						<input type="button" id="bbtn" class="btn btn-danger pull-left" value="반려"data-dismiss="modal" onclick="">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeM">닫기</button>
 					</div>
 				</div>
@@ -82,6 +84,7 @@
 	var tm = $("#modal_table").DataTable({
 		searching:false,
 		paging:false,
+		info:false,
 		//언어패치
     	language: {
     		
@@ -106,7 +109,8 @@
         }
        
 	});
-	function mmm(i,row,wline_num){
+	function mmm(i,row,wline_num,wline_content){
+		$("#wline_content").val('');
 		$.ajax({
 			url:"<c:url value='/requestWork/searchWorkLine'/>",
 			dataType:"json",
@@ -150,7 +154,7 @@
 						'<label style="color:'+fc+'">'+state+'</label>'
 					]).draw(false);
 					$("#sbtn").attr('onclick','s('+row+','+wline_num+')');
-					$("#bbtn").attr('onclick','b('+row+','+wline_num+')');
+					$("#bbtn").attr('onclick','b('+row+','+wline_num+','+wline_content+')');
 				}
 			},error:function(){alert("error");}
 		});
@@ -200,32 +204,49 @@
 	function s(i,wline_num){
 		var rowdata = t3.rows(i).data();
 		console.log("wline_num : "+wline_num);
-		var result = confirm("[승인하시겠습니까?]\n"+"신청번호 : "+rowdata[0][1]+"\n사원이름 : "+rowdata[0][2]+"\n구분 : "+rowdata[0][3]+"\n날짜 : "+rowdata[0][4]+
-				"\n시간 : "+rowdata[0][5]+"\n사유 : "+rowdata[0][6]+"\n신청일 : "+rowdata[0][8]);
-		if(result){
-			$.getJSON("<c:url value='/responseWorkList/accept'/>",{"wline_num":wline_num},function(data){
-				if(data.result){
-					searchList2(event);
-				}else{
-					alert("error");
-				}
-			});
+		var wline_content = $("#wline_content").val();
+		console.log("wline_content : "+wline_content);
+		if(wline_content==null||wline_content==''){
+			$("#sbtn").attr('data-dismiss','modal');
+			var result = confirm("[승인하시겠습니까?]\n"+"신청번호 : "+rowdata[0][1]+"\n사원이름 : "+rowdata[0][2]+"\n구분 : "+rowdata[0][3]+"\n날짜 : "+rowdata[0][4]+
+					"\n시간 : "+rowdata[0][5]+"\n사유 : "+rowdata[0][6]+"\n신청일 : "+rowdata[0][8]);
+			if(result){
+				$.getJSON("<c:url value='/responseWorkList/accept'/>",{"wline_num":wline_num},function(data){
+					if(data.result){
+						searchList2(event);
+					}else{
+						alert("error");
+					}
+				});
+			}
+		}else{
+			$("#sbtn").attr('data-dismiss','');
+			alert("승인시 반려사유는 비워주세요.");
 		}
+		
 	}
 	
 	function b(i,wline_num){
 		var rowdata = t3.rows(i).data();
 		console.log("wline_num : "+wline_num);
-		var result = confirm("[반려하시겠습니까?]\n"+"신청번호 : "+rowdata[0][1]+"\n사원이름 : "+rowdata[0][2]+"\n구분 : "+rowdata[0][3]+"\n날짜 : "+rowdata[0][4]+
-				"\n시간 : "+rowdata[0][5]+"\n사유 : "+rowdata[0][6]+"\n신청일 : "+rowdata[0][8]);
-		if(result){
-			$.getJSON("<c:url value='/responseWorkList/unaccept'/>",{"wline_num":wline_num},function(data){
-				if(data.result){
-					searchList2(event);
-				}else{
-					alert("error");
-				}
-			});
+		var wline_content = $("#wline_content").val();
+		console.log("wline_content : "+wline_content);
+		if(wline_content==null||wline_content==''){
+			$("#bbtn").attr('data-dismiss','');
+			alert("반려 사유를 적어주세요.");
+		}else{
+			$("#bbtn").attr('data-dismiss','modal');
+			var result = confirm("[반려하시겠습니까?]\n"+"신청번호 : "+rowdata[0][1]+"\n사원이름 : "+rowdata[0][2]+"\n구분 : "+rowdata[0][3]+"\n날짜 : "+rowdata[0][4]+
+					"\n시간 : "+rowdata[0][5]+"\n사유 : "+rowdata[0][6]+"\n신청일 : "+rowdata[0][8]+"\n반려사유 : "+wline_content);
+			if(result){
+				$.getJSON("<c:url value='/responseWorkList/unaccept'/>",{"wline_num":wline_num,"wline_content":wline_content},function(data){
+					if(data.result){
+						searchList2(event);
+					}else{
+						alert("error");
+					}
+				});
+			}
 		}
 	}
 	

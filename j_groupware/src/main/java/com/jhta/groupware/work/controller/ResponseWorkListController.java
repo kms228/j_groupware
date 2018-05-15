@@ -72,7 +72,8 @@ public class ResponseWorkListController {
 	@ResponseBody
 	public String unaccept(@RequestParam Map<String,Object> map) {
 		//반려
-		int m=service.unaccept(Integer.parseInt((String)map.get("wline_num")));
+		System.out.println("wline_content : "+map.get("wline_content"));
+		int m=service.unaccept(map);
 		int n;
 		if(m!=0) {
 			//최종반려
@@ -88,6 +89,5 @@ public class ResponseWorkListController {
 		}
 		return json.toString();
 	}
-	
 	
 }

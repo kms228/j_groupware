@@ -27,8 +27,8 @@ public class ResponseWorkListService {
 		return dao.accept(wline_num);
 	}
 	
-	public int unaccept(int wline_num) {
-		return dao.unaccept(wline_num);
+	public int unaccept(Map<String, Object>map) {
+		return dao.unaccept(map);
 	}
 	
 	public int finalUnaccept(int wline_num) {

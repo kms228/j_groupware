@@ -4,7 +4,7 @@
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <div>
 	<h3>
-	<span class="glyphicon glyphicon-list-alt"></span> 근태신청 현황(자신의 부서만 보입니다.)
+	<span class="glyphicon glyphicon-list-alt"></span> 근태신청 현황(자신이 속한 부서)
 	</h3>
 	<div class="box">
 		<div class="box-body">
@@ -230,7 +230,7 @@
 								class="badge bg-yellow">외근</span> <span class="badge bg-gray">경조사/기타</span>
 							<br> <br>
 							<div class="box box-success">
-								<div id="calendar"></div>
+								<div id="calendar" style="height: 900px"></div>
 							</div>
 						</div>
 					</div>

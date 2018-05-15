@@ -43,7 +43,7 @@
 	</insert>
 	<!-- 연차신청(결재순서설정) -->
 	<insert id="insertAnnSign" parameterType="map">
-		insert into work_line values(seq_wline.nextval,#{wline_level},0,seq_work.currval,#{emp_num})
+		insert into work_line values(seq_wline.nextval,#{wline_level},0,seq_work.currval,#{emp_num},'')
 	</insert>
 	<!-- 반차/지각/야근신청 -->
 	<insert id="insertHalf" parameterType="map">
@@ -70,7 +70,7 @@
 	
 	<!-- /////////////////////////////////////결재라인받아오기 /////////////////////////-->
 	<select id="searchWorkLine" parameterType="int" resultType="com.jhta.groupware.work.vo.Work_LineVo2">
-		select wline_num,emp_name,e.emp_num,work_num,wline_state,wline_level,pst_name,dept_name 
+		select wline_num,emp_name,e.emp_num,work_num,wline_state,wline_level,pst_name,dept_name,wline_content 
 		from work_line w,employee e,position p,dept d 
 		where e.emp_num=w.emp_num and e.pst_num=p.pst_num and e.dept_num=d.dept_num and work_num=#{work_num}
 	</select>

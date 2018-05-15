@@ -41,8 +41,8 @@ public class ResponseWorkListDao {
 	}
 	
 	//반려
-	public int unaccept(int wline_num) {
-		return sqlSession.update(NAMESPACE+".unaccept", wline_num);
+	public int unaccept(Map<String, Object>map) {
+		return sqlSession.update(NAMESPACE+".unaccept", map);
 	}
 	
 	//최종반려

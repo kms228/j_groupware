@@ -132,7 +132,61 @@
 				</div>
 			</div>
 		</div>
-	<script>
+		<!-- Modal -->
+		<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">결재 진행상태</h4>
+					</div>
+					<div class="modal-body" id="linecontent">
+						<table id="modal_table" data-order='[[ 0, "asc" ]]'>
+							<thead>
+								<tr>
+									<th>결재 순서</th><th>부서</th><th>승인자</th><th>상태</th>
+								</tr>
+							</thead>
+						</table>
+						<label style="display:none; color: red;text-align: center" id="wline_content"></label>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeM">닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	<script type="text/javascript">
+		var tm = $("#modal_table").DataTable({
+			searching:false,
+			paging:false,
+			info:false,
+			//언어패치
+	    	language: {
+	    		
+	    		 "decimal":        "",
+	    		 "emptyTable":     "데이터가 없습니다.",
+	    		 "info":           "_START_ - _END_ (총  _TOTAL_ 개)",
+	    		 "infoEmpty":      "0개",
+	    		 "infoFiltered":   "(전체 _MAX_ 개 중 검색결과)",
+	    		 "infoPostFix":    "",
+	    		 "thousands":      ",",
+	    		 "lengthMenu":     " _MENU_ 개씩 보기",
+	    		 "loadingRecords": "로딩중...",
+	    		 "processing":     "처리중...",
+	    		 "search":         "검색:",
+	    		 "zeroRecords":    "검색된 데이터가 없습니다.",
+	    		 "paginate": {
+	    		     "first":      "첫 페이지",
+	    		     "last":       "마지막 페이지",
+	    		     "next":       "다음",
+	    		     "previous":   "이전"
+	    		 }
+	        }
+	       
+		});
 		$(function() {
 			//tree모달
 			$("#line1").click(function() {
@@ -241,13 +295,13 @@
 						}
 						
 						if(data[i].work_state=='0'){
-							wn2='<label style="color: green">진행중</label>';
+							wn2='<label style="color: green" data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">진행중</label>';
 						}else if(data[i].work_state=='1'){
-							wn2='<label style="color: blue">승인</label>';
+							wn2='<label style="color: blue" data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">승인</label>';
 						}else if(data[i].work_state=='2'){
-							wn2='<label style="color: red">반려</label>';
+							wn2='<label style="color: red" data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">반려</label>';
 						}else if(data[i].work_state=='3'){
-							wn2='<label style="color: orange">취소</label>';
+							wn2='<label style="color: orange" data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">취소</label>';
 						}
 						t2.row.add([
 							data[i].work_num,
@@ -261,6 +315,9 @@
 							wn2
 						]).draw(false);
 					}
+					$(".stateH").hover(function(){
+						$(this).css("cursor","pointer");
+					});
 				},error:function(){
 					alert("error");
 				}
@@ -272,6 +329,61 @@
 			$(".work_edate").val("");
 			$("#text_emp_num2").val("");
 		});
+		//결재승인상태 확인하기
+		function mmm(i){
+			$.ajax({
+				url:"<c:url value='/requestWork/searchWorkLine'/>",
+				dataType:"json",
+				data:{"work_num":i},
+				success:function(data){
+					tm.clear().draw();
+					var ban=0;
+					var state='';
+					var fc='';
+					var ss=0;
+					var content='';
+					var display='';
+					for(var i=0;i<data.length;i++){
+						if(data[i].wline_state==0){
+							if(ban==0){
+								if(ss==0){
+									state='진행 중';
+									fc='green';
+									ss=1;								
+								}else{
+									state='진행 전';
+									fc='black';
+								}
+							}else{
+								state='';
+							}
+						}else if(data[i].wline_state==1){
+							if(ban==0){
+								state='승인';
+								fc='blue';
+							}else{
+								state='';
+							}
+						}else if(data[i].wline_state==2){
+							state='반려';
+							fc='red';
+							ban=1;
+							content='반려사유 : '+data[i].wline_content;
+							display="block"
+						}
+						tm.row.add([
+							data[i].wline_level+'차',
+							data[i].dept_name,
+							data[i].emp_name+' '+data[i].pst_name,
+							'<label style="color:'+fc+'">'+state+'</label>'
+						]).draw(false);
+						//반려사유 넣기
+						$("#wline_content").html(content);
+						$("#wline_content").css('display',display);
+					}
+				},error:function(){alert("error");}
+			});
+		}
 	</script>
 </div>
 

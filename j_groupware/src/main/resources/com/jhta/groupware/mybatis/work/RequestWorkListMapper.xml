@@ -36,7 +36,7 @@
     		)"term"
 		from work, work_file, employee
 		<where>
-			(work.work_num=work_file.work_num and employee.emp_num=work.emp_num)
+			(work.work_num=work_file.work_num and employee.emp_num=work.emp_num) and work.emp_num in (select emp_num from employee where dept_num=(select dept_num from employee where emp_num=#{emp_num}))
 			<if test="work_sdate!=null and work_sdate!=''">
 				and (to_char(work_sdate,'yyyy/mm/dd') between #{work_sdate} and #{work_edate} )
 			</if>
