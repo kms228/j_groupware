@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.NboardListMapper">
+	
+	<select id="getList" resultType="NboardListVo">
+		select B_DATE,B_NUM,EMP_NUM,B_CONTENT,B_WRITER,B_TITLE from Nboard
+	</select>
+	<select id="getNboard" resultType="NboardListVo">
+		select * from Nboard where B_NUM=#{B_NUM}
+	</select>
+	<insert id="insertNboard">
+		insert into NBOARD values(SEQ_NBOARD_B_NUM.nextval,#{B_WRITER},#{B_TITLE},#{B_CONTENT},sysdate,#{EMP_NUM})
+	</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
