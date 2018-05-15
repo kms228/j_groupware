@@ -23,9 +23,6 @@ public class LoginController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(HttpServletRequest req) {
-		System.out.println("GET¹æ½Ä login");
-
-		System.out.println("02");
 		return ".login.login1";
 	}
 

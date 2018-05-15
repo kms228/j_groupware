@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.groupware.mybatis.HomeMapper">
+	<select id="getMyProfile" parameterType="string" resultType="MyProfileVo">		
+		SELECT E.emp_name, E.emp_phone, E.emp_email, P.pst_num, P.pst_name, D.dept_num, D.dept_name
+		FROM EMPLOYEE E, POSITION P, DEPT D, ACCOUNT A
+		WHERE E.DEPT_NUM=D.DEPT_NUM AND E.PST_NUM=P.PST_NUM AND E.EMP_NUM=A.EMP_NUM AND ACNT_ID=#{value}      
+	</select>
+	<select id="getMySchedule" parameterType="string" resultType="MyScheduleVo">
+		SELECT S.* FROM <![CDATA[(SELECT * FROM SCHEDULE WHERE SCH_SDATE <= SYSDATE AND SCH_EDATE >= SYSDATE AND ROWNUM <=4) S]]>      
+			WHERE SCH_PUBLIC BETWEEN 1 AND 
+				(SELECT PST_NUM 
+				FROM EMPLOYEE 
+				WHERE EMP_NUM=(SELECT EMP_NUM FROM ACCOUNT WHERE ACNT_ID=#{value}))
+			    OR EMP_NUM LIKE
+					(SELECT EMP_NUM 
+					FROM EMPLOYEE 
+					WHERE EMP_NUM=(SELECT EMP_NUM FROM ACCOUNT WHERE ACNT_ID=#{value}))				
+	</select>
+	<select id="getMyWorkList" parameterType="string" resultType="MyWorkListVo">
+		SELECT E.EMP_NAME, W.WLIST_START, W.WLIST_END, W.WLIST_TYPE, E.EMP_NUM
+		FROM EMPLOYEE E, WORKLIST W
+		<![CDATA[WHERE ROWNUM<=7 AND E.EMP_NUM = W.EMP_NUM AND E.EMP_NUM = (SELECT A.EMP_NUM FROM ACCOUNT A WHERE A.ACNT_ID = #{value})]]>
+		ORDER BY W.WLIST_START DESC			
+	</select>
+</mapper>

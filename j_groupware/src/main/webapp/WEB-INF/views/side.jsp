@@ -63,9 +63,22 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
+           <ul class="treeview-menu">
+
+            <li><a href="<c:url value='/requestWork/${emp_num }'/>"><i class="fa fa-circle-o"></i> 근태 신청</a></li>
+            <li><a href="<c:url value='/requestWorkList'/>"><i class="fa fa-circle-o"></i> 신청 내역</a></li>
+            <li><a href="<c:url value='/responseWorkList'/>"><i class="fa fa-circle-o"></i> 결재 요청 내역</a></li>
+            <li><a href="<c:url value='/work'/>"><i class="fa fa-circle-o"></i> 근태 현황 보기</a></li>
+            <li><a href="<c:url value='/setWork'/>"><i class="fa fa-circle-o"></i> (관리자)근태 설정</a></li>
+            <li><a href="<c:url value='/workList'/>"><i class="fa fa-circle-o"></i> (관리자)전체 리스트</a></li>
+          </ul>
+          
+          
+       <%--    <ul class="treeview-menu">
+            <li><a href="<c:url value='/noticlist'/>"><i class="fa fa-circle-o"></i>공지사항</a></li>
+             
+             <li><a href="<c:url value='/retirelist'/>"><i class="fa fa-circle-o"></i>퇴직자 리스트</a></li>
             <li><a href="<c:url value='/emplist'/>"><i class="fa fa-circle-o"></i>재직자 리스트</a></li>
-            <li><a href="<c:url value='/retirelist'/>"><i class="fa fa-circle-o"></i>퇴직자 리스트</a></li>
 	        <c:choose>
 	            	<c:when test="${ACNT_LEVEL=='0'}">
 	            		<li><a href="<c:url value='/join'/>"><i class="fa fa-circle-o"></i>(관리자)사원추가</a></li>
@@ -75,8 +88,10 @@
 	            	<li><i class="fa fa-circle-o"></i></li>
 	            </c:otherwise>
 	        </c:choose>    
-          </ul>
+          </ul> --%>
         </li>
+        
+        
         <li>
           <a href="<c:url value='/'/>calendar">
             <i class="fa fa-calendar"></i> <span>일정</span>
