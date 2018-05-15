@@ -23,7 +23,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 	@Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
     	System.out.println(" ~~~엔드포인트~~~ ");    	
-        registry.addEndpoint("/endpoint").addInterceptors(myHandshakeInterceptor()).setHandshakeHandler(myHandshakeHandler()).withSockJS();        
+        registry.addEndpoint("/endpoint").addInterceptors(myHandshakeInterceptor()).setHandshakeHandler(myHandshakeHandler()).withSockJS();
     }
 	@Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
