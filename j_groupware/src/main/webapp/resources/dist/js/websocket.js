@@ -41,7 +41,7 @@ function connect() {
 }
 
 function disconnect() {
-	alert("여기는 disconnect()");
+	//alert("여기는 disconnect()");
 	stompClient.send("/app/quit", {});
     if (stompClient !== null) {    	
         stompClient.disconnect();
