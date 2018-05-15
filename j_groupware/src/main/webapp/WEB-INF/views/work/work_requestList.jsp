@@ -5,7 +5,7 @@
 <div>
 	<div>
 		<h3>
-			<span class="glyphicon glyphicon-list-alt"></span> 신청 내역
+			<span class="glyphicon glyphicon-list-alt"></span> 신청 내역(자신이 속한 부서)
 		</h3>
 		<div class="box">
 			<!-- form start -->
@@ -38,11 +38,13 @@
 							<!-- /.input group -->
 						</div>
 					</div>
+					<!--  
 					<div class="form-group">
 						<label for="line1">사용자</label> 
 						<input type="text"class="form-control" readonly="readonly" id="line1" data-target="#myModal" data-toggle="modal">
-						<input type="hidden" id="text_emp_num2" name="emp_num2">
 					</div>
+					-->
+						<input type="hidden" id="text_emp_num2" name="emp_num2">
 				</div>
 				<!-- /.box-body -->
 
@@ -80,7 +82,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table1"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table1"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -130,7 +132,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table2"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table2"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -180,7 +182,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table3"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table3"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -230,7 +232,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table4"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table4"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -310,8 +312,8 @@
 									<th>결재 순서</th><th>부서</th><th>승인자</th><th>상태</th>
 								</tr>
 							</thead>
-							
 						</table>
+						<label style="display:none; color: red;text-align: center" id="wline_content"></label>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal" id="closeM">닫기</button>
@@ -324,6 +326,7 @@
 	var tm = $("#modal_table").DataTable({
 		searching:false,
 		paging:false,
+		info:false,
 		//언어패치
     	language: {
     		
@@ -476,16 +479,20 @@
 						data[i].work_content,
 						'<a href="<c:url value="/file/download?wfile_num='+data[i].wfile_num+'"/>">'+data[i].wfile_orgfilename+'</a>',
 						data[i].regdate,
-						'<label style="color: '+fc+'"data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')">'+state+'</label>'
+						'<label style="color: '+fc+'"data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">'+state+'</label>'
 					]).draw(false);
+					//반려사유 넣기
 				}
+				$(".stateH").hover(function(){
+					$(this).css("cursor","pointer");
+				});
+				
 			},error:function(){
 				alert("error");
 			}
 		});
 		return false;
 	};
-	
 	
 	//daterangpicker 날짜 나누기
 	$("#reservation4").change(function(){
@@ -510,6 +517,8 @@
 				var state='';
 				var fc='';
 				var ss=0;
+				var content='';
+				var display='';
 				for(var i=0;i<data.length;i++){
 					if(data[i].wline_state==0){
 						if(ban==0){
@@ -535,6 +544,8 @@
 						state='반려';
 						fc='red';
 						ban=1;
+						content='반려사유 : '+data[i].wline_content;
+						display="block"
 					}
 					tm.row.add([
 						data[i].wline_level+'차',
@@ -542,6 +553,9 @@
 						data[i].emp_name+' '+data[i].pst_name,
 						'<label style="color:'+fc+'">'+state+'</label>'
 					]).draw(false);
+					//반려사유 넣기
+					$("#wline_content").html(content);
+					$("#wline_content").css('display',display);
 				}
 			},error:function(){alert("error");}
 		});

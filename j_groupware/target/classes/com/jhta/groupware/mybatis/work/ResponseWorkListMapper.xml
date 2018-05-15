@@ -9,7 +9,7 @@
 	<select id="selectResponseList" resultType="com.jhta.groupware.work.vo.SearchResponseListVo" parameterType="map">
 		select cc.wline_num,cc.wline_level,cc.wline_state,cc.work_num,cc.emp_num, 
 		work.work_content, employee.emp_name, to_char(work.work_regdate,'yyyy/mm/dd') regdate,
-		wfile_num,nvl(wfile_orgfilename,' ')"wfile_orgfilename",wtype_num,
+		wfile_num,nvl(wfile_orgfilename,' ')"wfile_orgfilename",wtype_num,nvl(wline_content,' ')"wline_content",
 		decode( wtype_num,
 				            1,(work_edate-work_sdate)+1||'일',
 				            5,(work_edate-work_sdate)+1||'일',
@@ -46,7 +46,7 @@
 		        (
 		         select *
 		            from (
-		                select wline_num,wline_level,wline_state,work_num,emp_num 
+		                select wline_num,wline_level,wline_state,work_num,emp_num
 		                from work_line
 		                where work_num in(select work_num from work_line where emp_num=#{emp_num}) 
 		            ) aa
@@ -70,8 +70,8 @@
 		update work set work_state=1 where work_num=(select work_num from work_line where wline_num=#{wline_num} )
 	</update>
 	<!-- 반려 -->
-	<update id="unaccept" parameterType="int" >
-		update work_line set wline_state=2 where wline_num=#{wline_num}
+	<update id="unaccept" parameterType="map" >
+		update work_line set wline_state=2,wline_content=#{wline_content} where wline_num=#{wline_num}
 	</update>
 	<!-- 최종반려 -->
 	<update id="finalUnaccept" parameterType="int">

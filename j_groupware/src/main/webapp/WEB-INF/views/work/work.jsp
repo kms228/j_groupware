@@ -4,7 +4,7 @@
 <script src="<c:url value='/'/>resources/plugins/fullcalendar/ko.js"></script>
 <div>
 	<h3>
-		<span class="glyphicon glyphicon-list-alt"></span> 근태신청 현황
+	<span class="glyphicon glyphicon-list-alt"></span> 근태신청 현황(자신이 속한 부서)
 	</h3>
 	<div class="box">
 		<div class="box-body">
@@ -85,18 +85,6 @@
 															<th>날짜</th>
 															<th>상세</th>
 														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
-														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">반차</span></td>
-														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -123,12 +111,6 @@
 															<th>이름</th>
 															<th>날짜</th>
 															<th>상세</th>
-														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
 														</tr>
 														<tr>
 															<td>대리</td>
@@ -169,12 +151,6 @@
 															<td>2018/01/02</td>
 															<td><span class="badge bg-red">지각</span></td>
 														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">반차</span></td>
-														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -201,18 +177,6 @@
 															<th>이름</th>
 															<th>날짜</th>
 															<th>상세</th>
-														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
-														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">반차</span></td>
 														</tr>
 													</tbody>
 												</table>
@@ -241,18 +205,6 @@
 															<th>날짜</th>
 															<th>상세</th>
 														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
-														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">야근</span></td>
-														</tr>
 													</tbody>
 												</table>
 											</div>
@@ -278,7 +230,7 @@
 								class="badge bg-yellow">외근</span> <span class="badge bg-gray">경조사/기타</span>
 							<br> <br>
 							<div class="box box-success">
-								<div id="calendar"></div>
+								<div id="calendar" style="height: 900px"></div>
 							</div>
 						</div>
 					</div>

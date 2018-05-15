@@ -39,8 +39,8 @@
 				$(".widget-user-username").html(data.emp_name);
 				$(".widget-user-desc").html(data.dept_name);
 				var pstColorClass = pstColor(data.pst_num);
-				console.log(pstColorClass);
-				console.log(data.pst_name);
+				//console.log(pstColorClass);
+				//console.log(data.pst_name);
 				$("#pst_num_name").append('<span class="'+ pstColorClass +'">'+ data.pst_name +'</span>');
 				//$("#pst_num_name").append("<span class='label label-danger'>UI Design</span>");
 				$('#emp_email').html(data.emp_email);
@@ -59,9 +59,7 @@
 				}
 			},
 			setMyWorkList : function(data){				
-				for(i in data){
-					console.log("typeof wlist_end:::"+typeof data[i].wlist_end);
-					console.log("typeof wlist_end:::"+data[i].wlist_end);
+				for(i in data){					
 					$("#WorkList").append('<tr><td>'+moment(data[i].wlist_start).format('MM월 DD일')+'</td><td>'+data[i].emp_name+'</td>'+
 						'<td>'+moment(data[i].wlist_start).format('A HH시 mm분')+'</td><td>'+
 						(data[i].wlist_end === null ? '-':moment(data[i].wlist_end).format('A HH시 mm분'))+'</td><td>-</td></tr>');					
@@ -97,8 +95,8 @@
 				url : "<c:url value='/getMySchedule'/>",
 				dataType : "json",
 			    success : function(data){
-			    	console.log(data);			    	
-			    	console.log(data.length);			    	
+			    	//console.log(data);			    	
+			    	//console.log(data.length);			    	
 			    	callbackFunc(data);													 																					
 				}
 		    });
