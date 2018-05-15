@@ -172,8 +172,13 @@
             <li><a href="<c:url value='/requestWorkList'/>"><i class="fa fa-circle-o"></i> 신청 내역</a></li>
             <li><a href="<c:url value='/responseWorkList'/>"><i class="fa fa-circle-o"></i> 결재 요청 내역</a></li>
             <li><a href="<c:url value='/work'/>"><i class="fa fa-circle-o"></i> 근태 현황 보기</a></li>
-            <li><a href="<c:url value='/setWork'/>"><i class="fa fa-circle-o"></i> (관리자)근태 설정</a></li>
-            <li><a href="<c:url value='/workList'/>"><i class="fa fa-circle-o"></i> (관리자)전체 리스트</a></li>
+             <c:choose>
+	            	<c:when test="${ACNT_LEVEL=='0'}">
+	            		<li><a href="<c:url value='/setWork'/>"><i class="fa fa-circle-o"></i> (관리자)근태 설정</a></li>
+            			<li><a href="<c:url value='/workList'/>"><i class="fa fa-circle-o"></i> (관리자)전체 리스트</a></li>
+	            	</c:when>
+	        </c:choose>  
+            
           </ul>
         </li>
         <!-- 
@@ -205,10 +210,7 @@
 	            	<c:when test="${ACNT_LEVEL=='0'}">
 	            		<li><a href="<c:url value='/join'/>"><i class="fa fa-circle-o"></i>(관리자)사원추가</a></li>
 	            	</c:when>
-	            	
-	            <c:otherwise>
-	            	<li><i class="fa fa-circle-o"></i></li>
-	            </c:otherwise>
+	           
 	        </c:choose>    
           </ul>
         </li>
