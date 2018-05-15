@@ -14,45 +14,22 @@
 							<thead>
 								<tr role="row">
 									<th class="sorting_asc" tabindex="0" aria-controls="example1"rowspan="1" colspan="1" aria-sort="ascending">글번호</th>
-									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">작성자</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">제목</th>
+									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">작성자</th>
 									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">작성일</th>
-									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">삭제</th>
-									<th class="sorting" tabindex="0" aria-controls="example1"rowspan="1" colspan="1">상세보기</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:choose >
-								
-								<c:when test="${ACNT_LEVEL =='0'}">				
-									<c:forEach items="${list }" var="list">
+		
+									<c:forEach items="${list}" var="board">
 									<tr role="row">
-										<th>${list.EMP_NUM}</th>															
-										<th>${list.DEPT_NAME}</th>								
-										<td><a href="<c:url value='/retireSelectView?EMP_NUM=${list.EMP_NUM}'/>">${list.EMP_NAME}</a></td>							
-										<th>${list.PST_NAME}</th>
-										<th>${list.EMP_EMAIL}</th>		
-										<th>${list.EMP_HIREDATE}</th>
-										<th>${list.RE_DATE}</th>															
-									</tr>						
+										<th>${board.b_num}</th>															
+										<td><a href="<c:url value='/nboardselect?B_NUM=${board.b_num}'/>">${board.b_title}</a></td>							
+										<th>${board.b_writer}</th>								
+										<th>${board.b_date}</th>		
+									</tr>
 									</c:forEach>
-								</c:when>
-								
-								<c:otherwise>
-								<c:forEach items="${list }" var="list">
-								<tr role="row">
-									<th>${list.EMP_NUM }</th>															
-									<th>${list.DEPT_NAME}</th>									
-									<th>${list.EMP_NAME}</th>															
-									<th>${list.PST_NAME}</th>
-									<th>${list.EMP_EMAIL}</th>		
-									<th>${list.EMP_HIREDATE}</th>
-									<th>${list.RE_DATE}</th>
-								</tr>						
-								</c:forEach>
-								</c:otherwise>						
-								
-								</c:choose>
+
 												
 							</tbody>							
 						</table>
