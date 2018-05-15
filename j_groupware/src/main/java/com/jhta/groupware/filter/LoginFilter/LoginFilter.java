@@ -21,7 +21,7 @@ public class LoginFilter implements Filter{
 		String requestMapping = getUrl[1];
 		System.out.println("1");
 		
-		if(requestMapping != null && !requestMapping.startsWith("/login")) {
+		if(requestMapping != null &&!requestMapping.startsWith("/login")&&!requestMapping.startsWith("/endpoint")) {
 			boolean login = false;
 			HttpServletRequest request=(HttpServletRequest)req;
 			HttpSession session = request.getSession();
