@@ -18,6 +18,9 @@
 		<typeAlias type="com.jhta.groupware.calendar.vo.ScheduleVo" alias="scheduleVo"/>
 		<typeAlias type="com.jhta.groupware.calendar.vo.Sc_FileVo" alias="scfileVo"/>
 		<typeAlias type="com.jhta.groupware.chat.vo.ChatUserVo" alias="ChatUserVo"/>
+		<typeAlias type="com.jhta.groupware.home.vo.MyProfileVo" alias="MyProfileVo"/>
+		<typeAlias type="com.jhta.groupware.home.vo.MyScheduleVo" alias="MyScheduleVo"/>
+		<typeAlias type="com.jhta.groupware.home.vo.MyWorkListVo" alias="MyWorkListVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignVo" alias="signdoc"/>
 		<typeAlias type="com.jhta.groupware.login.vo.LoginVo" alias="LoginVo"/>
 		<typeAlias type="com.jhta.groupware.sign.vo.SignLineListVo" alias="signlineVo"/>
@@ -46,6 +49,7 @@
 		<!-- 혁수 -->
 		<mapper resource="com/jhta/groupware/mybatis/CalendarMapper.xml"/>
 		<mapper resource="com/jhta/groupware/mybatis/ChatMapper.xml"/>
+		<mapper resource="com/jhta/groupware/mybatis/HomeMapper.xml"/>
 		<!-- 민수 -->
 		<mapper resource="com/jhta/groupware/mybatis/work/WorkMapper.xml"/>		
 		<mapper resource="com/jhta/groupware/mybatis/work/SetWorkMapper.xml"/>

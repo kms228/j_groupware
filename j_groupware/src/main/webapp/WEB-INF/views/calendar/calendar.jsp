@@ -120,7 +120,7 @@ var modalModal = (function(schedule){
 			var sdate = moment(data.sch_sdate);
 			var edate = moment(data.sch_edate);
 			var now = moment();
-				 
+			
 			$("#pst_name").html(data.pst_name);
 		    $("#pst_name").append(" "+data.emp_name);
 			$("#sch_title").html(data.sch_title);
