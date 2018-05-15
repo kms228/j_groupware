@@ -21,7 +21,8 @@ public class MyHandshakeInterceptor extends HttpSessionHandshakeInterceptor{
 		if(sessionId==null) {
 			throw new Exception();
 		}
-		return super.beforeHandshake(req, resp, arg2, arg3);
+//		super.beforeHandshake(req, resp, arg2, arg3)
+		return true;
 	}
 	
 }

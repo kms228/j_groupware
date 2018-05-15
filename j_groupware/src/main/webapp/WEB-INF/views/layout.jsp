@@ -65,7 +65,7 @@
 <script src="<c:url value='/'/>resources/js/jstree.min.js"></script>
 
 
-
+<link rel="stylesheet" href="<c:url value='/'/>resources/css/login.css">
 <!-- datatables selector -->
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/select/1.2.5/js/dataTables.select.min.js"></script>

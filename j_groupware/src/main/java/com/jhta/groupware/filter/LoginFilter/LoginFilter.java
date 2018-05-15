@@ -18,10 +18,11 @@ public class LoginFilter implements Filter{
 			throws IOException, ServletException {
 		HttpServletRequest requ = (HttpServletRequest)req;
 		String[] getUrl = requ.getRequestURI().toString().split("/groupware");
+		
 		String requestMapping = getUrl[1];
 		System.out.println("1");
 		
-		if(requestMapping != null &&!requestMapping.startsWith("/login")&&!requestMapping.startsWith("/endpoint")) {
+		if(requestMapping != null &&!requestMapping.startsWith("/login")&&!requestMapping.startsWith("/endpoint")&&!requestMapping.startsWith("/resources")) {
 			boolean login = false;
 			HttpServletRequest request=(HttpServletRequest)req;
 			HttpSession session = request.getSession();
