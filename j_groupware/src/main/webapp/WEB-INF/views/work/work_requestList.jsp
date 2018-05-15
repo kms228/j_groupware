@@ -80,7 +80,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table1"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table1"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -130,7 +130,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table2"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table2"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -180,7 +180,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table3"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table3"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -230,7 +230,7 @@
 									class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-											<table id="table4"data-order='[[ 7, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
+											<table id="table4"data-order='[[ 0, "desc" ]]'class="requestlist_table"role="grid" aria-describedby="example1_info">
 												<thead>
 													<tr role="row">
 														<th class="sorting_asc" tabindex="0"aria-controls="example1" rowspan="1" colspan="1"aria-sort="ascending">신청 번호</th>
@@ -476,16 +476,19 @@
 						data[i].work_content,
 						'<a href="<c:url value="/file/download?wfile_num='+data[i].wfile_num+'"/>">'+data[i].wfile_orgfilename+'</a>',
 						data[i].regdate,
-						'<label style="color: '+fc+'"data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')">'+state+'</label>'
+						'<label style="color: '+fc+'"data-target="#myModal2" data-toggle="modal" onclick="mmm('+data[i].work_num+')" class="stateH">'+state+'</label>'
 					]).draw(false);
 				}
+				$(".stateH").hover(function(){
+					$(this).css("cursor","pointer");
+				});
+				
 			},error:function(){
 				alert("error");
 			}
 		});
 		return false;
 	};
-	
 	
 	//daterangpicker 날짜 나누기
 	$("#reservation4").change(function(){

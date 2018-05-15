@@ -448,7 +448,7 @@
 				class="dataTables_wrapper form-inline dt-bootstrap">
 				<div class="row">
 					<div class="col-sm-12">
-						<table id="table3" data-order='[[ 6, "desc" ]]'
+						<table id="table3" data-order='[[ 0, "desc" ]]'
 							class="table table-bordered table-striped dataTable" role="grid"
 							aria-describedby="example1_info">
 							<thead>
