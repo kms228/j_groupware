@@ -14,10 +14,10 @@ public class MyHandshakeHandler extends DefaultHandshakeHandler{
 	protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
 			Map<String, Object> attributes) {
 		ServletServerHttpRequest ssreq = (ServletServerHttpRequest) request;		
-		System.out.println("-----------------------determineUser()");				
+//		System.out.println("-----------------------determineUser()");				
 		String sessionId = (String) ssreq.getServletRequest().getSession().getAttribute("ACNT_ID");
-		System.out.println("ACNT_ID : "+ssreq.getServletRequest().getSession().getAttribute("ACNT_ID"));		
-		System.out.println("determineUser()------------------------------");
+//		System.out.println("ACNT_ID : "+ssreq.getServletRequest().getSession().getAttribute("ACNT_ID"));		
+//		System.out.println("determineUser()------------------------------");
 		
 		Principal principal = new Principal() {
 			

@@ -8,20 +8,21 @@ function setConnected(connected) {
 
 function connect() {
     var socket = new SockJS('/groupware/endpoint');
-    console.log(socket);
-    stompClient = Stomp.over(socket);    
+//    console.log(socket);
+    
+    stompClient = Stomp.over(socket);      
     stompClient.connect({}, function (frame) {
-//        setConnected(true);
+//        setConnected(true);    	
         console.log('Connected: ' + frame);
         user_name = frame.headers["user-name"];
         stompClient.subscribe('/user/topic/list', function(users) {
         	echoUser();
-        	console.log('야호 users:'+users);        	
+        	//console.log('야호 users:'+users);        	
             addUserlist(JSON.parse(users.body));            
         });
         stompClient.subscribe('/topic/add', function(user) {
-        	console.log('-----------------------');
-        	console.log('--------/topic/add--------')
+        	//console.log('-----------------------');
+        	//console.log('--------/topic/add--------')
         	addUser(JSON.parse(user.body));          
         });
         stompClient.subscribe('/user/topic/message', function(message) {
@@ -32,9 +33,11 @@ function connect() {
         });
         stompClient.subscribe('/topic/quit', function(acnt_id) {        	
         	$("#userList > li > a#"+acnt_id.body+":parent").remove();        	
-        });        
-        addChatlist();
-    });
+        });    
+        addChatlist();    
+    },function(frame){
+    	console.log("errorCallback::: 웹소켓 연결이 중지 되었습니다.");
+    });    
 }
 
 function disconnect() {
@@ -119,7 +122,7 @@ function showChatlistInDB(chat){
 				'</div></div></div>');
 		$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);	
 	} else {
-		console.log('invalid date???:'+chat.chatDate);
+		//console.log('invalid date???:'+chat.chatDate);
 		$("#chatContents").append('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-right">'+
 				'나'+'</span><span class="direct-chat-timestamp pull-left">'+moment(chat.chatDate).format('MM월 DD일 HH시 mm분')+'</span></div><div class="direct-chat-text">'+
 				chat.message+'</div></div>');
@@ -160,18 +163,18 @@ function cleanTheChattingRoom(){
 }
 function chatMyself(msg){
 	var now = moment();	
-	//console.log('moment().milliseconds()::'+moment().year());
 	add({acnt_id:globalAcnt_id, name: '나', message:msg, chatDate:Number(now.format('x')), username:user_name});
 	$("#chatContents").append('<div class="direct-chat-msg right"><div class="direct-chat-info clearfix"><span class="direct-chat-name pull-right">'+
 			'나'+'</span><span class="direct-chat-timestamp pull-left">'+now.format('MM월 DD일 HH시 mm분')+'</span></div><div class="direct-chat-text">'+
 			msg+'</div></div>');
 	$("#chatContents").scrollTop($("#chatContents")[0].scrollHeight);
+	$("#chatContent").prop('value','');
 	
 }
 
 $(function () {	
 	connect();	
-    $("#stompSend, #wsConnect, #realChat").on('submit', function (e) {
+    $("#stompSend, #wsConnect, #realChat").on('submit', function (e) {    	
         e.preventDefault();
     });
 //    $( "#disconnect" ).click(function() { disconnect(); });    
