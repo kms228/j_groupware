@@ -141,13 +141,14 @@
 }());
 </script>
 <section class="content">
-	<div class="row">	
+	<div class="row">
+		<div class="col-md-12">
 		<div class="col-md-4"><!-- <button onclick = "read('sin')">Read </button> -->													  
 			
 		  <!-- About Me Box -->
 		  <div class="box">
             <div class="box-header">
-              <h3 class="box-title">내 정보</h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-user"></span> 내 정보</h3>
             </div>
           <!-- Widget: user widget style 1 -->
           <div class="box box-widget widget-user-2" style="margin-bottom: 0px;">
@@ -198,7 +199,7 @@
 		
 			<div class="box">
             <div class="box-header">
-              <h3 class="box-title">출근 내역</h3>              
+              <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> 출근 내역</h3>              
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -221,7 +222,7 @@
 		
 			<div class="box">
               <div class="box-header">
-                  <h3 class="box-title">진행중인 일정</h3>
+                  <h3 class="box-title"><span class="glyphicon glyphicon-calendar"></span>진행 중인 일정</h3>
                 <div class="box-tools">
                 
                 </div>
@@ -269,6 +270,7 @@
           <!-- /.box -->
 						
 		</div>	
+<<<<<<< HEAD
 		
 		
 		<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
@@ -292,8 +294,96 @@
           </div>
           <!-- /.box -->
 		
+=======
+>>>>>>> branch 'master' of https://github.com/kms228/j_groupware.git
 		</div>
+		<div class="col-md-12">
+			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
+			
+				<div class="box">
+	            <div class="box-header">
+	              <h3 class="box-title"><span class="glyphicon glyphicon-bullhorn"></span> 공지 사항</h3>              
+	            </div>
+	            <!-- /.box-header -->
+	            <div class="box-body table-responsive no-padding">
+	              <table class="table table-hover" id="NoticList">
+	                <tr>
+	                  <th>날짜</th>
+	                  <th>공지제목</th>
+	                  <th>공지내용</th>
+	                  <th>작성자</th>
+	                </tr>                                              
+	              </table>
+	            </div>
+	            <!-- /.box-body -->
+	          </div>
+	          <!-- /.box -->
+			
+			</div>
+			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
 		
+				<div class="box">
+	            <div class="box-header">
+	              <h3 class="box-title"><span class="glyphicon glyphicon-heart"></span> 우리 부서 스케줄</h3>              
+	            </div>
+	            <!-- /.box-header -->
+	            <div class="box-body table-responsive no-padding">
+	              <table class="table table-hover">
+													<tbody>
+														<tr>
+															<th>직책</th>
+															<th>이름</th>
+															<th>날짜</th>
+															<th>상세</th>
+															<th>사유</th>
+														</tr>
+														<c:forEach items="${st1 }" var="st1">
+															<tr>
+																<td>${st1.pst_name }</td>
+																<td>${st1.emp_name }</td>
+																<td>${st1.term }</td>
+																<c:choose>
+																	<c:when test="${st1.wtype_num==1 }">
+																		<td><span class="badge bg-green">${st1.wtype_name }</span></td>
+																	</c:when>
+																	<c:when test="${st1.wtype_num==5 }">
+																		<td><span class="badge bg-yellow">${st1.wtype_name }</span></td>
+																	</c:when>
+																	<c:otherwise>
+																		<td><span class="badge bg-gray">${st1.wtype_name }</span></td>
+																	</c:otherwise>
+																</c:choose>
+																<td>${st1.work_content}</td>
+															</tr>
+														</c:forEach>
+														<c:forEach items="${st2 }" var="st2">
+															<tr>
+																<td>${st2.pst_name }</td>
+																<td>${st2.emp_name }</td>
+																<td>${st2.term }</td>
+																<c:choose>
+																	<c:when test="${st2.wtype_num==2 }">
+																		<td><span class="badge bg-blue">${st2.wtype_name }</span></td>
+																	</c:when>
+																	<c:when test="${st2.wtype_num==3 }">
+																		<td><span class="badge bg-red">${st2.wtype_name }</span></td>
+																	</c:when>
+																	<c:otherwise>
+																		<td><span class="badge bg-purple">${st2.wtype_name }</span></td>
+																	</c:otherwise>
+																</c:choose>
+																<td>${st2.work_content}</td>
+															</tr>
+														</c:forEach>
+													</tbody>
+												</table>
+	            </div>
+	            <!-- /.box-body -->
+	          </div>
+	          <!-- /.box -->
+			
+			</div>
+		</div>
 			
 	</div>				
 </section>      
