@@ -22,7 +22,7 @@
 		<h3 class="box-title">
 			<span class="glyphicon glyphicon-list-alt"></span> 결재 요청 내역
 		</h3>
-		<div class="box">
+		<div class="box box-success">
 			<div class="box-body">
 				<div id="example1_wrapper"class="dataTables_wrapper form-inline dt-bootstrap">
 					<div class="row">

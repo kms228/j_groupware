@@ -10,13 +10,14 @@ public class SearchTodayVo {
 	private String term;
 	private Date work_sdate;
 	private Date work_edate;
-	private int wtpye_num;
+	private int wtype_num;
 	private String work_content;
+	private String pst_name;
 	
 	public SearchTodayVo() {}
 
 	public SearchTodayVo(int work_num, String dept_name, String emp_name, String wtype_name, String term,
-			Date work_sdate, Date work_edate, int wtpye_num, String work_content) {
+			Date work_sdate, Date work_edate, int wtype_num, String work_content, String pst_name) {
 		super();
 		this.work_num = work_num;
 		this.dept_name = dept_name;
@@ -25,8 +26,9 @@ public class SearchTodayVo {
 		this.term = term;
 		this.work_sdate = work_sdate;
 		this.work_edate = work_edate;
-		this.wtpye_num = wtpye_num;
+		this.wtype_num = wtype_num;
 		this.work_content = work_content;
+		this.pst_name = pst_name;
 	}
 
 	public int getWork_num() {
@@ -85,12 +87,12 @@ public class SearchTodayVo {
 		this.work_edate = work_edate;
 	}
 
-	public int getWtpye_num() {
-		return wtpye_num;
+	public int getWtype_num() {
+		return wtype_num;
 	}
 
-	public void setWtpye_num(int wtpye_num) {
-		this.wtpye_num = wtpye_num;
+	public void setWtype_num(int wtype_num) {
+		this.wtype_num = wtype_num;
 	}
 
 	public String getWork_content() {
@@ -101,11 +103,21 @@ public class SearchTodayVo {
 		this.work_content = work_content;
 	}
 
+	public String getPst_name() {
+		return pst_name;
+	}
+
+	public void setPst_name(String pst_name) {
+		this.pst_name = pst_name;
+	}
+
 	@Override
 	public String toString() {
 		return "SearchTodayVo [work_num=" + work_num + ", dept_name=" + dept_name + ", emp_name=" + emp_name
 				+ ", wtype_name=" + wtype_name + ", term=" + term + ", work_sdate=" + work_sdate + ", work_edate="
-				+ work_edate + ", wtpye_num=" + wtpye_num + ", work_content=" + work_content + "]";
+				+ work_edate + ", wtype_num=" + wtype_num + ", work_content=" + work_content + ", pst_name=" + pst_name
+				+ "]";
 	}
+
 	
 }
