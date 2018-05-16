@@ -141,13 +141,14 @@
 }());
 </script>
 <section class="content">
-	<div class="row">	
+	<div class="row">
+		<div class="col-md-12">
 		<div class="col-md-4"><!-- <button onclick = "read('sin')">Read </button> -->													  
 			
 		  <!-- About Me Box -->
 		  <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-user">내정보</span></h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-user"></span> 내 정보</h3>
             </div>
           <!-- Widget: user widget style 1 -->
           <div class="box box-widget widget-user-2" style="margin-bottom: 0px;">
@@ -198,7 +199,7 @@
 		
 			<div class="box">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-list-alt">출근내역</span></h3>              
+              <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> 출근 내역</h3>              
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -221,7 +222,7 @@
 		
 			<div class="box">
               <div class="box-header">
-                  <h3 class="box-title"><span class="glyphicon glyphicon-calendar">진행중인일정</span></h3>
+                  <h3 class="box-title"><span class="glyphicon glyphicon-calendar"></span>진행 중인 일정</h3>
                 <div class="box-tools">
                 
                 </div>
@@ -269,13 +270,13 @@
           <!-- /.box -->
 						
 		</div>	
-		
+		</div>
 		<div class="col-md-12">
 			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
 			
 				<div class="box">
 	            <div class="box-header">
-	              <h3 class="box-title"><span class="glyphicon glyphicon-bullhorn">공지사항</span></h3>              
+	              <h3 class="box-title"><span class="glyphicon glyphicon-bullhorn"></span> 공지 사항</h3>              
 	            </div>
 	            <!-- /.box-header -->
 	            <div class="box-body table-responsive no-padding">
@@ -297,7 +298,7 @@
 		
 				<div class="box">
 	            <div class="box-header">
-	              <h3 class="box-title"><span class="glyphicon glyphicon-heart">우리부서스케줄</span></h3>              
+	              <h3 class="box-title"><span class="glyphicon glyphicon-heart"></span> 우리 부서 스케줄</h3>              
 	            </div>
 	            <!-- /.box-header -->
 	            <div class="box-body table-responsive no-padding">
