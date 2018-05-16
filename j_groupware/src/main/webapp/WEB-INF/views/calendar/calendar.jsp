@@ -324,13 +324,13 @@ var modalModal = (function(schedule){
 });
 </script>
 
-<!-- Content Wrapper. Contains page content -->  
+  <!-- Content Wrapper. Contains page content -->  
   <div>    
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Calendar
-        <small>Control panel</small>
+       <i class="fa fa-calendar"></i> 일정관리
+        <small>(등록,조회,수정,삭제)</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<c:url value='/'/>"><i class="fa fa-dashboard"></i> Home</a></li>

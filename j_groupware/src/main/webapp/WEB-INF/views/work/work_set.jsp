@@ -594,6 +594,9 @@
 		});
 		
 		function delAdmin(acnt_num){
+			var result = confirm('해당 관리자 자격을 박탈하시겠습니까?');
+			if(result){
+				
 			$.ajax({
 				url:"<c:url value='/delAdmin'/>",
 				dataType:"json",
@@ -624,6 +627,7 @@
 			
 		
 			});
+			}
 		}
 	</script>
 

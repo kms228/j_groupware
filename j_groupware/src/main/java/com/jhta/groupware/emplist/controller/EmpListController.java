@@ -67,7 +67,7 @@ public class EmpListController {
 		return mv;
 	}
 	@RequestMapping("/updateEmp")
-	public ModelAndView updateEmp(int EMP_NUM,String EMP_NAME,String EMP_GENDER,String EMP_PHONE,String EMP_EMAIL,
+	public String updateEmp(int EMP_NUM,String EMP_NAME,String EMP_GENDER,String EMP_PHONE,String EMP_EMAIL,
 				String EMP_BIRTH,String EMP_HIREDATE,String EMP_ADDR,int DEPT_NUM,int PST_NUM) {
 		
 		HashMap<String,Object>map = new HashMap<>();
@@ -85,13 +85,10 @@ public class EmpListController {
 		int n = service.updateEmp(map);
 		if(n>0) {
 			System.out.println(n+"nÀÌ ¹»±î?");
-			ModelAndView mv =new ModelAndView(".login.emplist");
-			mv.addObject("EMP_NUM",EMP_NUM);
-			return mv;
+			return "redirect:/emplist";
 		}else {
 			System.out.println(n+"¹¹°¡ ³Ñ¾î¿À³ª?");
-			ModelAndView mv =new ModelAndView(".login.empSelectView");
-			return  mv;
+			return "redirect:/emplist";
 		}
 	}
 	@RequestMapping("/updateAccount")

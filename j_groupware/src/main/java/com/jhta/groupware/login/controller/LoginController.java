@@ -47,7 +47,7 @@ public class LoginController {
 			LoginVo vo2 = service.getinfo(vo.getEMP_NUM());
 			session.setAttribute("PST_NUM", vo2.getPST_NUM());
 			System.out.println(vo2.getPST_NUM());
-			return ".main";
+			return "redirect:/";
 		} else {
 			System.out.println("¾ÈµÇ!!!");
 			return ".login.login1";
