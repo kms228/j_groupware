@@ -22,7 +22,7 @@ public class NboardListController {
 	@Autowired 
 	NboardListService service;
 	
-	@RequestMapping("/NboardList")
+	@RequestMapping("/NboardList") 
 	public ModelAndView NboardList() {
 		System.out.println("List controller");
 		ModelAndView mv = new ModelAndView(".login.noticList");
