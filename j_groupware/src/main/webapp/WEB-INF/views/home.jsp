@@ -77,12 +77,12 @@
 			},
 			
 			setNoitcList : function(data){				
-				for(i in data){					
+				for(i in data){	
+					console.log('b_title:::'+data[i].b_title);
 					$("#NoitcList").append('<tr><td>'+moment(data[i].b_date).format('MM월 DD일')
-							+'</td><td>'+data[i].b_title+'</td>'+'</td><td>'+
-							+'</td><td>'+data[i].b_content+'</td>'+'</td><td>'+
-							+'</td><td>'+data[i].b_writer+'</td>'+'</td><td>'+
-							'</td><td>-</td></tr>');					
+							+'</td><td>'+data[i].b_title+'</td>'
+							+'<td>'+data[i].b_content+'</td>'
+							+'<td>'+data[i].b_writer+'</td></tr>');					
 				}
 			}
 		}		
@@ -279,7 +279,7 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-              <table class="table table-hover" id="NoticList">
+              <table class="table table-hover" id="NoitcList">
                 <tr>
                   <th>날짜</th>
                   <th>공지제목</th>

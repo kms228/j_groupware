@@ -40,7 +40,6 @@ public class NboardListService {
 	}
 
 	public List<NboardListVo> getList1(){
-		NboardListVo nlist=(NboardListVo) dao.getList1();
 		return dao.getList1();
 	}
 }
