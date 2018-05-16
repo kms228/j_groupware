@@ -25,7 +25,7 @@
 				<div class="tab-content">
 					<div class="tab-pane active" id="tab_1">
 						<!--  -->
-						<div class="box">
+						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">
 									<span class="glyphicon glyphicon-time"></span> 시간 설정
@@ -186,7 +186,7 @@
 					</div>
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="tab_2">
-						<div class="box">
+						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">
 									<span class="glyphicon glyphicon-wrench"></span> 기능 설정
@@ -231,7 +231,7 @@
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="tab_3">
 
-						<div class="box">
+						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">
 									<span class="glyphicon glyphicon-user"></span> 관리자 설정
@@ -306,7 +306,7 @@
 					</div>
 					<!-- /.tab-pane -->
 					<div class="tab-pane" id="tab_4">
-						<div class="box">
+						<div class="box box-primary">
 							<div class="box-header">
 								<h3 class="box-title">
 									<span class="glyphicon glyphicon-search"></span> 연차 검색
@@ -331,7 +331,7 @@
 							</div>
 						</div>
 						<form method="post">
-							<div class="box">
+							<div class="box box-primary">
 								<div class="box-header">
 									<h3 class="box-title">
 										<span class="glyphicon glyphicon-sunglasses"></span> 사원 연차 설정

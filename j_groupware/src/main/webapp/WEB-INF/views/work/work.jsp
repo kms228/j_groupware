@@ -21,21 +21,7 @@
 						<div class="box-body">
 							<!-- ----------------------------------------------------------------------------------------------------------- -->
 
-							<!-- 아코디언 -->
-							<div class="col-md-12">
-								<div class="box-group" id="accordion">
-									<!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseOne" aria-expanded="false" class=""> 전체
-												</a>
-											</h4>
-										</div>
-										<div id="collapseOne" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
+							<!--  -->
 											<div class="box-body no-padding">
 												<table class="table table-hover">
 													<tbody>
@@ -44,177 +30,50 @@
 															<th>이름</th>
 															<th>날짜</th>
 															<th>상세</th>
+															<th>사유</th>
 														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
-														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">반차</span></td>
-														</tr>
+														<c:forEach items="${st1 }" var="st1">
+															<tr>
+																<td>${st1.pst_name }</td>
+																<td>${st1.emp_name }</td>
+																<td>${st1.term }</td>
+																<c:choose>
+																	<c:when test="${st1.wtype_num==1 }">
+																		<td><span class="badge bg-green">${st1.wtype_name }</span></td>
+																	</c:when>
+																	<c:when test="${st1.wtype_num==5 }">
+																		<td><span class="badge bg-yellow">${st1.wtype_name }</span></td>
+																	</c:when>
+																	<c:otherwise>
+																		<td><span class="badge bg-gray">${st1.wtype_name }</span></td>
+																	</c:otherwise>
+																</c:choose>
+																<td>${st1.work_content}</td>
+															</tr>
+														</c:forEach>
+														<c:forEach items="${st2 }" var="st2">
+															<tr>
+																<td>${st2.pst_name }</td>
+																<td>${st2.emp_name }</td>
+																<td>${st2.term }</td>
+																<c:choose>
+																	<c:when test="${st2.wtype_num==2 }">
+																		<td><span class="badge bg-blue">${st2.wtype_name }</span></td>
+																	</c:when>
+																	<c:when test="${st2.wtype_num==3 }">
+																		<td><span class="badge bg-red">${st2.wtype_name }</span></td>
+																	</c:when>
+																	<c:otherwise>
+																		<td><span class="badge bg-purple">${st2.wtype_name }</span></td>
+																	</c:otherwise>
+																</c:choose>
+																<td>${st2.work_content}</td>
+															</tr>
+														</c:forEach>
 													</tbody>
 												</table>
 											</div>
 											<!-- /.box-body -->
-
-											<!--  -->
-										</div>
-									</div>
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseTwo" aria-expanded="false" class="collapsed">
-													연차 </a>
-											</h4>
-										</div>
-										<div id="collapseTwo" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
-											<div class="box-body no-padding">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<th>직책</th>
-															<th>이름</th>
-															<th>날짜</th>
-															<th>상세</th>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.box-body -->
-											<!--  -->
-										</div>
-									</div>
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseThree" class="collapsed"
-													aria-expanded="false"> 반차 </a>
-											</h4>
-										</div>
-										<div id="collapseThree" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
-											<div class="box-body no-padding">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<th>직책</th>
-															<th>이름</th>
-															<th>날짜</th>
-															<th>상세</th>
-														</tr>
-														<tr>
-															<td>대리</td>
-															<td>함형진</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-yellow">반차</span></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.box-body -->
-											<!--  -->
-										</div>
-									</div>
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseFour" class="collapsed"
-													aria-expanded="false"> 지각 </a>
-											</h4>
-										</div>
-										<div id="collapseFour" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
-											<div class="box-body no-padding">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<th>직책</th>
-															<th>이름</th>
-															<th>날짜</th>
-															<th>상세</th>
-														</tr>
-														<tr>
-															<td>주임</td>
-															<td>양세용</td>
-															<td>2018/01/02</td>
-															<td><span class="badge bg-red">지각</span></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.box-body -->
-											<!--  -->
-										</div>
-									</div>
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseFive" class="collapsed"
-													aria-expanded="false"> 야근 </a>
-											</h4>
-										</div>
-										<div id="collapseFive" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
-											<div class="box-body no-padding">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<th>직책</th>
-															<th>이름</th>
-															<th>날짜</th>
-															<th>상세</th>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.box-body -->
-											<!--  -->
-										</div>
-									</div>
-									<div class="panel box box-default">
-										<div class="box-header with-border">
-											<h4 class="box-title">
-												<a data-toggle="collapse" data-parent="#accordion"
-													href="#collapseSix" class="collapsed" aria-expanded="false">
-													외근(출장)/기타 </a>
-											</h4>
-										</div>
-										<div id="collapseSix" class="panel-collapse collapse"
-											aria-expanded="false" style="height: 0px;">
-											<!--  -->
-											<div class="box-body no-padding">
-												<table class="table table-hover">
-													<tbody>
-														<tr>
-															<th>직책</th>
-															<th>이름</th>
-															<th>날짜</th>
-															<th>상세</th>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<!-- /.box-body -->
-											<!--  -->
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /.box -->
 						</div>
 
 						<!-- ----------------------------------------------------------------------------------------------------------- -->

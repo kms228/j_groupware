@@ -17,14 +17,14 @@
 				<label for="select3">구분</label>
 					<div class="form-group">
 							<select class="form-control" id="select3" name="wtype_num">
-								<option value="0">전체</option>
+								<!-- <option value="0">전체</option> -->
 								<c:forEach items="${wlist }" var="wVo">
 									<option value="${wVo.wtype_num }">${wVo.wtype_name }</option>
 								</c:forEach>
 							</select> 
 					</div>
 					<div class="form-group">
-						<label for="reservation3">조회기간</label>
+						<label for="reservation3">조회기간(신청일 아닌 근태기간 기준</label>
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon">

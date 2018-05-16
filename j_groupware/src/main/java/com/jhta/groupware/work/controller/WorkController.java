@@ -27,6 +27,7 @@ public class WorkController {
 		map.put("emp_num", emp_num);
 		List<SearchTodayVo> st1 = service.searchToday1(map);
 		List<SearchTodayVo> st2 = service.searchToday2(map);
+		System.out.println("11111111111111111111111111111111111111"+st1.toString());
 		mv.addObject("st1", st1);
 		mv.addObject("st2", st2);
 		return mv;
