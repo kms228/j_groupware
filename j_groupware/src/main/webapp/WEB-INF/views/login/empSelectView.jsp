@@ -77,7 +77,7 @@ var postcode = function(){
             <span class="input-group-addon" style="width: 15%">휴대전화</span>
             <input type="text" class="form-control" placeholder="PHONE" name="EMP_PHONE"value="${vo1.EMP_PHONE }" >
             <span class="input-group-addon" style="width: 15%">이메일</span>
-            <input type="text" class="form-control" placeholder="EMAIL" name="EMP_EMAIL" disabled="disabled" value="${vo1.EMP_EMAIL }">
+            <input type="text" class="form-control" placeholder="EMAIL" name="EMP_EMAIL" readonly="readonly" value="${vo1.EMP_EMAIL }">
      </div>
      <div class="input-group" style="width: 70%">
             <span class="input-group-addon" style="width: 15%">생년월일</span>
@@ -121,8 +121,16 @@ var postcode = function(){
 		    </select>
       </div>
      <div class="input-group" style="width: 70%">
-     		<input type="submit" id="updateEmp" value="사원정보수정하기">
-     		<input type="reset" id="updateEmp" value="사원정보수정취소">
+     <div class="col-md-12">
+     	<div class="col-md-6">
+     		<input type="submit" id="updateEmp" value="사원정보수정하기" class="btn btn-block btn-primary">
+     	
+     	</div>
+     	<div class="col-md-6">
+     		<input type="reset" id="updateEmp" value="사원정보수정취소"class="btn btn-block btn-danger">
+     	
+     	</div>
+     </div>
      </div>
      <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
      </form>
@@ -132,13 +140,13 @@ var postcode = function(){
       <form action="<c:url value='/updateAccount'/>">
       <div class="input-group" style="width: 70%">
             <span class="input-group-addon" style="width: 15%">아이디</span>
-            <input type="text" class="form-control" placeholder="ID" name="ACNT_id" value="${vo2.ACNT_id }" disabled="disabled">
+            <input type="text" class="form-control" placeholder="ID" name="ACNT_id" value="${vo2.ACNT_id }" read>
             <span class="input-group-addon" style="width: 15%">비밀번호</span>
             <input type="text" class="form-control" placeholder="LEVEL" name="ACNT_pwd" value="${vo2.ACNT_pwd}">
             <span class="input-group-addon" style="width: 15%">권한레벨</span>
             <input type="text" class="form-control" placeholder="LEVEL" name="ACNT_level" value="${vo2.ACNT_level}">
       </div>
-      		<input type="submit" id="updateAccount" value="계정수정하기">
+      		<input type="submit" id="updateAccount" value="계정수정하기" class="btn btn-primary">
       		<input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
       		<input type="hidden" name="ACNT_NUM" value="${vo2.ACNT_NUM }">
       </form>
@@ -354,7 +362,7 @@ var postcode = function(){
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                 </tr>
                 <tr>
-                <td><input type="submit" class="form-control" id="inserthis" value="퇴직처리" style="width: 40%"></td>
+                <td><input type="submit" class="btn btn-danger" id="inserthis" value="퇴직처리" style="width: 40%"></td>
                 </tr>
                   </form>
     			
