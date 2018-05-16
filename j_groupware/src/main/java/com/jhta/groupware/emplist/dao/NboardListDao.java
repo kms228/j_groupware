@@ -24,6 +24,12 @@ public class NboardListDao {
 	public int insertNboard(HashMap<String, Object> map) {
 		return sqlSession.insert(NAMESPACE+".insertNboard", map);
 	}
+	public int updateNboard(HashMap<String, Object> map) {
+		return sqlSession.update(NAMESPACE+".updateNboard", map);
+	}
+	public int deleteNboard(HashMap<String, Object> map) {
+		return sqlSession.delete(NAMESPACE+".deleteNboard", map);
+	}
 	
 
 }

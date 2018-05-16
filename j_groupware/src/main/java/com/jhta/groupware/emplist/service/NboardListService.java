@@ -27,4 +27,12 @@ public class NboardListService {
 		System.out.println("insert Service");
 		return dao.insertNboard(map);
 	}
+	public int updateNboard(HashMap<String, Object> map) {
+		System.out.println("update Service");
+		return dao.updateNboard(map);
+	}
+	public int deleteNboard(HashMap<String, Object> map) {
+		System.out.println("update Service");
+		return dao.deleteNboard(map);
+	}
 }

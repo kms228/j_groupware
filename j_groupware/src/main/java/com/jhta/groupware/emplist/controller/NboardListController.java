@@ -3,6 +3,9 @@ package com.jhta.groupware.emplist.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +30,14 @@ public class NboardListController {
 		mv.addObject("list",nboard);
 		return mv;
 	}
+	@RequestMapping("/noticInsert")
+	public ModelAndView noticInsert(HttpServletRequest req) {
+		ModelAndView mv = new ModelAndView(".login.noticInsert");
+		HttpSession session = req.getSession();
+		int EMP_NUM=(Integer)session.getAttribute("emp_num");
+		mv.addObject("emp_num",EMP_NUM);
+		return mv;
+	}
 	
 	@RequestMapping("/nboardselect")
 	public ModelAndView nboardselect(int B_NUM) {
@@ -38,21 +49,59 @@ public class NboardListController {
 	}
 	
 	@RequestMapping("/insertNboard")
-	public ModelAndView insertNboard(int EMP_NUM,String B_WRITER,String B_TITLE,String B_CONTENT) {
+	public String insertNboard(String b_writer,String b_title,String b_content,HttpServletRequest req) {
 		HashMap<String,Object>map=new HashMap<>();
+		
+		HttpSession session = req.getSession();
+		int EMP_NUM=(Integer)session.getAttribute("emp_num");
 		map.put("EMP_NUM", EMP_NUM);
-		map.put("B_WRITER", B_WRITER);
-		map.put("B_TITLE", B_TITLE);
-		map.put("B_CONTENT", B_CONTENT);
+		map.put("B_WRITER", b_writer);
+		map.put("B_TITLE", b_title);
+		map.put("B_CONTENT", b_content);
+		System.out.println(EMP_NUM+b_writer+b_title+b_content);
 		int n = service.insertNboard(map);
 		if(n>0) {
 			System.out.println("성공");
+			return "redirect:/NboardList";
+		}else {
+			System.out.println("실패");
+			return  "redirect:/NboardList";
+		}
+	}
+	@RequestMapping("/updateNboard")
+	public ModelAndView updateNboard(String b_num,String b_writer,String b_title,String b_content/*,HttpServletRequest req*/) {
+		HashMap<String,Object>map=new HashMap<>();
+		//HttpSession session = req.getSession();
+		//int EMP_NUM=(Integer)session.getAttribute("emp_num");	
+		map.put("B_NUM", b_num);
+		map.put("B_WRITER", b_writer);
+		map.put("B_TITLE", b_title);
+		map.put("B_CONTENT", b_content);
+		System.out.println(b_num+b_writer+b_title+b_content);
+		int n = service.updateNboard(map);
+		if(n>0) {
+			System.out.println("성공");
 			ModelAndView mv =new ModelAndView(".login.noticList");
-			mv.addObject("EMP_NUM",EMP_NUM);
 			return mv;
 		}else {
 			System.out.println("실패");
-			ModelAndView mv =new ModelAndView(".login.NboardSelectView");
+			ModelAndView mv =new ModelAndView(".login.noticList");
+			return  mv;
+		}
+	}
+	
+	@RequestMapping("/deleteNboard")
+	public ModelAndView updateNboard(int b_num) {
+		HashMap<String,Object>map=new HashMap<>();
+		map.put("B_NUM", b_num);
+		int n = service.deleteNboard(map);
+		if(n>0) {
+			System.out.println("성공");
+			ModelAndView mv =new ModelAndView(".login.noticList");
+			return mv;
+		}else {
+			System.out.println("실패");
+			ModelAndView mv =new ModelAndView(".login.noticList");
 			return  mv;
 		}
 	}

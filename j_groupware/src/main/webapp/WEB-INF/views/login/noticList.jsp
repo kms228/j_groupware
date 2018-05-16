@@ -37,6 +37,15 @@
 				</div>
 			</div>
 		</div>
+		
+			<c:choose >
+			<c:when test="${ACNT_LEVEL =='0'}">
+			<a href="<c:url value='/noticInsert'/>">
+			<button type="button" class="btn btn-block btn-primary" style="width: 15%">새 공지등록하기</button>
+			</a>
+			</c:when>
+			</c:choose>
+		
 		<!-- /.box-body -->
 	</div>
             
