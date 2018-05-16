@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.groupware.work.dao.WorkDao;
 import com.jhta.groupware.work.vo.ScheduleVo;
+import com.jhta.groupware.work.vo.SearchTodayVo;
 
 @Service
 public class WorkService {
@@ -18,8 +19,15 @@ public class WorkService {
 		for (ScheduleVo vo : a) {
 			System.out.println(vo.toString());
 		}
-		
 		return a;
 		//return dao.searchSch(map);
+	}
+	
+	public List<SearchTodayVo> searchToday1(Map<String, Object>map){
+		return dao.searchToday1(map);
+	}
+	
+	public List<SearchTodayVo> searchToday2(Map<String, Object>map){
+		return dao.searchToday2(map);
 	}
 }

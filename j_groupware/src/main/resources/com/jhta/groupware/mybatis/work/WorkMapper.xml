@@ -32,6 +32,63 @@
         where w.emp_num=e.emp_num and  work_state in (1,86)
     and e.emp_num in(select emp_num from employee where dept_num=(select dept_num from employee where emp_num=#{emp_num}))
 	</select>
+	<!-- 연차 외근 경조사 조회 -->
+	<select id="searchToday1" resultType="com.jhta.groupware.work.vo.SearchTodayVo" parameterType="map">
+		select 
+			distinct work_num,dept_name, emp_name,
+			to_char(
+				to_char(work_sdate,'yyyy/mm/dd')||' ~ '||to_char(work_edate,'yyyy/mm/dd')
+				)"term", 
+			wtype_num,work_content,
+			decode(wtype_num,
+			1,'연차',
+			5,'외근/출장/교육',
+			6,'경조사/기타'
+			)"wtype_name"
+		from 
+			work w,worklist wl, employee e, dept d
+		where
+			w.emp_num=e.emp_num
+			and wl.emp_num=e.emp_num 
+			and d.dept_num=e.dept_num
+			and work_state=1
+			and w.wtype_num in (1,5,6)
+			and e.emp_num in (select emp_num from employee where dept_num=(select dept_num from employee where emp_num=#{emp_num}))
+			and (to_char(sysdate,'yyyy/mm/dd') between to_char(work_sdate,'yyyy/mm/dd') and to_char(work_edate,'yyyy/mm/dd') )
+	</select>
+	<!-- 반차 지각 야근 조회 -->
+	<select id="searchToday2" resultType="com.jhta.groupware.work.vo.SearchTodayVo" parameterType="map">
+		select 
+			distinct work_num,dept_name, emp_name,to_char(to_char(work_sdate,'yyyy/mm/dd')||' - '||to_char(
+			decode(wtype_num,
+			2, decode(to_char(work_edate,'hh24'),
+			    11,'오전',
+			    12,'오후'
+			    ), 
+			3,to_char(work_edate,'hh24:mi'),
+			4,to_char(work_edate,'hh24:mi')
+			)
+			))"term", wtype_num,work_content,
+			decode(wtype_num,
+			2,
+			    decode(to_char(work_edate,'hh24'),
+			    11,'오전반차',
+			    12,'오후반차'
+			    ), 
+			3,'지각',
+			4,'야근'
+			)"wtype_name"
+		from 
+			work w,worklist wl, employee e, dept d
+		where
+			w.emp_num=e.emp_num
+			and wl.emp_num=e.emp_num 
+			and d.dept_num=e.dept_num
+			and work_state=1
+			and w.wtype_num in (2,3,4)
+			and e.emp_num in (select emp_num from employee where dept_num=(select dept_num from employee where emp_num=#{emp_num}))
+			and (to_char(sysdate,'yyyy/mm/dd') between to_char(work_sdate,'yyyy/mm/dd') and to_char(work_sdate,'yyyy/mm/dd') )
+	</select>
 </mapper>
 
 
