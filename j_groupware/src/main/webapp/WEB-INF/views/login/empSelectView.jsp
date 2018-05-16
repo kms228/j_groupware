@@ -121,16 +121,12 @@ var postcode = function(){
 		    </select>
       </div>
      <div class="input-group" style="width: 70%">
-     <div class="col-md-12">
-     	<div class="col-md-6">
+     	<div class="input-group-addon" style="width: 50%">
      		<input type="submit" id="updateEmp" value="사원정보수정하기" class="btn btn-block btn-primary">
-     	
      	</div>
-     	<div class="col-md-6">
+     	<div class="input-group-addon" style="width: 50%">
      		<input type="reset" id="updateEmp" value="사원정보수정취소"class="btn btn-block btn-danger">
-     	
      	</div>
-     </div>
      </div>
      <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
      </form>
@@ -145,15 +141,19 @@ var postcode = function(){
             <input type="text" class="form-control" placeholder="LEVEL" name="ACNT_pwd" value="${vo2.ACNT_pwd}">
             <span class="input-group-addon" style="width: 15%">권한레벨</span>
             <input type="text" class="form-control" placeholder="LEVEL" name="ACNT_level" value="${vo2.ACNT_level}">
-      </div>
-      		<input type="submit" id="updateAccount" value="계정수정하기" class="btn btn-primary">
+        
       		<input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
       		<input type="hidden" name="ACNT_NUM" value="${vo2.ACNT_NUM }">
+      		
+      </div>
+      <div class="input-group" style="width: 70%">
+      		<input type="submit" id="updateAccount" value="계정수정하기" class="btn btn-block btn-primary">
+      		</div>
       </form>
-      
       
       <!-- //////////////////////////////////////////////////////////// -->
       <!-- 학력정보 -->
+      <div class="input-group" style="width: 70%">
        <div class="tab-pane" id="academic">           
               <div class="box">
             <div class="box-header">
@@ -191,7 +191,7 @@ var postcode = function(){
                   <td><input type="text" class="form-control" placeholder="졸업일" id="datepicker" name="ACD_GRADUATION"></td>
                   <td><input type="text" class="form-control" placeholder="전공" id="ACD_MAJOR" name="ACD_MAJOR"></td>
                   <td><input type="number" class="form-control" placeholder="학점" id="ACD_SCORE" name="ACD_SCORE"></td>
-                  <td><input type="submit" class="form-control" id="sub11" value="등록" ></td>
+                  <td><input type="submit" class="btn btn-primary" id="sub11" value="등록" ></td>
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                   </form>
                 </tr>
@@ -252,7 +252,7 @@ var postcode = function(){
                   <td><input type="text" class="form-control" placeholder="담당업무" id="CRR_WORK" name="CRR_WORK"></td>
                   <td><input type="text" class="form-control" placeholder="입사일" id="datepicker2" name="CRR_SDATE"></td>
                   <td><input type="text" class="form-control" placeholder="퇴사일" id="datepicker3" name="CRR_EDATE"></td>
-                  <td><input type="submit" class="form-control" id="insertcarrer" value="등록" ></td>
+                  <td><input type="submit" class="btn btn-primary" id="insertcarrer" value="등록" ></td>
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                 </tr>
                   </form>
@@ -324,7 +324,7 @@ var postcode = function(){
 					    <option value="사장">사장</option>                                     
 					    </select></td>
                   <td><input type="text" class="form-control" placeholder="담당업무" id="HIS_WORK" name="HIS_WORK"></td>
-                  <td><input type="submit" class="form-control" id="inserthis" value="등록" ></td>
+                  <td><input type="submit" class="btn btn-primary" id="inserthis" value="등록" ></td>
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                 </tr>
                   </form>
@@ -358,11 +358,11 @@ var postcode = function(){
                 <div box-header ui-sortable-handle id="insertre">
                 <form action="<c:url value='/insertre'/>">
                 <tr>
-                  <td><input type="text" required="required" class="form-control" placeholder="퇴직일을 선택해 주세요." id="datepicker" name="RE_DATE" style="width: 40%"></td>       
+                  <td><input type="text" required="required" class="form-control" placeholder="퇴직일을 선택해 주세요." id="datepicker" name="RE_DATE" ></td>       
                   <input type="hidden" name="EMP_NUM" value="${vo1.EMP_NUM }">
                 </tr>
                 <tr>
-                <td><input type="submit" class="btn btn-danger" id="inserthis" value="퇴직처리" style="width: 40%"></td>
+                <td><input type="submit" class="btn btn-block btn-danger" id="inserthis" value="퇴직처리"></td>
                 </tr>
                   </form>
     			
@@ -372,7 +372,8 @@ var postcode = function(){
             <!-- /.box-body -->
           </div>
               </div>
-             <!-- 근무이력 -->      
+             <!-- 근무이력 -->     
+             </div> 
       
       
       
