@@ -8,18 +8,28 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.groupware.work.service.WorkService;
 import com.jhta.groupware.work.vo.ScheduleVo;
+import com.jhta.groupware.work.vo.SearchTodayVo;
 @Controller
 public class WorkController {
 	@Autowired WorkService service;
 	
-	@RequestMapping("/work")
-	public String work() {
-		return ".work.work";
+	@RequestMapping("/work/{emp_num}")
+	public ModelAndView work(@PathVariable String emp_num) {
+		ModelAndView mv = new ModelAndView(".work.work");
+		Map<String, Object>map = new HashMap<>();
+		map.put("emp_num", emp_num);
+		List<SearchTodayVo> st1 = service.searchToday1(map);
+		List<SearchTodayVo> st2 = service.searchToday2(map);
+		mv.addObject("st1", st1);
+		mv.addObject("st2", st2);
+		return mv;
 	}
 	
 	@RequestMapping(value="/searchSch",produces="application/json;charset=utf-8")
@@ -40,5 +50,7 @@ public class WorkController {
 		}
 		return slist;
 	}
+	
+	
 	
 }

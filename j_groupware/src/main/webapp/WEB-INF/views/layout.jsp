@@ -171,7 +171,7 @@
             <li><a href="<c:url value='/requestWork/${emp_num }'/>"><i class="fa fa-circle-o"></i> 근태 신청</a></li>
             <li><a href="<c:url value='/requestWorkList'/>"><i class="fa fa-circle-o"></i> 신청 내역</a></li>
             <li><a href="<c:url value='/responseWorkList'/>"><i class="fa fa-circle-o"></i> 결재 요청 내역</a></li>
-            <li><a href="<c:url value='/work'/>"><i class="fa fa-circle-o"></i> 근태 현황 보기</a></li>
+            <li><a href="<c:url value='/work/${emp_num }'/>"><i class="fa fa-circle-o"></i> 근태 현황 보기</a></li>
              <c:choose>
 	            	<c:when test="${ACNT_LEVEL=='0'}">
 	            		<li><a href="<c:url value='/setWork'/>"><i class="fa fa-circle-o"></i> (관리자)근태 설정</a></li>
