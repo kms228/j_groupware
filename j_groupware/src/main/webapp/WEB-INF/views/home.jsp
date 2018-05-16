@@ -147,7 +147,7 @@
 		  <!-- About Me Box -->
 		  <div class="box">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-user">내 정보</span></h3>
+              <h3 class="box-title"><span class="glyphicon glyphicon-user">내정보</span></h3>
             </div>
           <!-- Widget: user widget style 1 -->
           <div class="box box-widget widget-user-2" style="margin-bottom: 0px;">
@@ -198,7 +198,7 @@
 		
 			<div class="box">
             <div class="box-header">
-              <h3 class="box-title"><span class="glyphicon glyphicon-list-alt">출근 내역</span></h3>              
+              <h3 class="box-title"><span class="glyphicon glyphicon-list-alt">출근내역</span></h3>              
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -221,7 +221,7 @@
 		
 			<div class="box">
               <div class="box-header">
-                  <h3 class="box-title"><span class="glyphicon glyphicon-calendar">진행중인 일정</span></h3>
+                  <h3 class="box-title"><span class="glyphicon glyphicon-calendar">진행중인일정</span></h3>
                 <div class="box-tools">
                 
                 </div>
@@ -297,7 +297,7 @@
 		
 				<div class="box">
 	            <div class="box-header">
-	              <h3 class="box-title"><span class="glyphicon glyphicon-heart">우리부서 스케줄</span></h3>              
+	              <h3 class="box-title"><span class="glyphicon glyphicon-heart">우리부서스케줄</span></h3>              
 	            </div>
 	            <!-- /.box-header -->
 	            <div class="box-body table-responsive no-padding">
