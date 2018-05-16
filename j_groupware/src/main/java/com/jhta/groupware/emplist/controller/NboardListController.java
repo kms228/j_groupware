@@ -9,10 +9,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.groupware.emplist.service.NboardListService;
 import com.jhta.groupware.emplist.vo.NboardListVo;
+import com.jhta.groupware.home.vo.MyProfileVo;
 
 
 @Controller
@@ -30,6 +32,13 @@ public class NboardListController {
 		mv.addObject("list",nboard);
 		return mv;
 	}
+	@RequestMapping("/getNboard")
+	public @ResponseBody List<NboardListVo> getNboardByJson() {
+		List<NboardListVo> list=service.getList1();
+		System.out.println(list);
+		return list;
+	}
+	
 	@RequestMapping("/noticInsert")
 	public ModelAndView noticInsert(HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView(".login.noticInsert");

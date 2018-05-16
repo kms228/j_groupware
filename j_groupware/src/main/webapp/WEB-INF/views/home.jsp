@@ -74,6 +74,16 @@
 	                </tr>
 					 */
 				}
+			},
+			
+			setNoitcList : function(data){				
+				for(i in data){					
+					$("#NoitcList").append('<tr><td>'+moment(data[i].b_date).format('MM월 DD일')
+							+'</td><td>'+data[i].b_title+'</td>'+'</td><td>'+
+							+'</td><td>'+data[i].b_content+'</td>'+'</td><td>'+
+							+'</td><td>'+data[i].b_writer+'</td>'+'</td><td>'+
+							'</td><td>-</td></tr>');					
+				}
 			}
 		}		
 	})();
@@ -110,12 +120,24 @@
 			    	callbackFunc(data);													 																					
 				}
 		    });
+		},
+		getNoticList : function(callbackFunc){
+			$.ajax({
+				method: "get",
+				url : "<c:url value='/getNboard'/>",
+				dataType : "json",
+			    success : function(data){			    				    
+			    	callbackFunc(data);													 																					
+				}
+		    });
 		}
 	}
 	
 	service.getMyProfile(view.setMyProfile);
 	service.getMySchedule(view.setMySchedule);
 	service.getMyWorkList(view.setMyWorkList);
+	service.getNoticList(view.setNoitcList);
+	
 }());
 </script>
 <section class="content">
@@ -246,6 +268,32 @@
           </div>
           <!-- /.box -->
 						
-		</div>		
+		</div>	
+		
+		
+		<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
+		
+			<div class="box">
+            <div class="box-header">
+              <h3 class="box-title">공지사항</h3>              
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover" id="NoticList">
+                <tr>
+                  <th>날짜</th>
+                  <th>공지제목</th>
+                  <th>공지내용</th>
+                  <th>작성자</th>
+                </tr>                                              
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+		
+		</div>
+		
+			
 	</div>				
 </section>      

@@ -30,6 +30,9 @@ public class NboardListDao {
 	public int deleteNboard(HashMap<String, Object> map) {
 		return sqlSession.delete(NAMESPACE+".deleteNboard", map);
 	}
+	public List<NboardListVo> getList1(){
+		return sqlSession.selectList(NAMESPACE+".getList");
+	}
 	
 
 }
