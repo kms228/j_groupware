@@ -270,14 +270,16 @@
           <!-- /.box -->
 						
 		</div>	
-<<<<<<< HEAD
+
 		
 		
-		<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
+		<div class="col-md-12">
+		
+			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
 		
 			<div class="box">
             <div class="box-header">
-              <h3 class="box-title">공지사항</h3>              
+              <h3 class="box-title"><span class="glyphicon glyphicon-bullhorn"></span> 공지사항</h3>              
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
@@ -294,32 +296,10 @@
           </div>
           <!-- /.box -->
 		
-=======
->>>>>>> branch 'master' of https://github.com/kms228/j_groupware.git
+
 		</div>
-		<div class="col-md-12">
-			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
 			
-				<div class="box">
-	            <div class="box-header">
-	              <h3 class="box-title"><span class="glyphicon glyphicon-bullhorn"></span> 공지 사항</h3>              
-	            </div>
-	            <!-- /.box-header -->
-	            <div class="box-body table-responsive no-padding">
-	              <table class="table table-hover" id="NoticList">
-	                <tr>
-	                  <th>날짜</th>
-	                  <th>공지제목</th>
-	                  <th>공지내용</th>
-	                  <th>작성자</th>
-	                </tr>                                              
-	              </table>
-	            </div>
-	            <!-- /.box-body -->
-	          </div>
-	          <!-- /.box -->
 			
-			</div>
 			<div class="col-md-6"><!-- <button onclick = "readAll()">Read all </button> -->				                                        
 		
 				<div class="box">
@@ -384,6 +364,6 @@
 			
 			</div>
 		</div>
-			
+			</div>
 	</div>				
 </section>      
